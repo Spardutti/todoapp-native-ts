@@ -4,8 +4,8 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import { router as indexRouter } from "./routes/index";
-
 import { Request, Response, NextFunction, Application } from "express";
+require("dotenv").config();
 
 const app: Application = express();
 
@@ -37,7 +37,6 @@ app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
   res.json("error");
 });
 
-const port: number = 5000;
+const port: any | number = process.env.PORT || 5000;
 app.listen(port, () => console.log(`server started on${port}`));
-//test
 module.exports = app;

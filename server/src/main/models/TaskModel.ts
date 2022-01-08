@@ -1,17 +1,17 @@
 import { Schema, model } from "mongoose";
 
-type Task = {
+export interface Task {
   taskName: string;
   taskDescription: string;
   isCompleted: boolean;
   dueDate: Date;
-};
+}
 
 const TaskSchema = new Schema<Task>({
-  taskName: String,
-  taskDescription: String,
+  taskName: { type: String, required: true },
+  taskDescription: { type: String, required: true },
   isCompleted: { type: Boolean, default: false },
-  dueDate: { type: Date, default: new Date(Date.now()) },
+  dueDate: { type: Date, required: true },
 });
 
 export const TaskModel = model<Task>("Task", TaskSchema);

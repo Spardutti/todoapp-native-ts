@@ -3,11 +3,10 @@ import { CategoryController } from "../../controllers/categoryController/Categor
 import { validateNewCategory } from "../../validations/CategoryValidation";
 const router = Router();
 
-/* NEW CAT */
-router.post(
-  "/newCategory",
+router.put(
+  "/putcategory/:id",
   validateNewCategory,
-  CategoryController.newCategory
+  CategoryController.putCategory
 );
 
 export { router };

@@ -1,10 +1,9 @@
-import { Router } from "express";
 import { TaskController } from "../../controllers/taskController/TaskController";
+import { Router } from "express";
 import { validateNewTask } from "../../validations/TaskValidation";
 
 const router = Router();
 
-/* ADD TASK */
-router.post("/newTask", validateNewTask, TaskController.addTask);
+router.put("/putTask/:id", validateNewTask, TaskController.putTask);
 
 export { router };

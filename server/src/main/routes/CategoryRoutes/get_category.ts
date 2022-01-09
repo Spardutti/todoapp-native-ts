@@ -3,8 +3,10 @@ import { CategoryController } from "../../controllers/categoryController/Categor
 
 const router = Router();
 
+/* GET ALL */
 router.get("/categories", CategoryController.getAllCategories);
 
+/* GET BY ID */
 router.get("/category/:id", CategoryController.getCategory);
 
 export { router };

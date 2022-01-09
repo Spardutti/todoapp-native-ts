@@ -8,6 +8,7 @@ const getAllTask = async (req: Request, res: Response, next: NextFunction) => {
     res.status(200).json(tasks);
   } catch (error) {
     res.status(500).json(next(error));
+    // FILTER BY DATE.
   }
 };
 
@@ -22,20 +23,30 @@ const getTask = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-/* GET TASKS BY STATUS  */
+/* GET TASKS BY STATUS OR CATEGORY */
 const getTaskByStatus = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
+  // FILTER BY DATE.
   try {
-    const { status } = req.params;
-    const tasks = await TaskModel.find({ isCompleted: status });
-    if (tasks.length === 0) return res.json("None");
-    res.status(200).json(tasks);
+    const { status, category } = req.query;
+    if (status) {
+      const tasks = await TaskModel.find({ isCompleted: status });
+      if (tasks.length === 0) return res.json("None");
+      return res.status(200).json(tasks);
+    }
+    if (category) {
+      const tasks = await TaskModel.find({ category: category });
+      if (tasks.length === 0) return res.json("None");
+      return res.status(200).json(tasks);
+    }
   } catch (error) {
     res.status(500).json(next(error));
   }
 };
+
+// ORDER BY DATE
 
 export { getAllTask, getTask, getTaskByStatus };

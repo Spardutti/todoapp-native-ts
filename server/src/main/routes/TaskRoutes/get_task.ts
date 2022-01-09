@@ -6,6 +6,7 @@ router.get("/tasks", TaskController.getAllTask);
 
 router.get("/task/:id", TaskController.getTask);
 
-router.get("/taskStatus/:status", TaskController.getTaskByStatus);
+/* GET TASK BY STATUS OR CATEGORY */
+router.get("/getTaskBy", TaskController.getTaskByStatus);
 
 export { router };

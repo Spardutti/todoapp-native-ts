@@ -1,9 +1,8 @@
-const passportJWT = require("passport-jwt");
-const JWTStrategy = passportJWT.strategy;
+import passportJWT, { Strategy as JWTStrategy } from "passport-jwt";
 import passport from "passport";
 import { UserModel } from "../models/UserModel";
 
-require("dotenv").confing();
+require("dotenv").config();
 
 passport.use(
   new JWTStrategy(

@@ -6,10 +6,12 @@ import logger from "morgan";
 import { router as indexRouter } from "./routes/routes";
 import { Request, Response, NextFunction, Application } from "express";
 import passport from "passport";
-const session = require("express-session");
+import session from "express-session";
 
 require("dotenv").config();
 require("./Passport/passport-local");
+require("./Passport/jwt");
+
 const app: Application = express();
 
 /* MONGODB CONNECTION */
@@ -34,7 +36,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET as string,
     resave: false,
   })
 );

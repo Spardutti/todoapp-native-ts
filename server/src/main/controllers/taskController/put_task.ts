@@ -1,6 +1,7 @@
 import { TaskModel } from "../../models/TaskModel";
 import { Request, Response, NextFunction } from "express";
 
+/* EDIT TASK */
 const putTask = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { taskName, taskDescription, dueDate, category } = req.body;

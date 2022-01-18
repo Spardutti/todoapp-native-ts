@@ -1,6 +1,7 @@
-import { Schema, model, ObjectId, Types } from "mongoose";
+import { Schema, model, ObjectId } from "mongoose";
 
 export interface Task {
+  author: ObjectId;
   taskName: string;
   taskDescription: string;
   isCompleted: boolean;
@@ -9,6 +10,7 @@ export interface Task {
 }
 
 const TaskSchema = new Schema<Task>({
+  author: { type: Schema.Types.ObjectId, ref: "User", requiredPaths: true },
   taskName: { type: String, required: true },
   taskDescription: { type: String, required: true },
   isCompleted: { type: Boolean, default: false },

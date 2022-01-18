@@ -23,4 +23,9 @@ router.use(getCategories);
 router.use(deleteCategories);
 router.use(putCategories);
 
+/* USER */
+import { router as postUser } from "./UserRoutes/post_user";
+
+router.use(postUser);
+
 export { router };

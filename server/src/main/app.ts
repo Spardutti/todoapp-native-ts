@@ -5,7 +5,11 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import { router as indexRouter } from "./routes/routes";
 import { Request, Response, NextFunction, Application } from "express";
+import passport from "passport";
+const session = require("express-session");
+
 require("dotenv").config();
+require("./Passport/passport-local");
 const app: Application = express();
 
 /* MONGODB CONNECTION */
@@ -27,6 +31,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/api", indexRouter);
 

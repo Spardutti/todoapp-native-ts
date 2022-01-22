@@ -9,7 +9,6 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ChakraProvider>
-        <div className="App">test</div>
         <Todos />
       </ChakraProvider>
       <ReactQueryDevtools initialIsOpen={true} />

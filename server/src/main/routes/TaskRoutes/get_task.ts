@@ -6,7 +6,7 @@ const router = Router();
 const jwtProtected = passport.authenticate("jwt", { session: false });
 
 /* GET ALL TASKS  */
-router.get("/tasks", jwtProtected, TaskController.getAllTask);
+router.get("/tasks", /* jwtProtected */ TaskController.getAllTask);
 
 /* GET SPECIFIC TASK */
 router.get("/task/:id", TaskController.getTask);

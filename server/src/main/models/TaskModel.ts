@@ -10,12 +10,13 @@ export interface Task {
 }
 
 const TaskSchema = new Schema<Task>({
-  author: { type: Schema.Types.ObjectId, ref: "User", requiredPaths: true },
+  // author: { type: Schema.Types.ObjectId, ref: "User", required: true },
   taskName: { type: String, required: true },
-  taskDescription: { type: String, required: true },
+  // taskDescription: { type: String, required: true },
+
   isCompleted: { type: Boolean, default: false },
-  dueDate: { type: Date, required: true },
-  category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
+  // dueDate: { type: Date, required: true },
+  // category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
 });
 
 export const TaskModel = model<Task>("Task", TaskSchema);

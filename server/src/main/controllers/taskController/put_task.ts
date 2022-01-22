@@ -4,16 +4,14 @@ import { Request, Response, NextFunction } from "express";
 /* EDIT TASK */
 const putTask = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { taskName, taskDescription, dueDate, category } = req.body;
+    const { taskName, taskDescription, dueDate, category, isCompleted } =
+      req.body;
     const { id } = req.params;
 
     const task = await TaskModel.findByIdAndUpdate(
       id,
       {
-        taskName,
-        taskDescription,
-        dueDate,
-        category,
+        isCompleted: isCompleted ? false : true,
       },
       { new: true }
     );

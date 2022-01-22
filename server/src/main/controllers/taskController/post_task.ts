@@ -7,15 +7,14 @@ const addTask = async (req: Request, res: Response, next: NextFunction) => {
     const { taskName, taskDescription, dueDate, category } = req.body;
     const task = new TaskModel({
       taskName,
-      taskDescription,
+      /*  taskDescription,
       dueDate,
-      category,
+      category, */
     });
     await task.save();
     return res.json(task);
   } catch (error) {
-    res.json(next(error));
-    return;
+    return next(error);
   }
 };
 

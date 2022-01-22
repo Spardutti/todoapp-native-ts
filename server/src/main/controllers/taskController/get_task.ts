@@ -17,9 +17,10 @@ const getTask = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
     const task = await TaskModel.findById(id);
-    res.status(200).json(task);
+    if (!task) return res.status(404).json("error");
+    if (task) return res.status(200).json(task);
   } catch (error) {
-    res.status(500).json(next(error));
+    return next(error);
   }
 };
 

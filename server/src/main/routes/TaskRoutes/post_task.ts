@@ -5,6 +5,6 @@ import { validateNewTask } from "../../validations/TaskValidation";
 const router = Router();
 
 /* ADD TASK */
-router.post("/newTask", validateNewTask, TaskController.addTask);
+router.post("/newTask", /* validateNewTask, */ TaskController.addTask);
 
 export { router };

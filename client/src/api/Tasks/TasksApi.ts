@@ -1,6 +1,10 @@
-import { getTasks, getTask } from "./get_tasks";
+import { useGetTasks, useGetTask } from "./get_tasks";
+import { useDeleteTask } from "./delete_task";
+import { useUpdateTask } from "./put_task";
 
 export const TaskApi = {
-  getTasks,
-  getTask,
+  useGetTasks,
+  useGetTask,
+  useDeleteTask,
+  useUpdateTask,
 };

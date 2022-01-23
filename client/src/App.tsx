@@ -13,16 +13,6 @@ function App() {
   const [user, setUser] = useState<{}>();
 
   return (
-<<<<<<< HEAD
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider>
-        <div className="App">test</div>
-        <AddTask />
-        <Todos />
-      </ChakraProvider>
-      <ReactQueryDevtools initialIsOpen={true} />
-    </QueryClientProvider>
-=======
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <ChakraProvider>
@@ -34,7 +24,6 @@ function App() {
         <ReactQueryDevtools initialIsOpen={true} />
       </QueryClientProvider>
     </BrowserRouter>
->>>>>>> eaa14801c81cb3567f350ee08efbbbd6930f174e
   );
 }
 

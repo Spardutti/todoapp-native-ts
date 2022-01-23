@@ -22,5 +22,3 @@ const useAddTask = () => {
 export { useAddTask };
 
 
-
-/* const addTask = async (task: {taskName: string, })  */

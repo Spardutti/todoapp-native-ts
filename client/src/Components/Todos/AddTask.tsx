@@ -34,7 +34,6 @@ export const AddTask: React.FC = () => {
   const { mutateAsync, isLoading } = TaskApi.useAddTask();
 
   const addTask = async () => {
-    console.log(newTask.taskName, newTask.taskDescription);
     /* await mutateAsync(task) */
     await mutateAsync(newTask);
     /* UPDATE THE TASKS QUERY IN THE DOM */

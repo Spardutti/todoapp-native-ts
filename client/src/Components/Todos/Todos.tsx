@@ -31,13 +31,13 @@ export const Todos = () => {
       </Thead>
       <Tbody>
         {data.data.map((task: any, index: number) => {
-          const { taskName, description, dueDate, _id, isCompleted } = task;
+          const { taskName, taskDescription, dueDate, _id, isCompleted } = task;
           const date = new Date(dueDate).toDateString();
           return (
             <Todo
               key={index}
               taskName={taskName}
-              description={description}
+              description={taskDescription}
               date={date}
               _id={_id}
               index={index}

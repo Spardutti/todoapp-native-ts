@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { BsCheckCircle } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import { TaskApi } from "../../api/Tasks/TasksApi";
-import { useQueryClient } from "react-query";
+import { useQueryClient, useMutation } from "react-query";
 import { ImCross } from "react-icons/im";
 
 type Props = {
@@ -24,6 +24,7 @@ export const Todo: React.FC<Props> = ({
 }) => {
   const queryClient = useQueryClient();
 
+  /* DELETE TASK */
   const { mutateAsync, isLoading } = TaskApi.useDeleteTask();
 
   const deleteTask = async (id: string) => {
@@ -31,12 +32,13 @@ export const Todo: React.FC<Props> = ({
     queryClient.invalidateQueries("tasks");
   };
 
+  /* UDPATE TAS KSTATUS */
   const { mutateAsync: updateAsync, isLoading: isLoadingUpdate } =
     TaskApi.useUpdateTask();
 
-  const udpateTask = async (id: string) => {
-    await updateAsync(id);
-    queryClient.invalidateQueries("task");
+  const udpateTask = async (data: { id: string; status: boolean }) => {
+    await updateAsync(data);
+    queryClient.invalidateQueries("tasks");
   };
 
   return (
@@ -58,8 +60,9 @@ export const Todo: React.FC<Props> = ({
         <motion.div
           animate={{ cursor: "pointer" }}
           whileHover={{ scale: 1.2, originX: 0, originY: 0 }}
+          onClick={() => udpateTask({ id: _id, status: isCompleted })}
         >
-          {isCompleted ? <BsCheckCircle /> : <ImCross />}
+          {isCompleted} {isCompleted ? <BsCheckCircle /> : <ImCross />}
         </motion.div>
       </Td>
     </Tr>

@@ -4,9 +4,11 @@ import { useMutation } from "react-query"
 const devUrl = "http://localhost:5000/api"
 
 /* ADD A NEW TASK */
-const addTask = async (taskName: string) => {
+const addTask = async (newTask: { taskName: string, taskDescription: string}) => {
     try {
-        const response = axios.post(`${devUrl}/newTask`, {taskName})
+        const taskName = newTask.taskName
+        const taskDescription = newTask.taskDescription
+        const response = axios.post(`${devUrl}/newTask`, {taskName, taskDescription})
         return response;
     } catch (error) {
         return error;

@@ -11,7 +11,10 @@ import { useQueryClient } from "react-query";
 
 export const AddTask: React.FC = () => {
   const [showTaskForm, setShowTaskForm] = useState(false);
-  const [taskName, setTaskName] = useState("");
+  const [newTask, setNewTask] = useState({
+    taskName: "",
+    taskDescription: "",
+  });
   /* const [task, setTask] = useState({taskName:"", }); */
 
   const toggleTaskForm = () => setShowTaskForm(!showTaskForm);
@@ -19,19 +22,27 @@ export const AddTask: React.FC = () => {
   const queryClient = useQueryClient();
 
   /* HANDLERS */
-  const taskNameHandler = (e: any) => {
-    setTaskName(e.target.value);
+  const newTaskHandler = (e: any) => {
+    const value = e.target.value;
+    setNewTask({
+      ...newTask,
+      [e.target.name]: value,
+    });
   };
 
   /* ADD A NEW TASK TO THE DB */
   const { mutateAsync, isLoading } = TaskApi.useAddTask();
 
   const addTask = async () => {
+    console.log(newTask.taskName, newTask.taskDescription);
     /* await mutateAsync(task) */
-    await mutateAsync(taskName);
+    await mutateAsync(newTask);
     /* UPDATE THE TASKS QUERY IN THE DOM */
     queryClient.invalidateQueries("tasks");
-    setTaskName("");
+    setNewTask({
+      taskName: "",
+      taskDescription: "",
+    });
     toggleTaskForm();
   };
 
@@ -40,10 +51,20 @@ export const AddTask: React.FC = () => {
       <div>
         <FormControl>
           <FormLabel>Task Name</FormLabel>
-          <Input value={taskName} onChange={(e) => taskNameHandler(e)} />
+          <Input
+            value={newTask.taskName}
+            name="taskName"
+            onChange={(e) => newTaskHandler(e)}
+          />
           <FormHelperText>
             Please insert a name for the new task.
           </FormHelperText>
+          <FormLabel>Task Description</FormLabel>
+          <Input
+            value={newTask.taskDescription}
+            name="taskDescription"
+            onChange={(e) => newTaskHandler(e)}
+          />
           {isLoading ? (
             <Button
               colorScheme="teal"

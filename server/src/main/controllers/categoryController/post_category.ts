@@ -1,12 +1,18 @@
 import { Response, Request, NextFunction } from "express";
 import { CategoryModel } from "../../models/CategoryModel";
+import { UserController } from "../userController/UserController";
+import { UserModel } from "../../models/UserModel";
 
 /* NEW CATEGORY */
 const newCategory = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { name } = req.body;
+    const { name, userId } = req.body;
+
+    const author = await UserModel.findById(userId)
+
     const category = new CategoryModel({
       name,
+      author,
     });
     await category.save();
     res.status(200).json(category);

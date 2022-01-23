@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { BsCheckCircle } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import { TaskApi } from "../../api/Tasks/TasksApi";
-import { useQueryClient, useMutation } from "react-query";
+import { useQueryClient } from "react-query";
 import { ImCross } from "react-icons/im";
 
 type Props = {
@@ -32,7 +32,7 @@ export const Todo: React.FC<Props> = ({
     queryClient.invalidateQueries("tasks");
   };
 
-  /* UDPATE TAS KSTATUS */
+  /* UDPATE TASK STATUS */
   const { mutateAsync: updateAsync, isLoading: isLoadingUpdate } =
     TaskApi.useUpdateTask();
 

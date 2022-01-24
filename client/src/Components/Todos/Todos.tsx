@@ -2,9 +2,12 @@ import { TaskApi } from "../../api/Tasks/TasksApi";
 import { Center, Spinner, Table, Thead, Tr, Th, Tbody } from "@chakra-ui/react";
 import { Todo } from "./Todo";
 import { AddTask } from "./AddTask";
+import { useContext, useEffect } from "react";
+import { userContext } from "../../Context/UserContext";
 
 export const Todos = () => {
   const { isLoading, data, error } = TaskApi.useGetTasks();
+  const { user } = useContext(userContext);
 
   if (isLoading)
     return (
@@ -24,6 +27,7 @@ export const Todos = () => {
   return (
     <>
       <AddTask />
+      {user ? <div>hello {user.username} </div> : null}
       <Table variant={"striped"} colorScheme={"teal"}>
         <Thead>
           <Tr>

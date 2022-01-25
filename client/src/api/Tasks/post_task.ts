@@ -1,24 +1,20 @@
-import axios from "axios"
-import { useMutation } from "react-query"
+import axios from "axios";
+import { useMutation } from "react-query";
 
-const devUrl = "http://localhost:5000/api"
+const devUrl = "http://localhost:5000/api";
 
 /* ADD A NEW TASK */
 const addTask = async (taskName: string) => {
-    try {
-        const response = axios.post(`${devUrl}/newTask`, {taskName})
-        return response;
-    } catch (error) {
-        return error;
-    }
-}
+  try {
+    const response = axios.post(`${devUrl}/newTask`, { taskName });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
 
 const useAddTask = () => {
-    return useMutation(addTask)
-}
+  return useMutation(addTask);
+};
 
 export { useAddTask };
-
-
-
-/* const addTask = async (task: {taskName: string, })  */

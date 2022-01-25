@@ -3,11 +3,13 @@ import { Navigate, Outlet } from "react-router-dom";
 import { userContext } from "../../Context/UserContext";
 import jwt_decode from "jwt-decode";
 import { useGetuser } from "../../api/User/get_user";
+import { tokenContext } from "../../Context/tokenContex";
 
 export const ProtectedRoute = () => {
-  const { user, setUser } = useContext(userContext);
   const [loading, setIsLoading] = useState(true);
   const [userId, setUserId] = useState("");
+  const { user, setUser } = useContext(userContext);
+  const { setToken } = useContext(tokenContext);
 
   const { isLoading, data, refetch } = useGetuser(userId);
 
@@ -15,6 +17,9 @@ export const ProtectedRoute = () => {
     const token = localStorage.getItem("todoToken");
     if (token) {
       const decodedToken: any = jwt_decode(token);
+      const expiresAt = new Date(decodedToken.exp * 1000);
+      if (expiresAt < new Date(Date.now())) return localStorage.clear();
+      setToken(token);
       setUserId(decodedToken.id);
       return;
     }

@@ -33,8 +33,10 @@ export const LocalUser = () => {
     const info = await mutateAsync(userCredentials).catch((error) =>
       setErr(error)
     );
-    localStorage.setItem("todoToken", info.data.token);
-    setUser(info.data.user);
+    if (info) {
+      localStorage.setItem("todoToken", info.data.token);
+      setUser(info.data.user);
+    }
   };
 
   if (error) {

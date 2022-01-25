@@ -1,11 +1,5 @@
 import { createContext } from "react";
 
-/* export const userContext = createContext({
-  user: {},
-  setUser: (arg: any) => {},
-});
- */
-
 interface User {
   username: string;
   _id: string;

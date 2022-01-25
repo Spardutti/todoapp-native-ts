@@ -21,7 +21,6 @@ const localLogin = (user: { email: string; password: string }) => {
   return axios
     .post(`${devUrl}/localuser`, { email: user.email, password: user.password })
     .then((response) => {
-      console.log(response);
       return response;
     })
     .catch((error) => {

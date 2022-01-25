@@ -27,34 +27,6 @@ const localLogin = (user: { email: string; password: string }) => {
     .catch((error) => {
       if (error.response) throw error.response;
     });
-
-  /*   const response = await fetch(`${devUrl}/localuser`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      email: user.email,
-      password: user.password,
-    }),
-  });
-
-  const data = await response.json();
-  console.log(data);
-  return data; */
-  /*   return axios({
-    method: "post",
-    url: `${devUrl}/localuser`,
-    headers: { "Content-Type": "application/json" },
-    data: {
-      email: user.email,
-      password: user.password,
-    },
-  })
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      if (error.response) throw error.response;
-    }); */
 };
 
 export const useLocalUser = () => {

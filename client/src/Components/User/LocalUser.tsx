@@ -6,22 +6,21 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useLocalUser } from "../../api/User/post_user";
-import { useNavigate } from "react-router-dom";
+import { userContext } from "../../Context/UserContext";
 
 export const LocalUser = () => {
   const [err, setErr] = useState("");
-  const [userInfo, setUserInfo] = useState({
+  const [userCredentials, setUserCredentials] = useState({
     email: "",
     password: "",
   });
-
-  const navigate = useNavigate();
+  const { user, setUser } = useContext(userContext);
 
   const onChange = (e: any) => {
-    setUserInfo({
-      ...userInfo,
+    setUserCredentials({
+      ...userCredentials,
       [e.target.name]: e.target.value,
     });
   };
@@ -29,24 +28,28 @@ export const LocalUser = () => {
   const { mutateAsync, error, data } = useLocalUser();
 
   const localLogin = async () => {
-    await mutateAsync(userInfo).catch((error) => setErr(error));
+    const info = await mutateAsync(userCredentials).catch((error) =>
+      setErr(error)
+    );
+    localStorage.setItem("todoToken", info.data.token);
+    setUser(info.data.user);
   };
 
   if (error) {
     return (
       <>
         <Text>Please log in to continue</Text>
-        <FormLabel textAlign={"center"}>{err}</FormLabel>
+        <FormLabel textAlign={"center"}>{error.data}</FormLabel>
         <Input
           name="email"
-          value={userInfo.email}
+          value={userCredentials.email}
           onChange={(e) => onChange(e)}
           placeholder="email"
           type={"email"}
         />
         <Input
           name="password"
-          value={userInfo.password}
+          value={userCredentials.password}
           onChange={(e) => onChange(e)}
           placeholder="Password"
           type="password"
@@ -64,14 +67,14 @@ export const LocalUser = () => {
       <Text>Please log in to continue</Text>
       <Input
         name="email"
-        value={userInfo.email}
+        value={userCredentials.email}
         onChange={(e) => onChange(e)}
         placeholder="email"
         type={"email"}
       />
       <Input
         name="password"
-        value={userInfo.password}
+        value={userCredentials.password}
         onChange={(e) => onChange(e)}
         placeholder="Password"
         type="password"

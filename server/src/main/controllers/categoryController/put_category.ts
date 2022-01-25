@@ -12,7 +12,7 @@ const putCategory = async (req: Request, res: Response, next: NextFunction) => {
     );
     res.status(200).json(category);
   } catch (error) {
-    res.status(500).json(next(error));
+    return next(error);
   }
 };
 

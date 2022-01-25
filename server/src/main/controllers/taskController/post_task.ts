@@ -11,6 +11,7 @@ const addTask = async (req: Request, res: Response, next: NextFunction) => {
       dueDate,
       category, */
     });
+
     await task.save();
     return res.json(task);
   } catch (error) {

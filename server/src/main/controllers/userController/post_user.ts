@@ -8,7 +8,7 @@ require("dotenv").config();
 
 /* CREATE NEW USER */
 const newUser = async (req: Request, res: Response, next: NextFunction) => {
-  const { username, email, password } = req.body;
+  const { username, email, password } = req.body.data;
   try {
     async.parallel(
       {
@@ -23,11 +23,11 @@ const newUser = async (req: Request, res: Response, next: NextFunction) => {
         if (err) return next(err);
 
         if (results.username) {
-          return res.status(500).json("Username already in use");
+          return res.status(500).json({ username: "Username already in use" });
         }
 
         if (results.email) {
-          return res.status(500).json("Email already in use");
+          return res.status(500).json({ email: "Email already in use" });
         } else {
           bcrypt.hash(password, 10, (err, hash) => {
             if (err) return next(err);
@@ -46,7 +46,7 @@ const newUser = async (req: Request, res: Response, next: NextFunction) => {
       }
     );
   } catch (error) {
-    res.status(500).json(next(error));
+    return next(error);
   }
 };
 
@@ -58,7 +58,15 @@ const localLogin = (req: Request, res: Response, next: NextFunction) => {
     else {
       req.login(user, { session: false }, (err) => {
         if (err) return next(err);
-        const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET as string);
+        const token = jwt.sign(
+          { id: user._id },
+          process.env.JWT_SECRET as string,
+          {
+            expiresIn: "10m",
+          }
+        );
+        console.log(token);
+
         res.status(200).json({ user, token });
       });
     }

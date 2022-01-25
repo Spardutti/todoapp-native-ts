@@ -3,13 +3,13 @@ import { body, validationResult } from "express-validator";
 import { CategoryModel } from "../models/CategoryModel";
 
 const validateNewCategory = [
-  body("name")
+  body("categoryName")
     .notEmpty()
     .withMessage("Please enter a category name")
-    .custom(async (name) => {
+    .custom(async (categoryName) => {
       try {
         const category = await CategoryModel.findOne({
-          name: new RegExp(`^${name}$`, "i"),
+          categoryName: new RegExp(`^${categoryName}$`, "i"),
         });
         if (category) return Promise.reject();
       } catch (error) {

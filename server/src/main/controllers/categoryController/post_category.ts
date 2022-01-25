@@ -6,13 +6,13 @@ import { UserModel } from "../../models/UserModel";
 /* NEW CATEGORY */
 const newCategory = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { name, userId } = req.body;
+    const { categoryName, userId } = req.body;
 
-    const author = await UserModel.findById(userId)
+    //const author = await UserModel.findById(userId)
 
     const category = new CategoryModel({
-      name,
-      author,
+      categoryName,
+     // author,
     });
     await category.save();
     res.status(200).json(category);

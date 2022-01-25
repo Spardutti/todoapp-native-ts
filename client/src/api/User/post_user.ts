@@ -34,7 +34,7 @@ export const useLocalUser = () => {
 
   return useMutation<any, any, any>(localLogin, {
     onSuccess: () => {
-      navigate("/home");
+      navigate("/todos");
     },
   });
 };

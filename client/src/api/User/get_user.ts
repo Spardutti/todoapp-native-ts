@@ -14,5 +14,7 @@ const getUser = async (userId: string) => {
 };
 
 export const useGetuser = (userId: string) => {
-  return useQuery<any, Error>("user", () => getUser(userId));
+  return useQuery<any, Error>("user", () => getUser(userId), {
+    enabled: false,
+  });
 };

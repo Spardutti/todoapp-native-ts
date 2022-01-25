@@ -1,13 +1,28 @@
 import { TaskApi } from "../../api/Tasks/TasksApi";
-import { Center, Spinner, Table, Thead, Tr, Th, Tbody } from "@chakra-ui/react";
+import {
+  Center,
+  Spinner,
+  Table,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Button,
+} from "@chakra-ui/react";
 import { Todo } from "./Todo";
 import { AddTask } from "./AddTask";
 import { useContext, useEffect } from "react";
 import { userContext } from "../../Context/UserContext";
+import { useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 export const Todos = () => {
   const { isLoading, data, error } = TaskApi.useGetTasks();
   const { user } = useContext(userContext);
+
+  const queryClient = useQueryClient();
+
+  const navigate = useNavigate();
 
   if (isLoading)
     return (
@@ -24,9 +39,17 @@ export const Todos = () => {
 
   if (error) return <div>error {error.message} </div>;
 
+  /* TEST */
+  const logout = () => {
+    queryClient.invalidateQueries("user");
+    localStorage.clear();
+    navigate("/");
+  };
+
   return (
     <>
       <AddTask />
+      <Button onClick={logout}>Logout </Button>
       {user ? <div>hello {user.username} </div> : null}
       <Table variant={"striped"} colorScheme={"teal"}>
         <Thead>

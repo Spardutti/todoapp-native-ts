@@ -5,12 +5,13 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { UserHome } from "./Components/User/UserHome";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { userContext } from "./Context/UserContext";
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { ProtectedRoute } from "./Components/Auth/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
 function App() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
 
   return (
     <BrowserRouter>
@@ -19,7 +20,9 @@ function App() {
           <ChakraProvider>
             <Routes>
               <Route path="/" element={<UserHome />} />
-              <Route path="/home" element={<Todos />} />
+              <Route path="/todos" element={<ProtectedRoute />}>
+                <Route path="/todos" element={<Todos />} />
+              </Route>
             </Routes>
           </ChakraProvider>
           <ReactQueryDevtools initialIsOpen={true} />

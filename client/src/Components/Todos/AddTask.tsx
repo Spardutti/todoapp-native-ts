@@ -15,7 +15,6 @@ export const AddTask: React.FC = () => {
     taskName: "",
     taskDescription: "",
   });
-  /* const [task, setTask] = useState({taskName:"", }); */
 
   const toggleTaskForm = () => setShowTaskForm(!showTaskForm);
 
@@ -64,6 +63,7 @@ export const AddTask: React.FC = () => {
             name="taskDescription"
             onChange={(e) => newTaskHandler(e)}
           />
+          <FormHelperText>Describe the new task.</FormHelperText>
           {isLoading ? (
             <Button
               colorScheme="teal"

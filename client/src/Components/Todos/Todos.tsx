@@ -2,6 +2,7 @@ import { TaskApi } from "../../api/Tasks/TasksApi";
 import { Center, Spinner, Table, Thead, Tr, Th, Tbody } from "@chakra-ui/react";
 import { Todo } from "./Todo";
 import { AddTask } from "./AddTask";
+import { NewCategory } from "./NewCategory";
 
 export const Todos = () => {
   const { isLoading, data, error } = TaskApi.useGetTasks();
@@ -24,6 +25,7 @@ export const Todos = () => {
   return (
     <>
       <AddTask />
+      <NewCategory />
       <Table variant={"striped"} colorScheme={"teal"}>
         <Thead>
           <Tr>

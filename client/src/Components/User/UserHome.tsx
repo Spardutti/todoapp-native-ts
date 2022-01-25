@@ -17,10 +17,6 @@ export const UserHome = () => {
 
   let navigate = useNavigate();
 
-  useEffect(() => {
-    user ? navigate("/home") : navigate("/");
-  }, []);
-
   return (
     <Center pt={10}>
       <Stack direction={"column"} textAlign={"center"}>

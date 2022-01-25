@@ -5,25 +5,32 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { UserHome } from "./Components/User/UserHome";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { userContext } from "./Context/UserContext";
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { ProtectedRoute } from "./Components/Auth/ProtectedRoute";
+import { tokenContext } from "./Context/tokenContex";
 
 const queryClient = new QueryClient();
 
 function App() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState("");
 
   return (
     <BrowserRouter>
       <userContext.Provider value={{ user, setUser }}>
-        <QueryClientProvider client={queryClient}>
-          <ChakraProvider>
-            <Routes>
-              <Route path="/" element={<UserHome />} />
-              <Route path="/home" element={<Todos />} />
-            </Routes>
-          </ChakraProvider>
-          <ReactQueryDevtools initialIsOpen={true} />
-        </QueryClientProvider>
+        <tokenContext.Provider value={{ token, setToken }}>
+          <QueryClientProvider client={queryClient}>
+            <ChakraProvider>
+              <Routes>
+                <Route path="/" element={<UserHome />} />
+                <Route path="/todos" element={<ProtectedRoute />}>
+                  <Route path="/todos" element={<Todos />} />
+                </Route>
+              </Routes>
+            </ChakraProvider>
+            <ReactQueryDevtools initialIsOpen={true} />
+          </QueryClientProvider>
+        </tokenContext.Provider>
       </userContext.Provider>
     </BrowserRouter>
   );

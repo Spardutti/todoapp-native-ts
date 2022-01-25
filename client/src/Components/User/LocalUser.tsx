@@ -11,13 +11,14 @@ import { useLocalUser } from "../../api/User/post_user";
 import { userContext } from "../../Context/UserContext";
 
 export const LocalUser = () => {
-  const [err, setErr] = useState("");
+  const [, setErr] = useState("");
   const [userCredentials, setUserCredentials] = useState({
     email: "",
     password: "",
   });
-  const { user, setUser } = useContext(userContext);
+  const { setUser } = useContext(userContext);
 
+  /* ONCHANGE HANDLER */
   const onChange = (e: any) => {
     setUserCredentials({
       ...userCredentials,
@@ -25,18 +26,22 @@ export const LocalUser = () => {
     });
   };
 
-  const { mutateAsync, error, data } = useLocalUser();
+  const { mutateAsync, error } = useLocalUser();
 
+  /* LOGIN USER AND GET DATA FROM DB */
   const localLogin = async () => {
     const info = await mutateAsync(userCredentials).catch((error) =>
       setErr(error)
     );
-    localStorage.setItem("todoToken", info.data.token);
-    setUser(info.data.user);
+    if (info) {
+      localStorage.setItem("todoToken", info.data.token);
+      setUser(info.data.user);
+    }
   };
 
   if (error) {
     return (
+      /* DISPLAY ERRORS */
       <>
         <Text>Please log in to continue</Text>
         <FormLabel textAlign={"center"}>{error.data}</FormLabel>

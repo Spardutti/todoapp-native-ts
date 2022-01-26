@@ -1,21 +1,26 @@
 import {
+  Box,
   Button,
   FormControl,
   FormLabel,
-  FormHelperText,
   Input,
+  Stack,
 } from "@chakra-ui/react";
 import { useState, useContext } from "react";
 import { TodoApi } from "../../api/Todo/TodoApi";
 import { useQueryClient } from "react-query";
 import { tokenContext } from "../../Context/tokenContex";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const AddTodo: React.FC = () => {
   const [showTodoForm, setShowTodoForm] = useState(false);
   const { token } = useContext(tokenContext);
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [newTodo, setNewTodo] = useState({
     todoName: "",
     todoDescription: "",
+    dueDate: startDate,
     token,
   });
 
@@ -42,42 +47,59 @@ export const AddTodo: React.FC = () => {
     setNewTodo({
       todoName: "",
       todoDescription: "",
+      dueDate: new Date(Date.now()),
       token,
     });
     toggleTodoForm();
   };
 
   if (showTodoForm) {
+    const { todoName, todoDescription } = newTodo;
     return (
       <div>
-        <FormControl>
-          <FormLabel>Todo Name</FormLabel>
-          <Input
-            value={newTodo.todoName}
-            name="todoName"
-            onChange={(e) => newTodoHandler(e)}
-          />
-          <FormHelperText>
-            Please insert a name for the new todo.
-          </FormHelperText>
-          <FormLabel>Todo Description</FormLabel>
-          <Input
-            value={newTodo.todoDescription}
-            name="todoDescription"
-            onChange={(e) => newTodoHandler(e)}
-          />
-          {isLoading ? (
-            <Button
-              colorScheme="teal"
-              size="sm"
-              isLoading
-              loadingText="Submitting"
+        <FormControl p={2} w={400} mx={"auto"}>
+          <Stack alignItems={"center"}>
+            <FormLabel>Todo Name</FormLabel>
+            <Input
+              value={todoName}
+              name="todoName"
+              onChange={(e) => newTodoHandler(e)}
             />
-          ) : (
-            <Button colorScheme="messenger" size="sm" onClick={addTodo}>
-              Create Todo
-            </Button>
-          )}
+            <FormLabel>Todo Description</FormLabel>
+            <Input
+              value={todoDescription}
+              name="todoDescription"
+              onChange={(e) => newTodoHandler(e)}
+            />
+            <FormLabel>Select Date</FormLabel>
+            <Box textAlign={"center"} bg="black" p={1} borderRadius={5}>
+              <DatePicker
+                minDate={new Date()}
+                onChange={(date) => setStartDate(date)}
+                placeholderText="Please select a date"
+              />
+            </Box>
+
+            {isLoading ? (
+              <Button
+                mt={2}
+                w={40}
+                colorScheme="teal"
+                isLoading
+                loadingText="Submitting"
+              />
+            ) : (
+              <Button
+                mt={2}
+                colorScheme="messenger"
+                w={40}
+                onClick={addTodo}
+                disabled={!todoName || !todoDescription}
+              >
+                Create Todo
+              </Button>
+            )}
+          </Stack>
         </FormControl>
       </div>
     );

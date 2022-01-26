@@ -15,7 +15,7 @@ const TodoSchema = new Schema<Todo>({
   todoName: { type: String, required: true },
   todoDescription: { type: String, required: true },
   isCompleted: { type: Boolean, default: false },
-  //dueDate: { type: Date, required: true },
+  dueDate: { type: Date, required: true },
   //category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
   //creationDate: new Date(Date.now())
 });

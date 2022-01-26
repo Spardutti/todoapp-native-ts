@@ -8,13 +8,14 @@ const addTodo = async (newTodo: {
   todoName: string;
   todoDescription: string;
   token: string;
+  dueDate: Date | null;
 }) => {
   try {
-    const { todoName, todoDescription, token } = newTodo;
+    const { todoName, todoDescription, dueDate, token } = newTodo;
 
     const response = axios.post(
       `${devUrl}/newTodo`,
-      { todoName, todoDescription },
+      { todoName, todoDescription, dueDate },
       {
         headers: {
           Authorization: `Bearer ${token}`,

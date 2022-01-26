@@ -33,7 +33,6 @@ export const NewCategory: React.FC = () => {
   const { mutateAsync, isLoading } = CategoryApi.useNewCategory();
 
   const addCategory = async () => {
-    console.log(newCategory);
     await mutateAsync(newCategory);
     setNewCategory({
       categoryName: "",

@@ -8,14 +8,14 @@ const addTodo = async (req: Request, res: Response, next: NextFunction) => {
     const { todoName, todoDescription, dueDate, categoryId } = req.body;
 
     const userId = req.user?._id;
-    const category = await CategoryModel.findById(categoryId);
+    // const category = await CategoryModel.findById(categoryId);
 
     const todo = new TodoModel({
       todoName,
       todoDescription,
-      //dueDate,
+      dueDate,
       author: userId,
-      category,
+      // category,
     });
 
     await todo.save();

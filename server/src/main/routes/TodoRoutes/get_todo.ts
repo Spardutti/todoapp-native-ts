@@ -6,7 +6,7 @@ const router = Router();
 const jwtProtected = passport.authenticate("jwt", { session: false });
 
 /* GET ALL TODOS  */
-router.get("/todos", /* jwtProtected */ TodoController.getAllTodos);
+router.get("/todos/:userid", /* jwtProtected */ TodoController.getAllTodos);
 
 /* GET SPECIFIC TODO */
 router.get("/todo/:id", TodoController.getTodo);

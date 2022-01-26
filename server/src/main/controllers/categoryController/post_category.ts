@@ -8,8 +8,7 @@ const newCategory = async (req: Request, res: Response, next: NextFunction) => {
     const { categoryName } = req.body;
 
     const userId = req.user?._id;
-    console.log(req.user?._id)
-    
+
     const category = new CategoryModel({
       categoryName,
       author: userId,

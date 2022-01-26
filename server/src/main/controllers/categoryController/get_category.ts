@@ -28,6 +28,11 @@ const getCategory = async (req: Request, res: Response, next: NextFunction) => {
 
 /* GET CATEGORIES BY USER ID */
 const getCategoriesByUser = async (req:Request, res:Response, next: NextFunction) => {
+
+  const user = req.user?._id
+
+  const category = await CategoryModel.find({author: user})
+  res.status(200).json(category);
   try {
     
   } catch (error) {
@@ -36,4 +41,4 @@ const getCategoriesByUser = async (req:Request, res:Response, next: NextFunction
 }
 
 
-export { getAllCategories, getCategory };
+export { getAllCategories, getCategory, getCategoriesByUser };

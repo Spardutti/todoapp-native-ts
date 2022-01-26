@@ -7,7 +7,7 @@ const deleteTask = async (req: Request, res: Response, next: NextFunction) => {
     const task = await TaskModel.findByIdAndDelete(id);
     res.status(200).json(task);
   } catch (error) {
-    res.status(500).json(next(error));
+    return next(error);
   }
 };
 

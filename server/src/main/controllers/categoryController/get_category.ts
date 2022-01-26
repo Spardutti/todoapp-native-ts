@@ -11,7 +11,7 @@ const getAllCategories = async (
     const categories = await CategoryModel.find({});
     res.status(200).json(categories);
   } catch (error) {
-    res.status(500).json(next(error));
+    return next(error);
   }
 };
 
@@ -22,7 +22,7 @@ const getCategory = async (req: Request, res: Response, next: NextFunction) => {
     const category = await CategoryModel.findById(id);
     res.status(200).json(category);
   } catch (error) {
-    res.status(500).json(error);
+    return next(error);
   }
 };
 

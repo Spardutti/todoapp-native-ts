@@ -20,6 +20,7 @@ const addTask = async (req: Request, res: Response, next: NextFunction) => {
       //category,
       //taskFor,
     });
+
     await task.save();
     return res.json(task);
   } catch (error) {

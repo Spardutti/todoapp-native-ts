@@ -17,7 +17,7 @@ const newCategory = async (req: Request, res: Response, next: NextFunction) => {
     await category.save();
     res.status(200).json(category);
   } catch (error) {
-    res.status(500).json(next(error));
+    return next(error);
   }
 };
 

@@ -11,13 +11,13 @@ const putTask = async (req: Request, res: Response, next: NextFunction) => {
     const task = await TaskModel.findByIdAndUpdate(
       id,
       {
-        isCompleted: isCompleted ? false : true,
+        isCompleted: !isCompleted,
       },
       { new: true }
     );
     res.status(200).json(task);
   } catch (error) {
-    res.status(500).json(next(error));
+    return next(error);
   }
 };
 

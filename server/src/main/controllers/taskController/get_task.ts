@@ -7,7 +7,7 @@ const getAllTask = async (req: Request, res: Response, next: NextFunction) => {
     const tasks = await TaskModel.find({});
     res.status(200).json(tasks);
   } catch (error) {
-    res.status(500).json(next(error));
+    return next(error);
     // FILTER BY DATE.
   }
 };
@@ -44,7 +44,7 @@ const getTaskByStatus = async (
       return res.status(200).json(tasks);
     }
   } catch (error) {
-    res.status(500).json(next(error));
+    return next(error);
   }
 };
 

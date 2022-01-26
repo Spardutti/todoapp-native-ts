@@ -4,17 +4,19 @@ import { useQuery } from "react-query";
 const devUrl = "http://localhost:5000/api";
 
 /* GET ALL TODOS */
-const getTodos = async () => {
+const getTodos = async (userId: string) => {
   try {
-    const response = axios.get(`${devUrl}/todos`);
+    const response = axios.get(`${devUrl}/todos/${userId}`);
     return response;
   } catch (error) {
     return error;
   }
 };
 
-const useGetTodos = () => {
-  return useQuery<any, Error>("todos", getTodos);
+const useGetTodos = (data: { userId: string; enableRefetch: boolean }) => {
+  return useQuery<any, Error>("todos", () => getTodos(data.userId), {
+    enabled: data.enableRefetch,
+  });
 };
 
 /* GET TODO BY ID */

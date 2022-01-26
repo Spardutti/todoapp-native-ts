@@ -28,7 +28,7 @@ function App() {
                 </Route>
               </Routes>
             </ChakraProvider>
-            <ReactQueryDevtools initialIsOpen={true} />
+            <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </tokenContext.Provider>
       </userContext.Provider>

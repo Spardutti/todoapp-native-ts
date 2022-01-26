@@ -8,7 +8,7 @@ const addTask = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { taskName, taskDescription, dueDate, categoryId, userId, userForId, } = req.body;
 
-    //const author = await UserModel.findById(userId)
+    console.log(req.user)
     //const category = await CategoryModel.findById(categoryId)
     //const taskFor = await UserModel.findById(userForId);
 

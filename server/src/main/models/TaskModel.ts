@@ -11,7 +11,7 @@ export interface Task {
 }
 
 const TaskSchema = new Schema<Task>({
-  //author: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  author: { type: Schema.Types.ObjectId, ref: "User", required: true },
   taskName: { type: String, required: true },
   taskDescription: { type: String, required: true },
   //taskFor: { type: Schema.Types.ObjectId, ref: "User"},

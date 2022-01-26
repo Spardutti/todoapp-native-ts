@@ -5,27 +5,40 @@ import {
   FormHelperText,
   Input,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 //import { QueryClient, useQueryClient } from "react-query";
 import { CategoryApi } from "../../api/Category/CategoryApi";
+import { tokenContext } from "../../Context/tokenContex";
 
 export const NewCategory: React.FC = () => {
   const [showCategoryForm, setShowCategoryForm] = useState(false);
-  const [categoryName, setCategoryName] = useState("");
+  const { token } = useContext(tokenContext);
+  const [newCategory, setNewCategory] = useState({
+    categoryName: "",
+    token,
+  });
 
   const toggleCategoryForm = () => setShowCategoryForm(!showCategoryForm);
 
   /* HANDLERS */
   const newCategoryHandler = (e: any) => {
-    setCategoryName(e.target.value);
+    const value = e.target.value;
+    setNewCategory({
+      ...newCategory,
+      [e.target.name]: value,
+    });
   };
 
   /* ADD A NEW TASK TO THE DB */
   const { mutateAsync, isLoading } = CategoryApi.useNewCategory();
 
   const addCategory = async () => {
-    await mutateAsync(categoryName);
-    setCategoryName("");
+    console.log(newCategory);
+    await mutateAsync(newCategory);
+    setNewCategory({
+      categoryName: "",
+      token,
+    });
     toggleCategoryForm();
   };
 
@@ -34,7 +47,11 @@ export const NewCategory: React.FC = () => {
       <div>
         <FormControl>
           <FormLabel>Category Name</FormLabel>
-          <Input value={categoryName} onChange={(e) => newCategoryHandler(e)} />
+          <Input
+            value={newCategory.categoryName}
+            name="categoryName"
+            onChange={(e) => newCategoryHandler(e)}
+          />
           <FormHelperText>
             Please insert a name for the new category.
           </FormHelperText>

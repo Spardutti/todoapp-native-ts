@@ -36,6 +36,7 @@ export const AddTask: React.FC = () => {
   const { mutateAsync, isLoading } = TaskApi.useAddTask();
 
   const addTask = async () => {
+    console.log(newTask);
     /* await mutateAsync(task) */
     await mutateAsync(newTask);
     /* UPDATE THE TASKS QUERY IN THE DOM */
@@ -67,7 +68,6 @@ export const AddTask: React.FC = () => {
             name="taskDescription"
             onChange={(e) => newTaskHandler(e)}
           />
-          <FormHelperText>Describe the new task.</FormHelperText>
           {isLoading ? (
             <Button
               colorScheme="teal"

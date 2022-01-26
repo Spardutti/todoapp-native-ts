@@ -5,15 +5,18 @@ import {
   FormHelperText,
   Input,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { TaskApi } from "../../api/Tasks/TasksApi";
 import { useQueryClient } from "react-query";
+import { tokenContext } from "../../Context/tokenContex";
 
 export const AddTask: React.FC = () => {
   const [showTaskForm, setShowTaskForm] = useState(false);
+  const { token } = useContext(tokenContext);
   const [newTask, setNewTask] = useState({
     taskName: "",
     taskDescription: "",
+    token,
   });
 
   const toggleTaskForm = () => setShowTaskForm(!showTaskForm);
@@ -40,6 +43,7 @@ export const AddTask: React.FC = () => {
     setNewTask({
       taskName: "",
       taskDescription: "",
+      token,
     });
     toggleTaskForm();
   };

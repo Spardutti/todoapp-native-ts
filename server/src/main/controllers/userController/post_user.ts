@@ -65,7 +65,6 @@ const localLogin = (req: Request, res: Response, next: NextFunction) => {
             expiresIn: "10m",
           }
         );
-        console.log(token);
 
         res.status(200).json({ user, token });
       });

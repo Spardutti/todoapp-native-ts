@@ -1,25 +1,25 @@
 import { body, validationResult } from "express-validator";
-import { TaskModel } from "../models/TaskModel";
+import { TodoModel } from "../models/TodoModel";
 import { Request, Response, NextFunction } from "express";
 
-const validateNewTask = [
-  body("taskName")
+const validateNewTodo = [
+  body("todoName")
     .notEmpty()
     .withMessage("Please enter a task name")
-    .custom(async (taskName) => {
+    .custom(async (todoName) => {
       try {
-        const task = await TaskModel.findOne({
-          taskName: new RegExp(`^${taskName}$`, "i"),
+        const todo = await TodoModel.findOne({
+          todoName: new RegExp(`^${todoName}$`, "i"),
         });
-        if (task) return Promise.reject();
+        if (todo) return Promise.reject();
       } catch (error) {
         throw error;
       }
     })
-    .withMessage("Task already exist"),
-  body("taskDescription")
+    .withMessage("Todo already exist"),
+  body("todoDescription")
     .notEmpty()
-    .withMessage("Please enter a task Description"),
+    .withMessage("Please enter a todo Description"),
   body("dueDate").notEmpty().withMessage("Please select a Date"),
   body("category").notEmpty().withMessage("Please select a Category"),
 
@@ -33,4 +33,4 @@ const validateNewTask = [
   },
 ];
 
-export { validateNewTask };
+export { validateNewTodo };

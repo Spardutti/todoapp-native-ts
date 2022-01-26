@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CloseButton,
   FormControl,
   FormLabel,
   Input,
@@ -12,19 +13,31 @@ import { useQueryClient } from "react-query";
 import { tokenContext } from "../../Context/tokenContex";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "../../Styles/datePicker.scss";
+import { Todo } from "../../api/Todo/post_todo";
 
 export const AddTodo: React.FC = () => {
   const [showTodoForm, setShowTodoForm] = useState(false);
   const { token } = useContext(tokenContext);
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
-  const [newTodo, setNewTodo] = useState({
+  const [newTodo, setNewTodo] = useState<Todo>({
     todoName: "",
     todoDescription: "",
-    dueDate: startDate,
+    dueDate: null,
     token,
   });
 
-  const toggleTodoForm = () => setShowTodoForm(!showTodoForm);
+  const toggleTodoForm = () => {
+    if (showTodoForm) resetState();
+    setShowTodoForm(!showTodoForm);
+  };
+
+  const resetState = () => {
+    setNewTodo({
+      todoName: "",
+      todoDescription: "",
+      dueDate: null,
+    });
+  };
 
   const queryClient = useQueryClient();
 
@@ -39,25 +52,32 @@ export const AddTodo: React.FC = () => {
 
   /* ADD A NEW TODO TO THE DB */
   const { mutateAsync, isLoading } = TodoApi.useAddTodo();
-
+  /* RUN MUTATION ON CLICK */
   const addTodo = async () => {
     await mutateAsync(newTodo);
     /* UPDATE THE TODOS QUERY IN THE DOM */
     queryClient.invalidateQueries("todos");
-    setNewTodo({
-      todoName: "",
-      todoDescription: "",
-      dueDate: new Date(Date.now()),
-      token,
-    });
+    resetState();
     toggleTodoForm();
   };
 
   if (showTodoForm) {
-    const { todoName, todoDescription } = newTodo;
+    const { todoName, todoDescription, dueDate } = newTodo;
     return (
-      <div>
-        <FormControl p={2} w={400} mx={"auto"}>
+      <Box
+        w={400}
+        mx="auto"
+        border="1px"
+        mt={1}
+        borderColor={"teal"}
+        borderRadius={5}
+        p={2}
+        textAlign={"center"}
+        alignItems={"center"}
+        justifyContent={"center"}
+      >
+        <CloseButton ml="auto" onClick={toggleTodoForm} />
+        <FormControl mx={"auto"}>
           <Stack alignItems={"center"}>
             <FormLabel>Todo Name</FormLabel>
             <Input
@@ -72,11 +92,19 @@ export const AddTodo: React.FC = () => {
               onChange={(e) => newTodoHandler(e)}
             />
             <FormLabel>Select Date</FormLabel>
-            <Box textAlign={"center"} bg="black" p={1} borderRadius={5}>
+            <Box textAlign={"center"} p={1} borderRadius={5}>
               <DatePicker
                 minDate={new Date()}
-                onChange={(date) => setStartDate(date)}
+                selected={dueDate}
+                onChange={(date) =>
+                  date &&
+                  setNewTodo({
+                    ...newTodo,
+                    dueDate: date,
+                  })
+                }
                 placeholderText="Please select a date"
+                className="picker"
               />
             </Box>
 
@@ -94,14 +122,14 @@ export const AddTodo: React.FC = () => {
                 colorScheme="messenger"
                 w={40}
                 onClick={addTodo}
-                disabled={!todoName || !todoDescription}
+                disabled={!todoName || !todoDescription || !dueDate}
               >
                 Create Todo
               </Button>
             )}
           </Stack>
         </FormControl>
-      </div>
+      </Box>
     );
   }
 

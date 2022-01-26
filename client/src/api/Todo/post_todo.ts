@@ -3,13 +3,15 @@ import { useMutation } from "react-query";
 
 const devUrl = "http://localhost:5000/api";
 
-/* ADD A NEW TODO */
-const addTodo = async (newTodo: {
+export interface Todo {
   todoName: string;
   todoDescription: string;
-  token: string;
+  token?: string;
   dueDate: Date | null;
-}) => {
+}
+
+/* ADD A NEW TODO */
+const addTodo = async (newTodo: Todo) => {
   try {
     const { todoName, todoDescription, dueDate, token } = newTodo;
 

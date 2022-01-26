@@ -26,10 +26,12 @@ export const LocalUser = () => {
     });
   };
 
-  const { mutateAsync, error } = useLocalUser();
+  const { mutateAsync, error, isLoading } = useLocalUser();
 
   /* LOGIN USER AND GET DATA FROM DB */
   const localLogin = async () => {
+    console.log(isLoading);
+
     const info = await mutateAsync(userCredentials).catch((error) =>
       setErr(error)
     );
@@ -59,9 +61,19 @@ export const LocalUser = () => {
           placeholder="Password"
           type="password"
         />
-        <Button onClick={localLogin} colorScheme={"blue"}>
-          Log in
-        </Button>
+        {isLoading ? (
+          <Button
+            mt={2}
+            w={40}
+            colorScheme="teal"
+            isLoading
+            loadingText="Submitting"
+          />
+        ) : (
+          <Button onClick={localLogin} colorScheme={"blue"}>
+            Log in
+          </Button>
+        )}
         <Divider />
       </>
     );
@@ -84,9 +96,13 @@ export const LocalUser = () => {
         placeholder="Password"
         type="password"
       />
-      <Button onClick={localLogin} colorScheme={"blue"}>
-        Log in
-      </Button>
+      {isLoading ? (
+        <Button colorScheme="teal" isLoading loadingText="Loading" />
+      ) : (
+        <Button onClick={localLogin} colorScheme={"blue"}>
+          Log in
+        </Button>
+      )}
       <Divider />
     </Stack>
   );

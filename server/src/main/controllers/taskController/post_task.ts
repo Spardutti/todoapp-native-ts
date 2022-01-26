@@ -8,18 +8,18 @@ const addTask = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { taskName, taskDescription, dueDate, categoryId, userForId, } = req.body;
 
-    console.log(req.user)
     const userId = req.user?._id;
-    //const category = await CategoryModel.findById(categoryId)
-    //const taskFor = await UserModel.findById(userForId);
+    console.log(req.user?._id)
+    const category = await CategoryModel.findById(categoryId)
+    const taskFor = await UserModel.findById(userForId).populate("username");
 
     const task = new TaskModel({
       taskName,
       taskDescription,
       //dueDate,
-      author: userId
-      //category,
-      //taskFor,
+      author: userId,
+      category,
+      taskFor,
     });
 
     await task.save();

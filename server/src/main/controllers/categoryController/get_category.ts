@@ -15,15 +15,25 @@ const getAllCategories = async (
   }
 };
 
-/* GET CATEGIRY BY ID */
+/* GET CATEGORY BY ID */
 const getCategory = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-    const category = await CategoryModel.findById(id);
+    const category = await CategoryModel.findById(id).populate("categoryName");
     res.status(200).json(category);
   } catch (error) {
     return next(error);
   }
 };
+
+/* GET CATEGORIES BY USER ID */
+const getCategoriesByUser = async (req:Request, res:Response, next: NextFunction) => {
+  try {
+    
+  } catch (error) {
+    return next(error)
+  }
+}
+
 
 export { getAllCategories, getCategory };

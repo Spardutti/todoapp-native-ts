@@ -1,4 +1,4 @@
-import { TaskApi } from "../../api/Tasks/TasksApi";
+import { TodoApi } from "../../api/Todo/TodoApi";
 import {
   Center,
   Spinner,
@@ -10,15 +10,16 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { Todo } from "./Todo";
-import { AddTask } from "./AddTask";
+import { AddTodo } from "./AddTodo";
 import { NewCategory } from "./NewCategory";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { userContext } from "../../Context/UserContext";
 import { useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 
+/* GET ALL USER TODOS */
 export const Todos = () => {
-  const { isLoading, data, error } = TaskApi.useGetTasks();
+  const { isLoading, data, error } = TodoApi.useGetTodos();
   const { user } = useContext(userContext);
 
   const queryClient = useQueryClient();
@@ -49,7 +50,7 @@ export const Todos = () => {
 
   return (
     <>
-      <AddTask />
+      <AddTodo />
       <NewCategory />
       <Button onClick={logout}>Logout </Button>
       {user ? <div>hello {user.username} </div> : null}
@@ -62,15 +63,15 @@ export const Todos = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {data.data.map((task: any, index: number) => {
-            const { taskName, taskDescription, dueDate, _id, isCompleted } =
-              task;
+          {data.data.map((todo: any, index: number) => {
+            const { todoName, todoDescription, dueDate, _id, isCompleted } =
+              todo;
             const date = new Date(dueDate).toDateString();
             return (
               <Todo
                 key={index}
-                taskName={taskName}
-                description={taskDescription}
+                todoName={todoName}
+                description={todoDescription}
                 date={date}
                 _id={_id}
                 index={index}

@@ -29,7 +29,7 @@ export const NewCategory: React.FC = () => {
     });
   };
 
-  /* ADD A NEW TASK TO THE DB */
+  /* ADD A NEW TODO TO THE DB */
   const { mutateAsync, isLoading } = CategoryApi.useNewCategory();
 
   const addCategory = async () => {

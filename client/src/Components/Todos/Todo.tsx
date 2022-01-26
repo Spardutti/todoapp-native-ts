@@ -2,12 +2,12 @@ import { Spinner, Td, Tr } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { BsCheckCircle } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
-import { TaskApi } from "../../api/Tasks/TasksApi";
+import { TodoApi } from "../../api/Todo/TodoApi";
 import { useQueryClient } from "react-query";
 import { ImCross } from "react-icons/im";
 
 type Props = {
-  taskName: string;
+  todoName: string;
   description: string;
   date: string;
   index: number;
@@ -16,7 +16,7 @@ type Props = {
 };
 
 export const Todo: React.FC<Props> = ({
-  taskName,
+  todoName,
   description,
   date,
   _id,
@@ -24,26 +24,26 @@ export const Todo: React.FC<Props> = ({
 }) => {
   const queryClient = useQueryClient();
 
-  /* DELETE TASK */
-  const { mutateAsync, isLoading } = TaskApi.useDeleteTask();
+  /* DELETE TODO */
+  const { mutateAsync, isLoading } = TodoApi.useDeleteTodo();
 
-  const deleteTask = async (id: string) => {
+  const deleteTodo = async (id: string) => {
     await mutateAsync(id);
-    queryClient.invalidateQueries("tasks");
+    queryClient.invalidateQueries("todos");
   };
 
-  /* UDPATE TASK STATUS */
+  /* UDPATE TODO STATUS */
   const { mutateAsync: updateAsync, isLoading: isLoadingUpdate } =
-    TaskApi.useUpdateTask();
+    TodoApi.useUpdateTodo();
 
-  const udpateTask = async (data: { id: string; status: boolean }) => {
+  const updateTodo = async (data: { id: string; status: boolean }) => {
     await updateAsync(data);
-    queryClient.invalidateQueries("tasks");
+    queryClient.invalidateQueries("todos");
   };
 
   return (
     <Tr>
-      <Td>{taskName}</Td>
+      <Td>{todoName}</Td>
       <Td>{description}</Td>
       <Td>{date}</Td>
       <Td w={10}>
@@ -51,7 +51,7 @@ export const Todo: React.FC<Props> = ({
           id={_id}
           animate={{ cursor: "pointer" }}
           whileHover={{ scale: 1.2, originX: 0, originY: 0 }}
-          onClick={() => deleteTask(_id)}
+          onClick={() => deleteTodo(_id)}
         >
           {isLoading ? <Spinner /> : <MdDelete />}
         </motion.div>
@@ -60,7 +60,7 @@ export const Todo: React.FC<Props> = ({
         <motion.div
           animate={{ cursor: "pointer" }}
           whileHover={{ scale: 1.2, originX: 0, originY: 0 }}
-          onClick={() => udpateTask({ id: _id, status: isCompleted })}
+          onClick={() => updateTodo({ id: _id, status: isCompleted })}
         >
           {isCompleted} {isCompleted ? <BsCheckCircle /> : <ImCross />}
         </motion.div>

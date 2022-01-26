@@ -23,6 +23,7 @@ export const ProtectedRoute = () => {
       setUserId(decodedToken.id);
       return;
     }
+
     setIsLoading(false);
   }, [user]);
 

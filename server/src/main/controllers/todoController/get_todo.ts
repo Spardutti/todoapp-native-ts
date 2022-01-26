@@ -4,11 +4,11 @@ import { TodoModel } from "../../models/TodoModel";
 /* GET ALL TODOS */
 const getAllTodos = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const todos = await TodoModel.find({});
+    const todos = await TodoModel.find({ author: req.params.userid });
+
     res.status(200).json(todos);
   } catch (error) {
     return next(error);
-    // FILTER BY DATE.
   }
 };
 

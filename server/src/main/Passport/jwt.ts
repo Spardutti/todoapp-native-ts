@@ -12,7 +12,6 @@ passport.use(
     },
 
     (jwtpayload: any, done: any) => {
-      console.log(jwtpayload)
       UserModel.findById(jwtpayload.id, (err: any, user: any) => {
         if (err) return err;
         return done(null, user);

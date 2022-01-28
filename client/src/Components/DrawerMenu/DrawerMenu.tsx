@@ -6,7 +6,6 @@ import { RootState } from "../../store/store";
 
 const DrawerMenu: React.FC = () => {
   const isOpen = useSelector((state: RootState) => state.drawer.isOpen);
-  console.log(isOpen);
 
   const AnimatedBox = motion(Box);
   return (

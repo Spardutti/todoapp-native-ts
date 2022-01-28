@@ -6,9 +6,9 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useLocalUser } from "../../api/User/post_user";
-import { userContext } from "../../Context/UserContext";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 export const LocalUser = () => {
   const [, setErr] = useState("");
@@ -16,7 +16,9 @@ export const LocalUser = () => {
     email: "",
     password: "",
   });
-  const { setUser } = useContext(userContext);
+  const dispatch = useAppDispatch();
+
+  const user = useAppSelector((state) => state.user);
 
   /* ONCHANGE HANDLER */
   const onChange = (e: any) => {
@@ -30,14 +32,12 @@ export const LocalUser = () => {
 
   /* LOGIN USER AND GET DATA FROM DB */
   const localLogin = async () => {
-    console.log(isLoading);
-
     const info = await mutateAsync(userCredentials).catch((error) =>
       setErr(error)
     );
     if (info) {
       localStorage.setItem("todoToken", info.data.token);
-      setUser(info.data.user);
+      console.log(info.data.user);
     }
   };
 

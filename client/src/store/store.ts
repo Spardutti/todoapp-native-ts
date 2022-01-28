@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import drawerReducer from "./Reducers/Drawer/drawerReducer";
 import userReducer from "./Reducers/User/userReducer";
+import tokenReducer from "./Reducers/Token/tokenReducer";
 
 export const store = configureStore({
   reducer: {
     drawer: drawerReducer,
     user: userReducer,
+    token: tokenReducer,
   },
 });
 

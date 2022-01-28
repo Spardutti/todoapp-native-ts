@@ -3,11 +3,15 @@ import { useMutation } from "react-query";
 
 const devUrl = "http://localhost:5000/api";
 
+interface Token {
+  token: string;
+}
+
 export interface Todo {
   todoName: string;
   todoDescription: string;
-  token?: string;
   dueDate: Date | null;
+  token?: Token;
 }
 
 /* ADD A NEW TODO */

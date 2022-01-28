@@ -7,23 +7,23 @@ import {
   Input,
   Stack,
 } from "@chakra-ui/react";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { TodoApi } from "../../api/Todo/TodoApi";
 import { useQueryClient } from "react-query";
-import { tokenContext } from "../../Context/tokenContex";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../Styles/datePicker.scss";
 import { Todo } from "../../api/Todo/post_todo";
+import { useAppSelector } from "../../hooks";
 
 export const AddTodo: React.FC = () => {
   const [showTodoForm, setShowTodoForm] = useState(false);
-  const { token } = useContext(tokenContext);
+  const token = useAppSelector((state) => state.token);
   const [newTodo, setNewTodo] = useState<Todo>({
     todoName: "",
     todoDescription: "",
     dueDate: null,
-    token,
+    token: token,
   });
 
   const toggleTodoForm = () => {

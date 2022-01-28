@@ -6,9 +6,6 @@ export const Home = () => {
   const user = useAppSelector((state) => state.user);
   return (
     <Box>
-      <p>Home</p>
-      <p>hola</p>
-      <p>{user.username}</p>
       <DrawerMenu />
     </Box>
   );

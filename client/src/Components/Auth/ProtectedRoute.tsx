@@ -1,17 +1,14 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { userContext } from "../../Context/UserContext";
 import jwt_decode from "jwt-decode";
 import { useGetuser } from "../../api/User/get_user";
-import { tokenContext } from "../../Context/tokenContex";
 import { getUserInfo } from "../../store/Reducers/User/userReducer";
 import { useAppDispatch } from "../../hooks";
+import { getToken } from "../../store/Reducers/Token/tokenReducer";
 
 export const ProtectedRoute = () => {
   const [loading, setIsLoading] = useState(true);
   const [userId, setUserId] = useState("");
-  const { user, setUser } = useContext(userContext);
-  const { setToken } = useContext(tokenContext);
   const dispatch = useAppDispatch();
 
   const { isLoading, data, refetch } = useGetuser(userId);
@@ -22,13 +19,13 @@ export const ProtectedRoute = () => {
       const decodedToken: any = jwt_decode(token);
       const expiresAt = new Date(decodedToken.exp * 1000);
       if (expiresAt < new Date(Date.now())) return localStorage.clear();
-      setToken(token);
+      dispatch(getToken(token));
       setUserId(decodedToken.id);
       return;
     }
 
     setIsLoading(false);
-  }, [user]);
+  }, []);
 
   /* WAIT FOR USERID BEFORE FETCHING */
   useEffect(() => {

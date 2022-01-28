@@ -12,20 +12,20 @@ import {
 import { Todo } from "./Todo";
 import { AddTodo } from "./AddTodo";
 import { NewCategory } from "../Category/NewCategory";
-import { useContext, useEffect, useState } from "react";
-import { userContext } from "../../Context/UserContext";
+import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../hooks";
 
 /* GET ALL USER TODOS */
 export const Todos = () => {
-  const { user } = useContext(userContext);
   const [userId, setUserId] = useState("");
   const [enableRefetch, setEnableRefetch] = useState(false);
   const { isLoading, data, error, refetch } = TodoApi.useGetTodos({
     userId,
     enableRefetch,
   });
+  const user = useAppSelector((state) => state.user);
 
   const queryClient = useQueryClient();
 
@@ -33,7 +33,7 @@ export const Todos = () => {
 
   useEffect(() => {
     if (user) {
-      setUserId(user?._id);
+      // setUserId(user._id);
     }
     if (userId) {
       setEnableRefetch(true);

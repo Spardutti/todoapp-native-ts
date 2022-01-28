@@ -5,14 +5,14 @@ import {
   FormHelperText,
   Input,
 } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useState } from "react";
 //import { QueryClient, useQueryClient } from "react-query";
 import { CategoryApi } from "../../api/Category/CategoryApi";
-import { tokenContext } from "../../Context/tokenContex";
+import { useAppSelector } from "../../hooks";
 
 export const NewCategory: React.FC = () => {
   const [showCategoryForm, setShowCategoryForm] = useState(false);
-  const { token } = useContext(tokenContext);
+  const token = useAppSelector((state) => state.token);
   const [newCategory, setNewCategory] = useState({
     categoryName: "",
     token,

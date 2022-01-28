@@ -6,10 +6,11 @@ import { QuickIcons } from "./QuickIcons";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useDispatch } from "react-redux";
 import { toggleDrawer } from "../../store/Reducers/Drawer/drawerReducer";
+import { useNavigate } from "react-router-dom";
 
 export const NavBar = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [hoverColor] = useState("#ffffff75");
   return (
     <Stack
@@ -39,7 +40,12 @@ export const NavBar = () => {
             background: hoverColor,
           }}
         >
-          <AiOutlineHome fontSize={20} color="white" cursor={"pointer"} />
+          <AiOutlineHome
+            fontSize={20}
+            color="white"
+            cursor={"pointer"}
+            onClick={() => navigate("/home")}
+          />
         </Box>
         <NavBarSearch />
       </Stack>

@@ -62,7 +62,7 @@ const localLogin = (req: Request, res: Response, next: NextFunction) => {
           { id: user._id },
           process.env.JWT_SECRET as string,
           {
-            expiresIn: "10m",
+            expiresIn: "10 days",
           }
         );
 

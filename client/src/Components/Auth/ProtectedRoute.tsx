@@ -4,12 +4,15 @@ import { userContext } from "../../Context/UserContext";
 import jwt_decode from "jwt-decode";
 import { useGetuser } from "../../api/User/get_user";
 import { tokenContext } from "../../Context/tokenContex";
+import { getUserInfo } from "../../store/Reducers/User/userReducer";
+import { useAppDispatch } from "../../hooks";
 
 export const ProtectedRoute = () => {
   const [loading, setIsLoading] = useState(true);
   const [userId, setUserId] = useState("");
   const { user, setUser } = useContext(userContext);
   const { setToken } = useContext(tokenContext);
+  const dispatch = useAppDispatch();
 
   const { isLoading, data, refetch } = useGetuser(userId);
 
@@ -34,7 +37,7 @@ export const ProtectedRoute = () => {
 
   /* WAIT FOR DATA AND SET IT TO USER */
   useEffect(() => {
-    data && setUser(data.data);
+    data && dispatch(getUserInfo(data.data));
   }, [data]);
 
   if (isLoading) return <div>Loading</div>;

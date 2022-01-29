@@ -9,7 +9,7 @@ const router = Router();
 
 /* ADD TODO */
 router.post(
-  "/newtodo",
+  "/newTodo",
   jwtProtected,
   /* validateNewTodo, */ TodoController.addTodo
 );

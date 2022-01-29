@@ -24,7 +24,7 @@ const addTodo = async (newTodo: Todo) => {
       { todoName, todoDescription, dueDate },
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token?.token}`,
         },
       }
     );

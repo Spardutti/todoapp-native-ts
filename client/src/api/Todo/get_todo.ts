@@ -14,9 +14,7 @@ const getTodos = async (userId: string) => {
 };
 
 const useGetTodos = (data: { userId: string; enableRefetch: boolean }) => {
-  return useQuery<any, Error>("todos", () => getTodos(data.userId), {
-    enabled: data.enableRefetch,
-  });
+  return useQuery<any, Error>("todos", () => getTodos(data.userId));
 };
 
 /* GET TODO BY ID */

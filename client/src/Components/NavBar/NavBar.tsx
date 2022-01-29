@@ -21,6 +21,7 @@ export const NavBar = () => {
       px={10}
     >
       <Box
+        onClick={() => dispatch(toggleDrawer())}
         color={"white"}
         cursor={"pointer"}
         p={1}
@@ -29,7 +30,7 @@ export const NavBar = () => {
           background: hoverColor,
         }}
       >
-        <GiHamburgerMenu onClick={() => dispatch(toggleDrawer())} />
+        <GiHamburgerMenu />
       </Box>
 
       <Stack w="50%" direction={"row"} alignItems={"center"}>

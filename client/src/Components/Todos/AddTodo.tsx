@@ -6,6 +6,8 @@ import {
   FormLabel,
   Input,
   Stack,
+  Textarea,
+  Divider,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { TodoApi } from "../../api/Todo/TodoApi";
@@ -53,33 +55,35 @@ export const AddTodo: React.FC = () => {
   const { todoName, todoDescription, dueDate } = newTodo;
   return (
     <Box
-      w={400}
+      width="full"
       mx="auto"
-      border="1px"
+      //border="1px"
       mt={1}
-      borderColor={"teal"}
-      borderRadius={5}
+      //borderColor={"teal"}
+      //borderRadius={5}
       p={2}
-      textAlign={"center"}
-      alignItems={"center"}
-      justifyContent={"center"}
+      //textAlign={"center"}
+      //alignItems={"center"}
+      //justifyContent={"center"}
     >
       <FormControl mx={"auto"}>
         <Stack alignItems={"center"}>
-          <FormLabel>Todo Name</FormLabel>
           <Input
+            placeholder="Todo name"
+            variant="unstyled"
             value={todoName}
             name="todoName"
             onChange={(e) => newTodoHandler(e)}
           />
-          <FormLabel>Todo Description</FormLabel>
-          <Input
+          <Textarea
+            resize="none"
+            placeholder="Description"
+            variant="unstyled"
             value={todoDescription}
             name="todoDescription"
             onChange={(e) => newTodoHandler(e)}
           />
-          <FormLabel>Select Date</FormLabel>
-          <Box textAlign={"center"} p={1} borderRadius={5}>
+          <Box maxW="max-content" textAlign={"center"} p={1} borderRadius={5}>
             <DatePicker
               minDate={new Date()}
               selected={dueDate}
@@ -94,28 +98,28 @@ export const AddTodo: React.FC = () => {
               className="picker"
             />
           </Box>
-
-          {isLoading ? (
-            <Button
-              mt={2}
-              w={40}
-              colorScheme="teal"
-              isLoading
-              loadingText="Submitting"
-            />
-          ) : (
-            <Button
-              mt={2}
-              colorScheme="messenger"
-              w={40}
-              onClick={addTodo}
-              disabled={!todoName || !todoDescription || !dueDate}
-            >
-              Create Todo
-            </Button>
-          )}
+          <Divider orientation="horizontal" borderColor="blackAlpha.300" />
         </Stack>
       </FormControl>
+      <Box>
+        {isLoading ? (
+          <Button
+            mt={2}
+            colorScheme="teal"
+            isLoading
+            loadingText="Submitting"
+          />
+        ) : (
+          <Button
+            mt={2}
+            colorScheme="messenger"
+            onClick={addTodo}
+            disabled={!todoName || !todoDescription || !dueDate}
+          >
+            Create Todo
+          </Button>
+        )}
+      </Box>
     </Box>
   );
 };

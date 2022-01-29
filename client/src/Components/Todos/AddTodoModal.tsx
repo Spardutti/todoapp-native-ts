@@ -18,9 +18,14 @@ export const AddTodoModal = () => {
         cursor={"pointer"}
         onClick={onOpen}
       />
-      <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+      <Modal
+        blockScrollOnMount={false}
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered
+      >
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent maxWidth="xl">
           <AddTodo />
         </ModalContent>
       </Modal>

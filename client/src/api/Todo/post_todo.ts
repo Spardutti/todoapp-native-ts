@@ -18,16 +18,18 @@ export interface Todo {
 const addTodo = async (newTodo: Todo) => {
   try {
     const { todoName, todoDescription, dueDate, token } = newTodo;
-
+    
     const response = axios.post(
       `${devUrl}/newTodo`,
       { todoName, todoDescription, dueDate },
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token?.token}`,
         },
       }
     );
+    console.log(token?.token, newTodo.token);
+    
     return response;
   } catch (error) {
     return error;

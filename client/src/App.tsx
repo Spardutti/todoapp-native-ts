@@ -8,6 +8,7 @@ import { Home } from "./Components/Views/Home";
 import { NavBar } from "./Components/NavBar/NavBar";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ function App() {
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
           <ChakraProvider>
+            <Toaster />
             <Nav />
             <Routes>
               <Route path="/" element={<UserHome />} />

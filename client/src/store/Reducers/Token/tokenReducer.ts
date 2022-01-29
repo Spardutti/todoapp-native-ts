@@ -13,7 +13,7 @@ export const tokenSlice = createSlice({
   initialState,
   reducers: {
     getToken(state, { payload }) {
-      state.token = payload.token;
+      state.token = payload;
     },
   },
 });

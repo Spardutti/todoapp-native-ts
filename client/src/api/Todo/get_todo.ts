@@ -38,7 +38,7 @@ const getTodosByDate = (data: { date: string; token: string }) => {
   try {
     const formatDate = data.date;
 
-    const response = axios.get(`${devUrl}/getTodosByDate/${formatDate}`, {
+    const response = axios.get(`${devUrl}/todos/${formatDate}`, {
       headers: { Authorization: `Bearer ${data.token}` },
     });
     return response;
@@ -51,4 +51,19 @@ const useGetTodosByDate = (data: { date: string; token: string }) => {
   return useQuery<any, Error>(["todos", data], () => getTodosByDate(data));
 };
 
-export { useGetUserTodos, useGetTodo, useGetTodosByDate };
+/* GET TODAY AND OLDERS TODOS */
+const getTodaysTodos = (token: string) => {
+  try {
+    const response = axios.get(`${devUrl}/todaystodos`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+const useGetTodaysTodos = (token: string) => {
+  return useQuery(["todos", token], () => getTodaysTodos(token));
+};
+export { useGetUserTodos, useGetTodo, useGetTodosByDate, useGetTodaysTodos };

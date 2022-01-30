@@ -1,35 +1,30 @@
 import { Box, Stack, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useGetTodos } from "../../api/Todo/get_todo";
-import toast, { Toaster } from "react-hot-toast";
+import { useGetTodosByDate, useGetUserTodos } from "../../api/Todo/get_todo";
+import toast from "react-hot-toast";
+import { useAppSelector } from "../../hooks";
+import { Token } from "../../store/Reducers/Token/tokenReducer";
+import { stringify } from "querystring";
 
-interface TodayProps {
-  userId: string;
-}
+interface TodayProps {}
 
-const Today: React.FC<TodayProps> = ({ userId }) => {
-  const [enableRefetch, setEnableRefetch] = useState(false);
-  const { isLoading, data, error, refetch } = useGetTodos({
-    userId,
-    enableRefetch,
-  });
+const Today: React.FC<TodayProps> = () => {
+  const token = useAppSelector((state) => state.token.token);
+  // const { isLoading, data, error } = useGetUserTodos(token);
 
-  /* useEffect(() => {
-    refetch();
-  }, []); */
+  const fechaDeHoy = new Date().toISOString().split("T")[0];
 
-  useEffect(() => {
-    if (error) {
-      toast.error("Something went wrong. Please try again");
-    }
-  }, [error]);
+  const info = {
+    date: fechaDeHoy,
+    token,
+  };
+  const { isLoading, data, refetch } = useGetTodosByDate(info);
 
   if (isLoading) return <p>Loading</p>;
 
   return (
     <Stack>
-      <Toaster />
-      <Text>Test</Text>
+      <Text onClick={() => refetch()}>Test</Text>
     </Stack>
   );
 };

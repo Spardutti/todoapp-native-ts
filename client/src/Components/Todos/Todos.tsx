@@ -1,4 +1,3 @@
-import { TodoApi } from "../../api/Todo/TodoApi";
 import {
   Center,
   Spinner,
@@ -16,15 +15,14 @@ import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../hooks";
+import { useGetUserTodos } from "../../api/Todo/get_todo";
 
 /* GET ALL USER TODOS */
 export const Todos = () => {
   const [userId, setUserId] = useState("");
   const [enableRefetch, setEnableRefetch] = useState(false);
-  const { isLoading, data, error, refetch } = TodoApi.useGetTodos({
-    userId,
-    enableRefetch,
-  });
+  const token = useAppSelector((state) => state.token);
+  const { isLoading, data, error, refetch } = useGetUserTodos(token.token);
   const user = useAppSelector((state) => state.user);
 
   const queryClient = useQueryClient();

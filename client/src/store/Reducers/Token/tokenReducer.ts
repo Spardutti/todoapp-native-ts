@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface Token {
+export interface Token {
   token: string;
 }
 
-const initialState: Token = {
+const initialState = {
   token: "",
 };
 

@@ -4,6 +4,7 @@ import {
   getTodo,
   getTodoByStatus,
   getTodosByDate,
+  getTodaysTodos,
 } from "./get_todo";
 import { deleteTodo } from "./delete_todo";
 import { putTodo } from "./put_todo";
@@ -16,4 +17,5 @@ export const TodoController = {
   deleteTodo,
   putTodo,
   getTodosByDate,
+  getTodaysTodos,
 };

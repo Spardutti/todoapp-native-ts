@@ -15,10 +15,9 @@ router.get("/todo/:id", TodoController.getTodo);
 router.get("/getTodoBy", TodoController.getTodoByStatus);
 
 /* GET TODOS BY DATE */
-router.get(
-  "/getTodosByDate/:date",
-  jwtProtected,
-  TodoController.getTodosByDate
-);
+router.get("/todos/:date", jwtProtected, TodoController.getTodosByDate);
+
+/* GET TODAY TODOS */
+router.get("/todaysTodos", jwtProtected, TodoController.getTodaysTodos);
 
 export { router };

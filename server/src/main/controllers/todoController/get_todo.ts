@@ -68,4 +68,32 @@ const getTodosByDate = async (
   }
 };
 
-export { getAllTodos, getTodo, getTodoByStatus, getTodosByDate };
+/* GET TODAYS AND OLDERS TODOS */
+const getTodaysTodos = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const date = new Date().toISOString().split("T")[0];
+    const today = await TodoModel.find({
+      author: req.user?._id,
+      dueDate: date,
+    });
+    const olders = await TodoModel.find({
+      author: req.user?._id,
+      dueDate: { $lt: date },
+    }).sort({ dueDate: -1 });
+    res.json({ today, olders });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export {
+  getAllTodos,
+  getTodo,
+  getTodoByStatus,
+  getTodosByDate,
+  getTodaysTodos,
+};

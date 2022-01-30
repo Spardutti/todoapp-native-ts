@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { TodoModel } from "../../models/TodoModel";
 
-/* GET ALL TODOS */
+/* GET ALL USER TODOS */
 const getAllTodos = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const todos = await TodoModel.find({ author: req.params.userid });
+    const todos = await TodoModel.find({ author: req.user?._id });
 
     res.status(200).json(todos);
   } catch (error) {
@@ -48,6 +48,24 @@ const getTodoByStatus = async (
   }
 };
 
-// ORDER BY DATE
+/* GET TODOS BY DATE */
+const getTodosByDate = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { date } = req.params;
 
-export { getAllTodos, getTodo, getTodoByStatus };
+  try {
+    const todos = await TodoModel.find({
+      author: req.user?._id,
+      dueDate: date,
+    });
+
+    return res.status(200).json(todos);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export { getAllTodos, getTodo, getTodoByStatus, getTodosByDate };

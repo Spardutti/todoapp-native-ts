@@ -2,9 +2,10 @@ import { Spinner, Td, Tr } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { BsCheckCircle } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
-import { TodoApi } from "../../api/Todo/TodoApi";
 import { useQueryClient } from "react-query";
 import { ImCross } from "react-icons/im";
+import { useDeleteTodo } from "../../api/Todo/delete_todo";
+import { useUpdateTodo } from "../../api/Todo/put_todo";
 
 type Props = {
   todoName: string;
@@ -25,7 +26,7 @@ export const Todo: React.FC<Props> = ({
   const queryClient = useQueryClient();
 
   /* DELETE TODO */
-  const { mutateAsync, isLoading } = TodoApi.useDeleteTodo();
+  const { mutateAsync, isLoading } = useDeleteTodo();
 
   const deleteTodo = async (id: string) => {
     await mutateAsync(id);
@@ -34,7 +35,7 @@ export const Todo: React.FC<Props> = ({
 
   /* UDPATE TODO STATUS */
   const { mutateAsync: updateAsync, isLoading: isLoadingUpdate } =
-    TodoApi.useUpdateTodo();
+    useUpdateTodo();
 
   const updateTodo = async (data: { id: string; status: boolean }) => {
     await updateAsync(data);

@@ -3,18 +3,20 @@ import { useQuery } from "react-query";
 
 const devUrl = "http://localhost:5000/api";
 
-/* GET ALL TODOS */
-const getTodos = async (userId: string) => {
+/* GET ALL USER TODOS */
+const getUserTodos = async (token: string) => {
   try {
-    const response = axios.get(`${devUrl}/todos/${userId}`);
+    const response = axios.get(`${devUrl}/todos`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return response;
   } catch (error) {
     return error;
   }
 };
 
-const useGetTodos = (data: { userId: string; enableRefetch: boolean }) => {
-  return useQuery<any, Error>("todos", () => getTodos(data.userId));
+const useGetUserTodos = (token: string) => {
+  return useQuery<any, Error>(["todos", token], () => getUserTodos(token));
 };
 
 /* GET TODO BY ID */
@@ -31,4 +33,37 @@ const useGetTodo = (id: string) => {
   return useQuery<any, Error>(["todo", id], () => getTodo(id));
 };
 
-export { useGetTodos, useGetTodo };
+/* GET TODOS BY DATE */
+const getTodosByDate = (data: { date: string; token: string }) => {
+  try {
+    const formatDate = data.date;
+
+    const response = axios.get(`${devUrl}/todos/${formatDate}`, {
+      headers: { Authorization: `Bearer ${data.token}` },
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+const useGetTodosByDate = (data: { date: string; token: string }) => {
+  return useQuery<any, Error>(["todos", data], () => getTodosByDate(data));
+};
+
+/* GET TODAY AND OLDERS TODOS */
+const getTodaysTodos = (token: string) => {
+  try {
+    const response = axios.get(`${devUrl}/todaystodos`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+const useGetTodaysTodos = (token: string) => {
+  return useQuery(["todos", token], () => getTodaysTodos(token));
+};
+export { useGetUserTodos, useGetTodo, useGetTodosByDate, useGetTodaysTodos };

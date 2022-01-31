@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { TodoModel } from "../../models/TodoModel";
 
-/* GET ALL TODOS */
+/* GET ALL USER TODOS */
 const getAllTodos = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const todos = await TodoModel.find({ author: req.params.userid });
+    const todos = await TodoModel.find({ author: req.user?._id });
 
     res.status(200).json(todos);
   } catch (error) {
@@ -48,6 +48,52 @@ const getTodoByStatus = async (
   }
 };
 
-// ORDER BY DATE
+/* GET TODOS BY DATE */
+const getTodosByDate = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { date } = req.params;
 
-export { getAllTodos, getTodo, getTodoByStatus };
+  try {
+    const todos = await TodoModel.find({
+      author: req.user?._id,
+      dueDate: date,
+    });
+
+    return res.status(200).json(todos);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+/* GET TODAYS AND OLDERS TODOS */
+const getTodaysTodos = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const date = new Date().toISOString().split("T")[0];
+    const today = await TodoModel.find({
+      author: req.user?._id,
+      dueDate: date,
+    });
+    const olders = await TodoModel.find({
+      author: req.user?._id,
+      dueDate: { $lt: date },
+    }).sort({ dueDate: -1 });
+    res.json({ today, olders });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export {
+  getAllTodos,
+  getTodo,
+  getTodoByStatus,
+  getTodosByDate,
+  getTodaysTodos,
+};

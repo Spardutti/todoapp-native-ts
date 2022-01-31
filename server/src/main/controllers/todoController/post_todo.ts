@@ -7,6 +7,8 @@ const addTodo = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { todoName, todoDescription, dueDate, categoryId } = req.body;
 
+    const formattedDate = new Date(dueDate).toISOString().split("T")[0];
+
     const userId = req.user?._id;
     console.log(userId);
     
@@ -15,7 +17,7 @@ const addTodo = async (req: Request, res: Response, next: NextFunction) => {
     const todo = new TodoModel({
       todoName,
       todoDescription,
-      dueDate,
+      dueDate: formattedDate,
       author: userId,
       // category,
     });

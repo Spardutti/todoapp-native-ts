@@ -10,13 +10,13 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { TodoApi } from "../../api/Todo/TodoApi";
 import { useQueryClient } from "react-query";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../Styles/datePicker.scss";
 import { Todo } from "../../api/Todo/post_todo";
 import { useAppSelector } from "../../hooks";
+import { useAddTodo } from "../../api/Todo/post_todo";
 
 export const AddTodo: React.FC = () => {
   const token = useAppSelector((state) => state.token);
@@ -45,7 +45,7 @@ export const AddTodo: React.FC = () => {
   };
 
   /* ADD A NEW TODO TO THE DB */
-  const { mutateAsync, isLoading } = TodoApi.useAddTodo();
+  const { mutateAsync, isLoading } = useAddTodo();
   /* RUN MUTATION ON CLICK */
   const addTodo = async () => {
     await mutateAsync(newTodo);

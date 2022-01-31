@@ -1,35 +1,23 @@
 import { Box, Stack, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useGetTodos } from "../../api/Todo/get_todo";
-import toast, { Toaster } from "react-hot-toast";
+import { useGetTodaysTodos } from "../../api/Todo/get_todo";
+import toast from "react-hot-toast";
+import { useAppSelector } from "../../hooks";
+import { Token } from "../../store/Reducers/Token/tokenReducer";
 
-interface TodayProps {
-  userId: string;
-}
+interface TodayProps {}
 
-const Today: React.FC<TodayProps> = ({ userId }) => {
-  const [enableRefetch, setEnableRefetch] = useState(false);
-  const { isLoading, data, error, refetch } = useGetTodos({
-    userId,
-    enableRefetch,
-  });
-
-  /* useEffect(() => {
-    refetch();
-  }, []); */
-
-  useEffect(() => {
-    if (error) {
-      toast.error("Something went wrong. Please try again");
-    }
-  }, [error]);
+const Today: React.FC<TodayProps> = () => {
+  const token = useAppSelector((state) => state.token.token);
+  const [todayTodos, setTodayTodos] = useState([]);
+  const [olderTodos, setOlderTodos] = useState([]);
+  const { isLoading, data, refetch } = useGetTodaysTodos(token);
 
   if (isLoading) return <p>Loading</p>;
 
   return (
     <Stack>
-      <Toaster />
-      <Text>Test</Text>
+      <Text onClick={() => refetch()}>Test</Text>
     </Stack>
   );
 };

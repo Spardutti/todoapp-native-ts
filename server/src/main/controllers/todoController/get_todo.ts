@@ -76,15 +76,20 @@ const getTodaysTodos = async (
 ) => {
   try {
     const date = new Date().toISOString().split("T")[0];
-    const today = await TodoModel.find({
+    const todos = await TodoModel.find({
       author: req.user?._id,
-      dueDate: date,
+      dueDate: { $lte: date },
     });
-    const olders = await TodoModel.find({
-      author: req.user?._id,
-      dueDate: { $lt: date },
-    }).sort({ dueDate: -1 });
-    res.json({ today, olders });
+    const todayTodos = [];
+    const olderTodos = [];
+    for (let i = 0; i < todos.length; i++) {
+      const arrayElement = todos[i];
+      if (arrayElement.dueDate.toISOString().split("T")[0] < date) {
+        olderTodos.push(arrayElement);
+      } else todayTodos.push(arrayElement);
+    }
+
+    res.json({ todayTodos, olderTodos });
   } catch (error) {
     return next(error);
   }

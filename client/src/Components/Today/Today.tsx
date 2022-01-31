@@ -1,7 +1,8 @@
-import { Heading, Stack } from "@chakra-ui/react";
+import { Heading, HStack, Stack, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useGetTodaysTodos } from "../../api/Todo/get_todo";
 import { useAppSelector } from "../../hooks";
+import { AddTodoModal } from "../Todos/AddTodoModal";
 import OverdueTodos from "./OverdueTodos";
 import Todos from "./Todos";
 
@@ -18,7 +19,6 @@ const Today: React.FC<TodayProps> = () => {
     if (data) {
       setTodayTodos(data.data.todayTodos);
       setOlderTodos(data.data.olderTodos);
-      console.log(data.data.olderTodos);
     }
   }, [data]);
 
@@ -36,6 +36,21 @@ const Today: React.FC<TodayProps> = () => {
       </Heading>
       {olderTodos ? <OverdueTodos todo={olderTodos} /> : null}
       <Todos todo={todayTodos} />
+      <HStack
+        _focus={{
+          boxShadow: "none",
+        }}
+        variant={"none"}
+        mt={2}
+        _hover={{ color: "red" }}
+        fontWeight={"normal"}
+        fontSize={13}
+        color={"gray"}
+        cursor={"pointer"}
+      >
+        <AddTodoModal color={"red"} />
+        <Text> Add Todo </Text>
+      </HStack>
     </Stack>
   );
 };

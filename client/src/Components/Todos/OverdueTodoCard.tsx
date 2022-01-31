@@ -1,9 +1,18 @@
-import { Box, Divider, HStack, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Divider,
+  Grid,
+  HStack,
+  Stack,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BsFillCalendarXFill } from "react-icons/bs";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
+import TodoDescription from "./TodoDescription";
 
 interface OverdueTodoCardProps {
   todo: {
@@ -25,9 +34,11 @@ const OverdueTodoCard: React.FC<OverdueTodoCardProps> = ({ todo }) => {
     })
   );
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Box>
-      <HStack py={4}>
+      <Grid py={4} templateColumns={"20px 1fr"}>
         <Stack
           justifyContent={"center"}
           align={"center"}
@@ -36,7 +47,7 @@ const OverdueTodoCard: React.FC<OverdueTodoCardProps> = ({ todo }) => {
           borderRadius={"3xl"}
           w={4}
           h={4}
-          mb={10}
+          mt={1}
           cursor={"pointer"}
         >
           <motion.div initial={{ opacity: 0 }} whileHover={{ opacity: 1 }}>
@@ -45,7 +56,7 @@ const OverdueTodoCard: React.FC<OverdueTodoCardProps> = ({ todo }) => {
             />
           </motion.div>
         </Stack>
-        <Box>
+        <Box onClick={onOpen}>
           <Text>{todo.todoName}</Text>
           <Text fontSize={10} color={"gray"}>
             {todo.todoDescription}
@@ -56,8 +67,9 @@ const OverdueTodoCard: React.FC<OverdueTodoCardProps> = ({ todo }) => {
             <Text>{dayNumber}</Text>
           </HStack>
         </Box>
-      </HStack>
+      </Grid>
       <Divider />
+      <TodoDescription isOpen={isOpen} onClose={onClose} />
     </Box>
   );
 };

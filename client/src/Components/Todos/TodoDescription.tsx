@@ -11,9 +11,14 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-interface TodoDescriptionProps {}
-const TodoDescription: React.FC<TodoDescriptionProps> = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+interface TodoDescriptionProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+const TodoDescription: React.FC<TodoDescriptionProps> = ({
+  isOpen,
+  onClose,
+}) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />

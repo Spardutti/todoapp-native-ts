@@ -1,6 +1,5 @@
-import { Box, Button, Divider, Heading, HStack } from "@chakra-ui/react";
+import { Box, Divider, Heading, HStack } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { AddTodoModal } from "../Todos/AddTodoModal";
 import TodoCard from "../Todos/TodoCard";
 
 interface TodosProps {
@@ -15,6 +14,7 @@ const Todos: React.FC<TodosProps> = ({ todo }) => {
   const [day] = useState(
     currentDate.toLocaleDateString("default", { day: "2-digit" })
   );
+
   return (
     <Box w={800} pt={10} cursor={"pointer"}>
       <HStack overflow={"hidden"} justify={"space-between"}>
@@ -26,20 +26,6 @@ const Todos: React.FC<TodosProps> = ({ todo }) => {
       {todo.map((elem, index) => {
         return <TodoCard todo={elem} key={index} />;
       })}
-      <Button
-        _focus={{
-          boxShadow: "none",
-        }}
-        variant={"none"}
-        mt={2}
-        _hover={{ color: "red" }}
-        fontWeight={"normal"}
-        fontSize={13}
-        color={"gray"}
-      >
-        <AddTodoModal color={"red"} />
-        Add Todo
-      </Button>
     </Box>
   );
 };

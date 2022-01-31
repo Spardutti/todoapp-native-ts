@@ -7,13 +7,13 @@ import {
 import { IoAddOutline } from "react-icons/io5";
 import { AddTodo } from "./AddTodo";
 
-export const AddTodoModal = () => {
+export const AddTodoModal: React.FC<{ color: string }> = ({ color }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
       <IoAddOutline
-        color="white"
+        color={color}
         fontSize={25}
         cursor={"pointer"}
         onClick={onOpen}

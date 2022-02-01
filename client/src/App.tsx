@@ -9,12 +9,14 @@ import { NavBar } from "./Components/NavBar/NavBar";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
 import { Toaster } from "react-hot-toast";
+import Upcoming from "./Components/Views/Upcoming";
 
 const queryClient = new QueryClient();
 
 const Nav = () =>
   useRoutes([
     { path: "/home", element: <NavBar /> },
+    { path: "/upcoming", element: <NavBar /> },
     // {},
   ]);
 
@@ -31,6 +33,9 @@ function App() {
               <Route path="/home" element={<ProtectedRoute />}>
                 <Route path="/home" element={<Home />} />
               </Route>
+              {/* <Route path="/upcoming" element={<ProtectedRoute />}> */}
+              <Route path="/upcoming" element={<Upcoming />} />
+              {/* </Route> */}
             </Routes>
           </ChakraProvider>
           <ReactQueryDevtools initialIsOpen={false} />

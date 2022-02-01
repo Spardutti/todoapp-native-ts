@@ -25,7 +25,7 @@ const Today: React.FC<TodayProps> = () => {
   if (isLoading) return <p>Loading</p>;
 
   return (
-    <Stack p={10} w={[100, 200, 300]}>
+    <Stack p={10}>
       <Heading fontSize={25} mb={10}>
         Today{" "}
         <span style={{ fontSize: "13px", color: "gray", fontWeight: "normal" }}>

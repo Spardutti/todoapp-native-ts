@@ -3,12 +3,12 @@ import { useMutation } from "react-query";
 
 const devUrl = "http://localhost:5000/api";
 
-export const deleteTodo = (id: string) => {
+const deleteTodo = (id: string) => {
   return axios.delete(`${devUrl}/todo/${id}`);
 };
 
-const useDeleteTodo = () => {
-  return useMutation(deleteTodo);
+const useDeleteTodo = (id: string) => {
+  return useMutation(() => deleteTodo(id));
 };
 
 export { useDeleteTodo };

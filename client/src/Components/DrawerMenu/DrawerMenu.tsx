@@ -10,11 +10,11 @@ const DrawerMenu: React.FC = () => {
   const AnimatedBox = motion(Box);
   return (
     <AnimatePresence>
-      {isOpen && (
+      {isOpen ? (
         <AnimatedBox
           h={400}
           initial={{ width: 0 }}
-          animate={{ width: 100 }}
+          animate={{ width: "auto" }}
           exit={{ width: 0 }}
           transition={{
             duration: 0.3,
@@ -22,6 +22,8 @@ const DrawerMenu: React.FC = () => {
           bg={"green"}
           overflow="hidden"
         ></AnimatedBox>
+      ) : (
+        <Box w="300px" />
       )}
     </AnimatePresence>
   );

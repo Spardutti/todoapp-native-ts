@@ -17,8 +17,9 @@ export const QuickIcons: React.FC<HoverColor> = ({ hoverColor }) => {
         _hover={{
           background: hoverColor,
         }}
+        textAlign={"center"}
       >
-        <AddTodoModal color="white" />
+        <AddTodoModal color="white" text="" />
       </Box>
       {user && (
         <Avatar

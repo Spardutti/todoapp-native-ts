@@ -1,4 +1,4 @@
-import { Heading, HStack, Stack, Text } from "@chakra-ui/react";
+import { Heading, HStack, Stack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useGetTodaysTodos } from "../../api/Todo/get_todo";
 import { useAppSelector } from "../../hooks";
@@ -25,8 +25,8 @@ const Today: React.FC<TodayProps> = () => {
   if (isLoading) return <p>Loading</p>;
 
   return (
-    <Stack p={10} w={1000} mx="auto">
-      <Heading fontSize={25}>
+    <Stack p={10} w={[100, 200, 300]}>
+      <Heading fontSize={25} mb={10}>
         Today{" "}
         <span style={{ fontSize: "13px", color: "gray", fontWeight: "normal" }}>
           {currentDate.toLocaleString("default", { weekday: "short" })}{" "}
@@ -34,7 +34,7 @@ const Today: React.FC<TodayProps> = () => {
           {currentDate.toLocaleDateString("default", { day: "numeric" })}
         </span>
       </Heading>
-      {olderTodos ? <OverdueTodos todo={olderTodos} /> : null}
+      {olderTodos.length > 0 ? <OverdueTodos todo={olderTodos} /> : null}
       <Todos todo={todayTodos} />
       <HStack
         _focus={{
@@ -46,10 +46,8 @@ const Today: React.FC<TodayProps> = () => {
         fontWeight={"normal"}
         fontSize={13}
         color={"gray"}
-        cursor={"pointer"}
       >
-        <AddTodoModal color={"red"} />
-        <Text> Add Todo </Text>
+        <AddTodoModal color={"red"} text="Add Todo" />
       </HStack>
     </Stack>
   );

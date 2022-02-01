@@ -9,10 +9,11 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BsFillCalendarXFill } from "react-icons/bs";
-import { AiOutlineCheckCircle } from "react-icons/ai";
+import { BsCheck2 } from "react-icons/bs";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import TodoDescription from "./TodoDescription";
+import DeleteEditButtons from "../Buttons/DeleteEditButtons";
 
 interface OverdueTodoCardProps {
   todo: {
@@ -34,11 +35,21 @@ const OverdueTodoCard: React.FC<OverdueTodoCardProps> = ({ todo }) => {
     })
   );
 
+  const [show, setShow] = useState<string>("0");
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const MotionHStack = motion(HStack);
+
   return (
-    <Box>
-      <Grid py={4} templateColumns={"20px 1fr"}>
+    <Box
+      onMouseEnter={() => {
+        setShow("1");
+      }}
+      onMouseLeave={() => setShow("0")}
+      cursor={"pointer"}
+    >
+      <Grid py={4} templateColumns={"20px 11fr 1fr"}>
         <Stack
           justifyContent={"center"}
           align={"center"}
@@ -51,7 +62,7 @@ const OverdueTodoCard: React.FC<OverdueTodoCardProps> = ({ todo }) => {
           cursor={"pointer"}
         >
           <motion.div initial={{ opacity: 0 }} whileHover={{ opacity: 1 }}>
-            <AiOutlineCheckCircle
+            <BsCheck2
               onClick={() => toast("Task completed will be added later")}
             />
           </motion.div>
@@ -67,9 +78,18 @@ const OverdueTodoCard: React.FC<OverdueTodoCardProps> = ({ todo }) => {
             <Text>{dayNumber}</Text>
           </HStack>
         </Box>
+        <MotionHStack
+          initial={{ opacity: 0 }}
+          animate={{ opacity: show }}
+          align={"flex-start"}
+        >
+          <DeleteEditButtons todoId={todo._id} />
+        </MotionHStack>
       </Grid>
       <Divider />
-      <TodoDescription isOpen={isOpen} onClose={onClose} />
+      {isOpen ? (
+        <TodoDescription todo={todo} isOpen={isOpen} onClose={onClose} />
+      ) : null}
     </Box>
   );
 };

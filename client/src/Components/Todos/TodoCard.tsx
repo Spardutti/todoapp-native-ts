@@ -10,9 +10,10 @@ import {
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { AiOutlineCheckCircle } from "react-icons/ai";
+import { BsCheck2 } from "react-icons/bs";
 import { BsFillCalendarXFill } from "react-icons/bs";
 import TodoDescription from "./TodoDescription";
+import DeleteEditButtons from "../Buttons/DeleteEditButtons";
 
 interface TodoCardProps {
   todo: {
@@ -39,11 +40,19 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo }) => {
     })
   );
 
+  const [show, setShow] = useState<string>("0");
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const MotionHStack = motion(HStack);
+
   return (
-    <Box>
-      <Grid templateColumns={"20px 1fr"} py={4}>
+    <Box
+      onMouseEnter={() => setShow("1")}
+      onMouseLeave={() => setShow("0")}
+      cursor={"pointer"}
+    >
+      <Grid templateColumns={"20px 11fr 1fr"} py={4}>
         <Stack
           display={"inline-block"}
           justifyContent={"center"}
@@ -57,7 +66,7 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo }) => {
           cursor={"pointer"}
         >
           <motion.div initial={{ opacity: 0 }} whileHover={{ opacity: 1 }}>
-            <AiOutlineCheckCircle
+            <BsCheck2
               onClick={() => toast("Task completed will be added later")}
             />
           </motion.div>
@@ -75,9 +84,18 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo }) => {
             </HStack>
           </Box>
         </Box>
+        <MotionHStack
+          initial={{ opacity: 0 }}
+          animate={{ opacity: show }}
+          align={"flex-start"}
+        >
+          <DeleteEditButtons todoId={todo._id} />
+        </MotionHStack>
       </Grid>
       <Divider />
-      <TodoDescription isOpen={isOpen} onClose={onClose} />
+      {isOpen ? (
+        <TodoDescription todo={todo} isOpen={isOpen} onClose={onClose} />
+      ) : null}
     </Box>
   );
 };

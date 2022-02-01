@@ -1,29 +1,30 @@
 import {
+  HStack,
   Modal,
   ModalContent,
   ModalOverlay,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import { IoAddOutline } from "react-icons/io5";
 import { AddTodo } from "./AddTodo";
 
-export const AddTodoModal: React.FC<{ color: string }> = ({ color }) => {
+export const AddTodoModal: React.FC<{ color: string; text: string }> = ({
+  color,
+  text,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <>
-      <IoAddOutline
-        color={color}
-        fontSize={25}
-        cursor={"pointer"}
-        onClick={onOpen}
-      />
+    <HStack onClick={onOpen} cursor={"pointer"}>
+      <IoAddOutline color={color} fontSize={25} />
+      <Text display={text ? "block" : "none"}>{text}</Text>
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <AddTodo />
         </ModalContent>
       </Modal>
-    </>
+    </HStack>
   );
 };

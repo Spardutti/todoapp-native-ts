@@ -16,7 +16,7 @@ const Todos: React.FC<TodosProps> = ({ todo }) => {
   );
 
   return (
-    <Box w={800} pt={10} cursor={"pointer"}>
+    <Box w={[300, 500, 200, 800]} mt={10}>
       <HStack overflow={"hidden"} justify={"space-between"}>
         <Heading fontSize={15}>
           {month} {day} - Today

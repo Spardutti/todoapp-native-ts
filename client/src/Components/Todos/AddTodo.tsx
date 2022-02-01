@@ -11,12 +11,13 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import "../../Styles/datePicker.scss";
 import { Todo } from "../../api/Todo/post_todo";
+import { CalendarButton } from "../Calendar/calendarButton";
+import "../../Styles/calendar/calendarButton.scss";
 import { useAppSelector } from "../../hooks";
 import { useAddTodo } from "../../api/Todo/post_todo";
+import React from "react";
+import DatePicker from "react-datepicker";
 
 export const AddTodo: React.FC = () => {
   const token = useAppSelector((state) => state.token);
@@ -83,21 +84,11 @@ export const AddTodo: React.FC = () => {
             name="todoDescription"
             onChange={(e) => newTodoHandler(e)}
           />
-          <Box maxW="max-content" textAlign={"center"} p={1} borderRadius={5}>
-            <DatePicker
-              minDate={new Date()}
-              selected={dueDate}
-              onChange={(date) =>
-                date &&
-                setNewTodo({
-                  ...newTodo,
-                  dueDate: date,
-                })
-              }
-              placeholderText="Please select a date"
-              className="picker"
-            />
-          </Box>
+          <CalendarButton
+            dueDate={dueDate}
+            newTodo={newTodo}
+            setNewTodo={setNewTodo}
+          />
           <Divider orientation="horizontal" borderColor="blackAlpha.300" />
         </Stack>
       </FormControl>

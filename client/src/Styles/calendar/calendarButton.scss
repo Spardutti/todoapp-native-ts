@@ -1,0 +1,38 @@
+.buttonDiv {
+  width: 100%;
+  //max-height: 38px;
+  padding-bottom: 10px;
+  //margin-top: 0px;
+}
+
+.box {
+  max-height: 28px;
+  display: flex;
+  flex-direction: row;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.iconDiv {
+  //width: 99%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.icon {
+  //width: 100%;
+  //height: 99%;
+  //margin-top: 5px;
+  color: green;
+}
+
+.pickerDiv {
+  display: none;
+  max-height: 1px;
+  max-width: 1px;
+}
+
+.showDateDiv {
+  padding-left: 5px;
+}

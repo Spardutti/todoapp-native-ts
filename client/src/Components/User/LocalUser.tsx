@@ -8,7 +8,6 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useLocalUser } from "../../api/User/post_user";
-import { useAppDispatch, useAppSelector } from "../../hooks";
 
 export const LocalUser = () => {
   const [, setErr] = useState("");
@@ -16,9 +15,6 @@ export const LocalUser = () => {
     email: "",
     password: "",
   });
-  const dispatch = useAppDispatch();
-
-  const user = useAppSelector((state) => state.user);
 
   /* ONCHANGE HANDLER */
   const onChange = (e: any) => {

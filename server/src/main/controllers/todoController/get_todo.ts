@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { DateTime } from "luxon";
 import { TodoModel } from "../../models/TodoModel";
 
 /* GET ALL USER TODOS */
@@ -75,7 +76,8 @@ const getTodaysTodos = async (
   next: NextFunction
 ) => {
   try {
-    const date = new Date().toISOString().split("T")[0];
+    const date = DateTime.now().toLocaleString();
+
     const todos = await TodoModel.find({
       author: req.user?._id,
       dueDate: { $lte: date },
@@ -84,11 +86,10 @@ const getTodaysTodos = async (
     const olderTodos = [];
     for (let i = 0; i < todos.length; i++) {
       const arrayElement = todos[i];
-      if (arrayElement.dueDate.toISOString().split("T")[0] < date) {
+      if (arrayElement.dueDate.toLocaleDateString() < date) {
         olderTodos.push(arrayElement);
       } else todayTodos.push(arrayElement);
     }
-
     res.json({ todayTodos, olderTodos });
   } catch (error) {
     return next(error);

@@ -5,9 +5,7 @@ import Today from "../Today/Today";
 export const Home = () => {
   return (
     <Grid templateColumns={["12fr", "", "2fr 10fr"]}>
-      <Box>
-        <DrawerMenu />
-      </Box>
+      <Box></Box>
       <Box mx="auto">
         <Today />
       </Box>

@@ -7,6 +7,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { useDispatch } from "react-redux";
 import { toggleDrawer } from "../../store/Reducers/Drawer/drawerReducer";
 import { useNavigate } from "react-router-dom";
+import DrawerMenu from "../DrawerMenu/DrawerMenu";
 
 export const NavBar = () => {
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ export const NavBar = () => {
       <Stack justify={"end"} w="50%" direction={"row"} alignItems={"center"}>
         <QuickIcons hoverColor={hoverColor} />
       </Stack>
+      <DrawerMenu />
     </Stack>
   );
 };

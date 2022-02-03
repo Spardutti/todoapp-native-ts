@@ -33,9 +33,9 @@ function App() {
               <Route path="/home" element={<ProtectedRoute />}>
                 <Route path="/home" element={<Home />} />
               </Route>
-              {/* <Route path="/upcoming" element={<ProtectedRoute />}> */}
-              <Route path="/upcoming" element={<Upcoming />} />
-              {/* </Route> */}
+              <Route path="/upcoming" element={<ProtectedRoute />}>
+                <Route path="/upcoming" element={<Upcoming />} />
+              </Route>
             </Routes>
           </ChakraProvider>
           <ReactQueryDevtools initialIsOpen={false} />

@@ -33,7 +33,6 @@ export const LocalUser = () => {
     );
     if (info) {
       localStorage.setItem("todoToken", info.data.token);
-      console.log(info.data.user);
     }
   };
 

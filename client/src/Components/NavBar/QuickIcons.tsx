@@ -9,8 +9,6 @@ interface HoverColor {
 export const QuickIcons: React.FC<HoverColor> = ({ hoverColor }) => {
   const user = useAppSelector((state) => state.user);
 
-  console.log(user);
-
   return (
     <Stack direction={"row"} alignItems={"center"}>
       <Box

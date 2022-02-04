@@ -6,13 +6,19 @@ import { FaLessThan, FaGreaterThan } from "react-icons/fa";
 interface WeekSelectorProps {
   date: DateTime;
   setDate: Dispatch<SetStateAction<DateTime>>;
+  today: DateTime;
+  setSelectedDay: Dispatch<SetStateAction<DateTime>>;
 }
 
-const WeekSelector: React.FC<WeekSelectorProps> = ({ date, setDate }) => {
-  const [today] = useState<DateTime>(DateTime.now());
-
+const WeekSelector: React.FC<WeekSelectorProps> = ({
+  date,
+  setDate,
+  today,
+  setSelectedDay,
+}) => {
   const nextWeek = () => {
     setDate(DateTime.fromObject({ weekNumber: date.weekNumber + 1 }));
+    console.log(date.toString());
   };
 
   const prevWeek = () => {
@@ -20,7 +26,8 @@ const WeekSelector: React.FC<WeekSelectorProps> = ({ date, setDate }) => {
   };
 
   const todayDate = () => {
-    setDate(today);
+    setDate(DateTime.now());
+    setSelectedDay(DateTime.now());
   };
 
   return (

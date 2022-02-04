@@ -8,6 +8,7 @@ import {
   Stack,
   Textarea,
   Divider,
+  Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
@@ -34,12 +35,12 @@ export const CalendarButton: React.FC<Props> = ({
   };
 
   return (
-    <div className="buttonDiv">
-      <Box maxWidth="sm" onClick={openDatePicker} className="box">
-        <div className="iconDiv">
+    <Box maxH="38px" className="buttonDiv">
+      <Box maxH="26px" maxWidth="sm" onClick={openDatePicker} className="box">
+        <Box className="iconDiv" maxH="16px" maxW="18px">
           <BsCalendar4Event className="icon" />
-        </div>
-        <div>
+        </Box>
+        <Box>
           <DatePicker
             minDate={new Date()}
             selected={dueDate}
@@ -53,11 +54,11 @@ export const CalendarButton: React.FC<Props> = ({
             open={datePickerToggle}
             className="pickerDiv"
           />
-        </div>
-        <div className="showDateDiv">
-          <p>Hoy</p>
-        </div>
+        </Box>
+        <Box className="showDateDiv" maxH="16px">
+          <Text fontSize="xs">Hoy</Text>
+        </Box>
       </Box>
-    </div>
+    </Box>
   );
 };

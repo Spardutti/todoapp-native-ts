@@ -25,7 +25,7 @@ export const AddTodoModal = () => {
         isCentered
       >
         <ModalOverlay />
-        <ModalContent maxWidth="xl">
+        <ModalContent maxWidth="518px" height="209px">
           <AddTodo />
         </ModalContent>
       </Modal>

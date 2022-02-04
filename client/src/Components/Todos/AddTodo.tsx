@@ -18,6 +18,7 @@ import { useAppSelector } from "../../hooks";
 import { useAddTodo } from "../../api/Todo/post_todo";
 import React from "react";
 import DatePicker from "react-datepicker";
+import { OpenCalendarPopOverButton } from "../Calendar/OpenCalendarPopOver";
 
 export const AddTodo: React.FC = () => {
   const token = useAppSelector((state) => state.token);
@@ -66,15 +67,18 @@ export const AddTodo: React.FC = () => {
       //textAlign={"center"}
       //alignItems={"center"}
       //justifyContent={"center"}
+      flexDir="column"
+      padding="16px"
     >
       <FormControl mx={"auto"}>
-        <Stack alignItems={"center"}>
+        <Stack maxH="121px" alignItems={"center"} marginBottom="10px">
           <Input
             placeholder="Todo name"
             variant="unstyled"
             value={todoName}
             name="todoName"
             onChange={(e) => newTodoHandler(e)}
+            maxH="21px"
           />
           <Textarea
             resize="none"
@@ -83,22 +87,36 @@ export const AddTodo: React.FC = () => {
             value={todoDescription}
             name="todoDescription"
             onChange={(e) => newTodoHandler(e)}
+            maxH="36px"
+            padding="1px"
+            marginTop="8px"
           />
-          <CalendarButton
+          <Box width="100%">
+            <OpenCalendarPopOverButton />
+          </Box>
+          {/*  <CalendarButton
             dueDate={dueDate}
             newTodo={newTodo}
             setNewTodo={setNewTodo}
-          />
+          /> */}
           <Divider orientation="horizontal" borderColor="blackAlpha.300" />
         </Stack>
       </FormControl>
-      <Box>
+      <Box
+        maxH="32px"
+        padding="16px"
+        //borderTop="1px"
+        marginX="-4"
+        marginTop="1.5"
+        marginBottom="-4"
+      >
         {isLoading ? (
           <Button
             mt={2}
             colorScheme="teal"
             isLoading
             loadingText="Submitting"
+            maxH="44px"
           />
         ) : (
           <Button
@@ -106,6 +124,9 @@ export const AddTodo: React.FC = () => {
             colorScheme="messenger"
             onClick={addTodo}
             disabled={!todoName || !todoDescription || !dueDate}
+            maxH="30px"
+            maxW="78px"
+            fontSize="xs"
           >
             Create Todo
           </Button>

@@ -18,7 +18,6 @@ const WeekSelector: React.FC<WeekSelectorProps> = ({
 }) => {
   const nextWeek = () => {
     setDate(DateTime.fromObject({ weekNumber: date.weekNumber + 1 }));
-    console.log(date.toString());
   };
 
   const prevWeek = () => {
@@ -34,11 +33,10 @@ const WeekSelector: React.FC<WeekSelectorProps> = ({
     <HStack>
       <Grid
         templateColumns={"1fr 1fr"}
-        h={7}
+        h={6}
         border="1px"
         borderColor={"#CCCCCC"}
         borderRadius={4}
-        py={0}
       >
         <VStack
           px={2}
@@ -74,14 +72,16 @@ const WeekSelector: React.FC<WeekSelectorProps> = ({
         border="1px"
         borderColor={"#CCCCCC"}
         px={4}
-        h={7}
+        h={6}
         borderRadius={4}
         _hover={{
           background: "#EEE",
         }}
         onClick={todayDate}
       >
-        Today
+        <Text fontSize={15} userSelect={"none"}>
+          Today
+        </Text>
       </Box>
     </HStack>
   );

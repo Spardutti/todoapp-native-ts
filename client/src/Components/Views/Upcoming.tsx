@@ -1,8 +1,6 @@
-import { Box, Heading, HStack, Stack } from "@chakra-ui/react";
+import { Stack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import Calendar from "react-calendar";
 import WeekDisplay from "../Upcoming/WeekDisplay";
-import "react-calendar/dist/Calendar.css";
 
 interface UpcomingProps {}
 
@@ -13,15 +11,10 @@ const Upcoming: React.FC<UpcomingProps> = () => {
   const [value, onChange] = useState(new Date());
 
   return (
-    <Stack p={10}>
+    <Stack p={0}>
       <WeekDisplay />
-      <Box w={200} fontSize={8}>
-        {/* <Calendar onChange={onChange} value={value} /> */}
-      </Box>
     </Stack>
   );
 };
 
 export default Upcoming;
-
-/*  */

@@ -19,10 +19,10 @@ export const AddTodoModal: React.FC<{ color: string; text: string }> = ({
     <HStack onClick={onOpen} cursor={"pointer"}>
       <IoAddOutline color={color} fontSize={25} />
       <Text display={text ? "block" : "none"}>{text}</Text>
-      <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+      <Modal blockScrollOnMount={true} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <AddTodo />
+          <AddTodo onClose={onClose} />
         </ModalContent>
       </Modal>
     </HStack>

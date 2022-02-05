@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { DateTime } from "luxon";
-import { Box, Heading, HStack, Text } from "@chakra-ui/react";
+import { Box, Divider, Heading, HStack, Text } from "@chakra-ui/react";
 import WeekSelector from "./WeekSelector";
+import UpcomingDays from "./UpcomingDays";
 
 interface WeekDisplayProps {}
 
@@ -32,58 +33,75 @@ const WeekDisplay: React.FC<WeekDisplayProps> = () => {
   };
 
   return (
-    <Box pl={10}>
-      <HStack mb={10} justify={"space-between"} align={"center"}>
-        <Heading fontSize={25} cursor={"pointer"}>
-          {date.monthLong} {date.year}
-        </Heading>
-        <WeekSelector
-          date={date}
-          setDate={setDate}
-          today={today}
-          setSelectedDay={setSelectedDay}
-        />
-      </HStack>
-      <HStack justify={"space-evenly"}>
-        {weekToShow?.map((elem, index) => {
-          return (
-            <div key={index}>
-              {selectedDay.day === elem.day ? (
-                <Box
-                  textAlign={"center"}
-                  cursor={"pointer"}
-                  _hover={{ background: "#EEEEEE" }}
-                  w={20}
-                  py={2}
-                  borderRadius={10}
-                  onClick={() => selectDate(elem)}
-                >
-                  <Text>{elem.weekdayShort}</Text>
-                  <Text color={"#DD4B56"}>{elem.day}</Text>
-                </Box>
-              ) : elem.startOf("day") < today.startOf("day") ? (
-                <Box>
-                  <Text>{elem.weekdayShort}</Text>
-                  <Text color={"#DEDEDE"}>{elem.day}</Text>
-                </Box>
-              ) : (
-                <Box
-                  textAlign={"center"}
-                  cursor={"pointer"}
-                  _hover={{ background: "#EEEEEE" }}
-                  w={20}
-                  py={2}
-                  borderRadius={10}
-                  onClick={() => selectDate(elem)}
-                >
-                  <Text>{elem.weekdayShort}</Text>
-                  <Text>{elem.day}</Text>
-                </Box>
-              )}
-            </div>
-          );
-        })}
-      </HStack>
+    <Box>
+      <Box
+        pt={3}
+        position="fixed"
+        bg={"white"}
+        mt={12}
+        w="100%"
+        zIndex={100}
+        pb={5}
+        px={10}
+      >
+        <HStack mb={5} justify={"space-between"} align={"center"}>
+          <Heading fontSize={20} cursor={"pointer"}>
+            {date.monthLong} {date.year}
+          </Heading>
+          <WeekSelector
+            date={date}
+            setDate={setDate}
+            today={today}
+            setSelectedDay={setSelectedDay}
+          />
+        </HStack>
+        <HStack justify={"space-evenly"}>
+          {weekToShow?.map((elem, index) => {
+            return (
+              <div key={index}>
+                {selectedDay.day === elem.day ? (
+                  <Box
+                    textAlign={"center"}
+                    cursor={"pointer"}
+                    _hover={{ background: "#EEEEEE" }}
+                    w={20}
+                    py={2}
+                    borderRadius={10}
+                    onClick={() => selectDate(elem)}
+                  >
+                    <Text fontSize={13}>{elem.weekdayShort}</Text>
+                    <Text fontSize={13} color={"#DD4B56"}>
+                      {elem.day}
+                    </Text>
+                  </Box>
+                ) : elem.startOf("day") < today.startOf("day") ? (
+                  <Box>
+                    <Text fontSize={13}>{elem.weekdayShort}</Text>
+                    <Text fontSize={13} color={"#DEDEDE"}>
+                      {elem.day}
+                    </Text>
+                  </Box>
+                ) : (
+                  <Box
+                    textAlign={"center"}
+                    cursor={"pointer"}
+                    _hover={{ background: "#EEEEEE" }}
+                    w={20}
+                    py={2}
+                    borderRadius={10}
+                    onClick={() => selectDate(elem)}
+                  >
+                    <Text fontSize={13}>{elem.weekdayShort}</Text>
+                    <Text fontSize={13}>{elem.day}</Text>
+                  </Box>
+                )}
+              </div>
+            );
+          })}
+        </HStack>
+        <Divider />
+      </Box>
+      <UpcomingDays selectedDate={selectedDay} />
     </Box>
   );
 };

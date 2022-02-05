@@ -22,6 +22,9 @@ export const NavBar = () => {
       bg={"red.500"}
       h={12}
       px={10}
+      w={"100%"}
+      position="fixed"
+      zIndex={100}
     >
       <Box
         onClick={() => dispatch(toggleDrawer())}

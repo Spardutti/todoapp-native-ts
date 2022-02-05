@@ -5,10 +5,17 @@ import {
   PopoverHeader,
   PopoverBody,
   Text,
+  Box,
 } from "@chakra-ui/react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { BsCalendar4Event } from "react-icons/bs";
+import {
+  BsCalendar4Event,
+  BsFillCalendar2RangeFill,
+  BsSlashCircle,
+} from "react-icons/bs";
+import { FaCouch } from "react-icons/fa";
+import { CgCalendarNext } from "react-icons/cg";
 import React, { useState } from "react";
 import "../../Styles/calendar/calendarButton.scss";
 
@@ -21,7 +28,7 @@ export const OpenCalendarPopOverButton = () => {
         <PopoverTrigger>
           <BsCalendar4Event color="green" />
         </PopoverTrigger>
-        <PopoverContent width="250px" height="479px">
+        <PopoverContent width="250px" height="533px">
           <PopoverHeader
             width="250px"
             height="43px"
@@ -34,12 +41,54 @@ export const OpenCalendarPopOverButton = () => {
           </PopoverHeader>
           <PopoverBody
             width="250px"
-            height="105px"
+            height="161px"
             px="0px"
             py="4px"
             borderBottom="1px"
             borderColor="blackAlpha.200"
-          ></PopoverBody>
+          >
+            <Box px="10px" py="4px" height="38px" display="flex">
+              <Box width="24px" height="24px" mr="10px" padding="4px">
+                <BsFillCalendar2RangeFill color="green" />
+              </Box>
+              <Box maxW="100px">
+                <Text fontSize="sm" fontWeight="500">
+                  Tomorrow
+                </Text>
+              </Box>
+            </Box>
+            <Box px="10px" py="4px" height="38px" display="flex">
+              <Box width="24px" height="24px" mr="10px" padding="4px">
+                <FaCouch color="skyblue" />
+              </Box>
+              <Box maxW="100px">
+                <Text fontSize="sm" fontWeight="500">
+                  Next weekend
+                </Text>
+              </Box>
+              <Box></Box>
+            </Box>
+            <Box px="10px" py="4px" height="38px" display="flex">
+              <Box width="24px" height="24px" mr="10px" padding="4px">
+                <CgCalendarNext color="purple" />
+              </Box>
+              <Box maxW="100px">
+                <Text fontSize="sm" fontWeight="500">
+                  Next week
+                </Text>
+              </Box>
+            </Box>
+            <Box px="10px" py="4px" height="38px" display="flex">
+              <Box width="24px" height="24px" mr="10px" padding="4px">
+                <BsSlashCircle color="grey" />
+              </Box>
+              <Box maxW="100px">
+                <Text fontSize="sm" fontWeight="500">
+                  No date
+                </Text>
+              </Box>
+            </Box>
+          </PopoverBody>
           <PopoverBody padding="0px">
             <Calendar
               onChange={setPickedDate}

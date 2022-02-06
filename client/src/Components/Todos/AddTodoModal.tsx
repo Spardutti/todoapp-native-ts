@@ -26,7 +26,7 @@ export const AddTodoModal = () => {
       >
         <ModalOverlay />
         <ModalContent maxWidth="518px" height="209px">
-          <AddTodo />
+          <AddTodo preSelectedDate={new Date("2022-02-06T16:35:02.081Z")} />
         </ModalContent>
       </Modal>
     </>

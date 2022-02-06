@@ -9,7 +9,7 @@ import {
   Textarea,
   Divider,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQueryClient } from "react-query";
 import { Todo } from "../../api/Todo/post_todo";
 import { CalendarButton } from "../Calendar/calendarButton";
@@ -17,23 +17,32 @@ import "../../Styles/calendar/calendarButton.scss";
 import { useAppSelector } from "../../hooks";
 import { useAddTodo } from "../../api/Todo/post_todo";
 import React from "react";
-import DatePicker from "react-datepicker";
 import { OpenCalendarPopOverButton } from "../Calendar/OpenCalendarPopOver";
+import { DateTime } from "luxon";
 
-export const AddTodo: React.FC = () => {
+interface Props {
+  preSelectedDate: Date | null;
+}
+
+export const AddTodo: React.FC<Props> = ({ preSelectedDate }) => {
   const token = useAppSelector((state) => state.token);
+  const [pickedDate, setPickedDate] = useState(new Date());
   const [newTodo, setNewTodo] = useState<Todo>({
     todoName: "",
     todoDescription: "",
-    dueDate: null,
+    dueDate: pickedDate,
     token: token,
   });
+
+  useEffect(() => {
+    if (preSelectedDate) setPickedDate(preSelectedDate);
+  }, []);
 
   const resetState = () => {
     setNewTodo({
       todoName: "",
       todoDescription: "",
-      dueDate: null,
+      dueDate: pickedDate,
     });
   };
 
@@ -92,7 +101,10 @@ export const AddTodo: React.FC = () => {
             marginTop="8px"
           />
           <Box width="100%">
-            <OpenCalendarPopOverButton />
+            <OpenCalendarPopOverButton
+              pickedDate={pickedDate}
+              setPickedDate={setPickedDate}
+            />
           </Box>
           {/*  <CalendarButton
             dueDate={dueDate}

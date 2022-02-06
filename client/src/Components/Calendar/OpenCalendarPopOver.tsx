@@ -6,6 +6,7 @@ import {
   PopoverBody,
   Text,
   Box,
+  Button,
 } from "@chakra-ui/react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
@@ -18,15 +19,26 @@ import { FaCouch } from "react-icons/fa";
 import { CgCalendarNext } from "react-icons/cg";
 import React, { useState } from "react";
 import "../../Styles/calendar/calendarButton.scss";
+import { DateTime } from "luxon";
 
-export const OpenCalendarPopOverButton = () => {
-  const [pickedDate, setPickedDate] = useState(new Date());
+interface Props {
+  pickedDate: Date | null;
+  setPickedDate: React.Dispatch<React.SetStateAction<Date>>;
+}
 
+export const OpenCalendarPopOverButton: React.FC<Props> = ({
+  pickedDate,
+  setPickedDate,
+}) => {
+  //const [luxonDate, setluxonDate] = useState(DateTime);
   return (
     <>
-      <Popover>
+      <Popover placement="right">
         <PopoverTrigger>
-          <BsCalendar4Event color="green" />
+          <Button>
+            <BsCalendar4Event color="green" />
+            <Text>{pickedDate?.toString().slice(4, 10)}</Text>
+          </Button>
         </PopoverTrigger>
         <PopoverContent width="250px" height="533px">
           <PopoverHeader
@@ -37,7 +49,7 @@ export const OpenCalendarPopOverButton = () => {
             paddingRight="10px"
             borderColor="blackAlpha.200"
           >
-            <Text fontSize="13px">{pickedDate.toString().slice(4, 10)}</Text>
+            <Text fontSize="13px">{pickedDate?.toString().slice(4, 10)}</Text>
           </PopoverHeader>
           <PopoverBody
             width="250px"

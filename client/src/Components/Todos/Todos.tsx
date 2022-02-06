@@ -63,7 +63,7 @@ export const Todos = () => {
 
   return (
     <>
-      <AddTodo />
+      <AddTodo preSelectedDate={new Date("2022-02-06T16:35:02.081Z")} />
       <NewCategory />
       <Button onClick={logout}>Logout </Button>
       {user ? <div>hello {user.username} </div> : null}

@@ -12,7 +12,6 @@ import {
 import { useState, useEffect } from "react";
 import { useQueryClient } from "react-query";
 import { Todo } from "../../api/Todo/post_todo";
-import { CalendarButton } from "../Calendar/calendarButton";
 import "../../Styles/calendar/calendarButton.scss";
 import { useAppSelector } from "../../hooks";
 import { useAddTodo } from "../../api/Todo/post_todo";
@@ -22,9 +21,10 @@ import { DateTime } from "luxon";
 
 interface Props {
   preSelectedDate: Date | null;
+  onClose: () => void;
 }
 
-export const AddTodo: React.FC<Props> = ({ preSelectedDate }) => {
+export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
   const token = useAppSelector((state) => state.token);
   const [pickedDate, setPickedDate] = useState(new Date());
   const [newTodo, setNewTodo] = useState<Todo>({
@@ -37,6 +37,10 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate }) => {
   useEffect(() => {
     if (preSelectedDate) setPickedDate(preSelectedDate);
   }, []);
+
+  useEffect(() => {
+    setNewTodo({ ...newTodo, dueDate: pickedDate });
+  }, [pickedDate]);
 
   const resetState = () => {
     setNewTodo({
@@ -79,6 +83,7 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate }) => {
       flexDir="column"
       padding="16px"
     >
+      <CloseButton ml="auto" onClick={onClose} />
       <FormControl mx={"auto"}>
         <Stack maxH="121px" alignItems={"center"} marginBottom="10px">
           <Input

@@ -64,6 +64,6 @@ const getTodaysTodos = (token: string) => {
 };
 
 const useGetTodaysTodos = (token: string) => {
-  return useQuery(["todos", token], () => getTodaysTodos(token));
+  return useQuery<any, any, any>(["todos", token], () => getTodaysTodos(token));
 };
 export { useGetUserTodos, useGetTodo, useGetTodosByDate, useGetTodaysTodos };

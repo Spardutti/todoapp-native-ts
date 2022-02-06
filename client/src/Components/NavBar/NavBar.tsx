@@ -1,4 +1,4 @@
-import { Box, Stack } from "@chakra-ui/react";
+import { Box, Stack, useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
 import { AiOutlineHome } from "react-icons/ai";
 import { NavBarSearch } from "./NavBarSearch";
@@ -7,11 +7,14 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { useDispatch } from "react-redux";
 import { toggleDrawer } from "../../store/Reducers/Drawer/drawerReducer";
 import { useNavigate } from "react-router-dom";
+import DrawerMenu from "../DrawerMenu/DrawerMenu";
 
 export const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [hoverColor] = useState("#ffffff75");
+
+  const { onOpen } = useDisclosure({ id: "draw" });
   return (
     <Stack
       alignItems={"center"}
@@ -19,6 +22,9 @@ export const NavBar = () => {
       bg={"red.500"}
       h={12}
       px={10}
+      w={"100%"}
+      position="fixed"
+      zIndex={100}
     >
       <Box
         onClick={() => dispatch(toggleDrawer())}
@@ -45,7 +51,8 @@ export const NavBar = () => {
             fontSize={20}
             color="white"
             cursor={"pointer"}
-            onClick={() => navigate("/home")}
+            // onClick={() => navigate("/home")}
+            onClick={onOpen}
           />
         </Box>
         <NavBarSearch />
@@ -53,6 +60,7 @@ export const NavBar = () => {
       <Stack justify={"end"} w="50%" direction={"row"} alignItems={"center"}>
         <QuickIcons hoverColor={hoverColor} />
       </Stack>
+      <DrawerMenu />
     </Stack>
   );
 };

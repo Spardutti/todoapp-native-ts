@@ -20,6 +20,7 @@ import { CgCalendarNext } from "react-icons/cg";
 import React, { useState } from "react";
 import "../../Styles/calendar/calendarButton.scss";
 import { DateTime } from "luxon";
+import { TomorrowCalendarButton } from "./TomorrowCalendarButton";
 
 interface Props {
   pickedDate: Date | null;
@@ -60,14 +61,7 @@ export const OpenCalendarPopOverButton: React.FC<Props> = ({
             borderColor="blackAlpha.200"
           >
             <Box px="10px" py="4px" height="38px" display="flex">
-              <Box width="24px" height="24px" mr="10px" padding="4px">
-                <BsFillCalendar2RangeFill color="green" />
-              </Box>
-              <Box maxW="100px">
-                <Text fontSize="sm" fontWeight="500">
-                  Tomorrow
-                </Text>
-              </Box>
+              <TomorrowCalendarButton setPickedDate={setPickedDate} />
             </Box>
             <Box px="10px" py="4px" height="38px" display="flex">
               <Box width="24px" height="24px" mr="10px" padding="4px">

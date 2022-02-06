@@ -1,6 +1,4 @@
 import { Avatar, Box, Stack } from "@chakra-ui/react";
-import { useState } from "react";
-import { IoAddOutline } from "react-icons/io5";
 import { useAppSelector } from "../../hooks";
 import { AddTodoModal } from "../Todos/AddTodoModal";
 
@@ -9,8 +7,8 @@ interface HoverColor {
 }
 
 export const QuickIcons: React.FC<HoverColor> = ({ hoverColor }) => {
-  const [showAddTodoForm, setShowAddTodoForm] = useState(false);
   const user = useAppSelector((state) => state.user);
+
   return (
     <Stack direction={"row"} alignItems={"center"}>
       <Box
@@ -19,8 +17,9 @@ export const QuickIcons: React.FC<HoverColor> = ({ hoverColor }) => {
         _hover={{
           background: hoverColor,
         }}
+        textAlign={"center"}
       >
-        <AddTodoModal />
+        <AddTodoModal color="white" text="" />
       </Box>
       {user && (
         <Avatar

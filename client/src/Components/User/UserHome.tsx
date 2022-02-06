@@ -1,21 +1,15 @@
-import {
-  Box,
-  Button,
-  Center,
-  Divider,
-  Input,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Center, Stack, Text } from "@chakra-ui/react";
 import { NewUser } from "./NewUser";
 import { LocalUser } from "./LocalUser";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const UserHome = () => {
-  const [user, setUser] = useState();
-
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("todoToken");
+    if (token) navigate("/home");
+  }, []);
 
   return (
     <Center pt={10}>

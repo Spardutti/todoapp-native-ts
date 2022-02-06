@@ -11,7 +11,7 @@ const Upcoming: React.FC<UpcomingProps> = () => {
   const [value, onChange] = useState(new Date());
 
   return (
-    <Stack p={0}>
+    <Stack>
       <WeekDisplay />
     </Stack>
   );

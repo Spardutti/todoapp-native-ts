@@ -8,7 +8,7 @@ interface OverdueTodosProps {
 
 const OverdueTodos: React.FC<OverdueTodosProps> = ({ todo }) => {
   return (
-    <Box px={10}>
+    <Box p={10}>
       <HStack overflow={"hidden"} justify={"space-between"}>
         <Heading fontSize={15}>Overdue</Heading>
         <Text color={"red"}>Reschedule</Text>

@@ -1,4 +1,4 @@
-import { Heading, HStack, Stack } from "@chakra-ui/react";
+import { Box, Heading, HStack, Stack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useGetTodaysTodos } from "../../api/Todo/get_todo";
 import { useAppSelector } from "../../hooks";
@@ -25,7 +25,7 @@ const Today: React.FC<TodayProps> = () => {
   if (isLoading) return <p>Loading</p>;
 
   return (
-    <Stack p={10}>
+    <Stack>
       <Heading fontSize={25} mb={10}>
         Today{" "}
         <span style={{ fontSize: "13px", color: "gray", fontWeight: "normal" }}>
@@ -35,8 +35,12 @@ const Today: React.FC<TodayProps> = () => {
         </span>
       </Heading>
       {olderTodos.length > 0 ? <OverdueTodos todo={olderTodos} /> : null}
-      <Todos todo={todayTodos} />
+      <Box px={10}>
+        <Todos todo={todayTodos} />
+      </Box>
       <HStack
+        px={10}
+        pb={10}
         _focus={{
           boxShadow: "none",
         }}

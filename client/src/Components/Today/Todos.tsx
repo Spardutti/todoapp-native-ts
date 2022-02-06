@@ -6,6 +6,7 @@ interface TodosProps {
   todo: never[];
 }
 
+/* SHOW TODAY TODOS */
 const Todos: React.FC<TodosProps> = ({ todo }) => {
   const [currentDate] = useState(new Date(Date.now()));
   const [month] = useState(

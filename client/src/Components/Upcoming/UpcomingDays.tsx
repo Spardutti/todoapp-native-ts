@@ -30,6 +30,7 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
     for (let i = 0; i < 30; i++) {
       days.push(firstDay.set({ day: firstDay.day + i }));
     }
+
     setDaysFrom(days);
   }, [selectedDate]);
 
@@ -39,7 +40,7 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
       <>
         {daysFrom.map((day, index) => {
           return (
-            <Box key={index} py={10} px={10}>
+            <Box key={index} p={10}>
               <Text fontWeight={"bold"} color="gray">
                 {day.monthShort} {day.day} - {day.weekdayLong}
               </Text>
@@ -67,7 +68,7 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
   if (isLoading) return <p>Loading</p>;
 
   return (
-    <Box mt={60}>
+    <Box mt={40}>
       <Box>{overdueTodos && <OverdueTodos todo={overdueTodos} />}</Box>
       <DisplayDays />
     </Box>

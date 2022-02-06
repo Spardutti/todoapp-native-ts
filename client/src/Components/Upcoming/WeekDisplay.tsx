@@ -42,7 +42,6 @@ const WeekDisplay: React.FC<WeekDisplayProps> = () => {
         w="100%"
         zIndex={100}
         pb={5}
-        px={10}
       >
         <HStack mb={5} justify={"space-between"} align={"center"}>
           <Heading fontSize={20} cursor={"pointer"}>
@@ -55,7 +54,7 @@ const WeekDisplay: React.FC<WeekDisplayProps> = () => {
             setSelectedDay={setSelectedDay}
           />
         </HStack>
-        <HStack justify={"space-evenly"}>
+        <HStack justify={"space-evenly"} pb={1}>
           {weekToShow?.map((elem, index) => {
             return (
               <div key={index}>

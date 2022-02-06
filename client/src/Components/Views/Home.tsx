@@ -4,11 +4,11 @@ import Today from "../Today/Today";
 
 export const Home = () => {
   return (
-    <Grid templateColumns={["  10fr"]}>
+    <Box>
       {/* <Box></Box> */}
       <Box mx="auto">
         <Today />
       </Box>
-    </Grid>
+    </Box>
   );
 };

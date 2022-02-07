@@ -6,6 +6,8 @@ interface HoverColor {
   hoverColor: string;
 }
 
+/* DISPLAY THE ADD TODO AND AVATAR
+ONT HE NAV BAR */
 export const QuickIcons: React.FC<HoverColor> = ({ hoverColor }) => {
   const user = useAppSelector((state) => state.user);
 

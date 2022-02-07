@@ -1,24 +1,24 @@
-import { Box, Heading, HStack, Stack } from "@chakra-ui/react";
+import { Box, Divider, Heading, HStack, Stack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useGetTodaysTodos } from "../../api/Todo/get_todo";
 import { useAppSelector } from "../../hooks";
 import { AddTodoModal } from "../Todos/AddTodoModal";
-import OverdueTodos from "./OverdueTodos";
-import Todos from "./Todos";
+import OverdueTodos from "../OverdueTodos/OverdueTodos";
+import { DateTime } from "luxon";
+import TodoCard from "../Todos/TodoCard";
 
 interface TodayProps {}
 
+/*  SHOW TODAY TODOS & OVERDUES IF THEY EXIST */
 const Today: React.FC<TodayProps> = () => {
   const token = useAppSelector((state) => state.token.token);
   const [todayTodos, setTodayTodos] = useState([]);
-  const [olderTodos, setOlderTodos] = useState([]);
-  const [currentDate] = useState(new Date(Date.now()));
+  const [currentDate] = useState(DateTime.now());
   const { isLoading, data } = useGetTodaysTodos(token);
 
   useEffect(() => {
     if (data) {
-      setTodayTodos(data.data.todayTodos);
-      setOlderTodos(data.data.olderTodos);
+      setTodayTodos(data.data);
     }
   }, [data]);
 
@@ -26,17 +26,17 @@ const Today: React.FC<TodayProps> = () => {
 
   return (
     <Stack>
-      <Heading fontSize={25} mb={10}>
-        Today{" "}
-        <span style={{ fontSize: "13px", color: "gray", fontWeight: "normal" }}>
-          {currentDate.toLocaleString("default", { weekday: "short" })}{" "}
-          {currentDate.toLocaleString("default", { month: "short" })}{" "}
-          {currentDate.toLocaleDateString("default", { day: "numeric" })}
-        </span>
-      </Heading>
-      {olderTodos.length > 0 ? <OverdueTodos todo={olderTodos} /> : null}
-      <Box px={10}>
-        <Todos todo={todayTodos} />
+      <OverdueTodos />
+      <Box mt={10} px={10}>
+        <HStack overflow={"hidden"} justify={"space-between"}>
+          <Heading fontSize={15}>
+            {currentDate.monthShort} {currentDate.day} - Today
+          </Heading>
+        </HStack>
+        <Divider py={2} />
+        {todayTodos.map((elem, index) => {
+          return <TodoCard todo={elem} key={index} />;
+        })}
       </Box>
       <HStack
         px={10}

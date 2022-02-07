@@ -12,8 +12,9 @@ import { BsFillCalendarXFill } from "react-icons/bs";
 import { BsCheck2 } from "react-icons/bs";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
-import TodoDescription from "./TodoDescription";
+import TodoDescription from "../Todos/TodoDescription";
 import DeleteEditButtons from "../Buttons/DeleteEditButtons";
+import { DateTime } from "luxon";
 
 interface OverdueTodoCardProps {
   todo: {
@@ -25,15 +26,10 @@ interface OverdueTodoCardProps {
   };
 }
 
+/* DISPLAY THE OVERDUE CARD  */
 const OverdueTodoCard: React.FC<OverdueTodoCardProps> = ({ todo }) => {
-  const [monthName] = useState(
-    new Date(todo.dueDate).toLocaleString("default", { month: "short" })
-  );
-  const [dayNumber] = useState(
-    new Date(todo.dueDate).toLocaleString("default", {
-      day: "2-digit",
-    })
-  );
+  const [monthName] = useState(DateTime.now().monthShort);
+  const [dayNumber] = useState(DateTime.now().day);
 
   const [show, setShow] = useState<string>("0");
 

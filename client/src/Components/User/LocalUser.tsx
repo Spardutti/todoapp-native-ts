@@ -9,6 +9,7 @@ import {
 import { useState } from "react";
 import { useLocalUser } from "../../api/User/post_user";
 
+/* DISPLAY A FORM TO LOGIN WITH EMAIL AND PASSWORD */
 export const LocalUser = () => {
   const [, setErr] = useState("");
   const [userCredentials, setUserCredentials] = useState({
@@ -36,9 +37,9 @@ export const LocalUser = () => {
     }
   };
 
+  /* DISPLAY VALIDATION ERRORS */
   if (error) {
     return (
-      /* DISPLAY ERRORS */
       <>
         <Text>Please log in to continue</Text>
         <FormLabel textAlign={"center"}>{error.data}</FormLabel>

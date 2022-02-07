@@ -1,16 +1,17 @@
 import { Box, Spinner } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
-import { TodoApi } from "../../api/Todo/TodoApi";
 import { useQueryClient } from "react-query";
+import { useDeleteTodo } from "../../api/Todo/delete_todo";
 
 interface DeleteEditButtonsProps {
   todoId: string;
 }
 
+/* RENDERS TODOCARD BUTTONS FOR EDIT AND DELETE */
 const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({ todoId }) => {
-  const { isLoading, mutateAsync } = TodoApi.useDeleteTodo(todoId);
+  const { isLoading, mutateAsync } = useDeleteTodo(todoId);
 
   const queryClient = useQueryClient();
 

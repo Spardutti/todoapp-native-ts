@@ -66,4 +66,47 @@ const getTodaysTodos = (token: string) => {
 const useGetTodaysTodos = (token: string) => {
   return useQuery<any, any, any>(["todos", token], () => getTodaysTodos(token));
 };
-export { useGetUserTodos, useGetTodo, useGetTodosByDate, useGetTodaysTodos };
+
+/* GET UPCOMING TODOS */
+const getUpcomingTodos = (token: string) => {
+  try {
+    const response = axios.get(`${devUrl}/upcomingtodos`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+const useGetUpcomingTodos = (token: string) => {
+  return useQuery<any, any, any>(["upcoming", token], () =>
+    getUpcomingTodos(token)
+  );
+};
+
+/* GET OVERDUE TODOS */
+const getOverdueTodos = (token: string) => {
+  try {
+    const response = axios.get(`${devUrl}/overduetodos`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+const useGetOverdueTodos = (token: string) => {
+  return useQuery<any, any, any>(["overdue", token], () =>
+    getOverdueTodos(token)
+  );
+};
+export {
+  useGetUserTodos,
+  useGetTodo,
+  useGetTodosByDate,
+  useGetTodaysTodos,
+  useGetUpcomingTodos,
+  useGetOverdueTodos,
+};

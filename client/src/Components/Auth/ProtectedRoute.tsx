@@ -6,6 +6,7 @@ import { getUserInfo } from "../../store/Reducers/User/userReducer";
 import { useAppDispatch } from "../../hooks";
 import { getToken } from "../../store/Reducers/Token/tokenReducer";
 
+/* CHECKS FOR TOKEN AND REDIRECT  */
 export const ProtectedRoute = () => {
   const [loading, setIsLoading] = useState(true);
   const [userId, setUserId] = useState("");
@@ -25,17 +26,17 @@ export const ProtectedRoute = () => {
     }
 
     setIsLoading(false);
-  }, []);
+  }, [dispatch]);
 
   /* WAIT FOR USERID BEFORE FETCHING */
   useEffect(() => {
     userId && refetch();
-  }, [userId]);
+  }, [userId, refetch]);
 
   /* WAIT FOR DATA AND SET IT TO USER */
   useEffect(() => {
     data && dispatch(getUserInfo(data.data));
-  }, [data]);
+  }, [data, dispatch]);
 
   if (isLoading) return <div>Loading</div>;
 

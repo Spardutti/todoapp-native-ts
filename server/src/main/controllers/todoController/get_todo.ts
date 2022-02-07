@@ -76,21 +76,51 @@ const getTodaysTodos = async (
   next: NextFunction
 ) => {
   try {
-    const date = DateTime.now().toLocaleString();
+    const today = DateTime.now().toLocaleString();
 
     const todos = await TodoModel.find({
       author: req.user?._id,
-      dueDate: { $lte: date },
+      dueDate: today,
     });
-    const todayTodos = [];
-    const olderTodos = [];
-    for (let i = 0; i < todos.length; i++) {
-      const arrayElement = todos[i];
-      if (arrayElement.dueDate.toLocaleDateString() < date) {
-        olderTodos.push(arrayElement);
-      } else todayTodos.push(arrayElement);
-    }
-    res.json({ todayTodos, olderTodos });
+
+    res.json(todos);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+/* GET OVERDUE TODOS */
+const getOverdueTodos = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const today = DateTime.now().toLocaleString();
+    const todos = await TodoModel.find({
+      author: req.user?._id,
+      dueDate: { $lt: today },
+    });
+    res.json(todos);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+/* GET UPCOMING TODOS */
+const getUpcomingTodos = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const date = DateTime.now().toLocaleString();
+    const todos = await TodoModel.find({
+      author: req.user?._id,
+      dueDate: { $gt: date },
+    });
+
+    res.status(200).json(todos);
   } catch (error) {
     return next(error);
   }
@@ -102,4 +132,6 @@ export {
   getTodoByStatus,
   getTodosByDate,
   getTodaysTodos,
+  getOverdueTodos,
+  getUpcomingTodos,
 };

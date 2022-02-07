@@ -1,7 +1,8 @@
 import { Button, FormLabel, Input, Stack } from "@chakra-ui/react";
 import { useState } from "react";
-import { UserApi } from "../../api/User/UserApi";
+import { useNewuser } from "../../api/User/post_user";
 
+/* DISPLAY A FORM TO CREATE A NEW USER */
 export const NewUser = () => {
   const [userInfo, setUserInfo] = useState({
     username: "",
@@ -16,7 +17,8 @@ export const NewUser = () => {
     });
   };
 
-  const { mutateAsync, isLoading, error } = UserApi.useNewuser();
+  /* POST THE DATA TO CREATE A NEW USER */
+  const { mutateAsync, isLoading, error } = useNewuser();
 
   const createUser = async () => {
     await mutateAsync(userInfo);
@@ -24,6 +26,7 @@ export const NewUser = () => {
 
   if (isLoading) return <div>loading </div>;
 
+  /* DISPLAY VALIDATION ERRORS */
   if (error) {
     return (
       <>

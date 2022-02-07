@@ -1,25 +1,35 @@
 import { Box, Divider, HStack, Text } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import React, { useState, useEffect } from "react";
-import { useGetTodaysTodos } from "../../api/Todo/get_todo";
+import { useGetUpcomingTodos } from "../../api/Todo/get_todo";
 import { useAppSelector } from "../../hooks";
-import OverdueTodos from "../Today/OverdueTodos";
+import OverdueTodos from "../OverdueTodos/OverdueTodos";
 import { AddTodoModal } from "../Todos/AddTodoModal";
+import TodoCard from "../Todos/TodoCard";
 
 interface UpcomingDaysProps {
   selectedDate: DateTime;
 }
 
-/* DISPLAY UPCOMING DAYS */
+interface Todo {
+  _id: string;
+  todoName: string;
+  dueDate: string;
+  isCompleted: boolean;
+  todoDescription: string;
+}
+
+/* DISPLAY UPCOMING DAYS*/
 const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
   const token = useAppSelector((state) => state.token.token);
-  const { isLoading, data } = useGetTodaysTodos(token);
-  const [overdueTodos, setOverdueTodos] = useState([]);
   const [daysFrom, setDaysFrom] = useState<DateTime[]>([]);
+  const [upcomingTodos, setUpcomingTodos] = useState<Todo[]>([]);
 
-  /* GET OVERDUE TODOS */
+  /* GET UPCOMING TODOS */
+  const { isLoading, data } = useGetUpcomingTodos(token);
+
   useEffect(() => {
-    if (data) setOverdueTodos(data.data.olderTodos);
+    if (data) setUpcomingTodos(data.data);
   }, [data]);
 
   /* CREATES AN ARRAY TO DISPLAY UPCOMING DAYS */
@@ -30,8 +40,11 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
     for (let i = 0; i < 30; i++) {
       days.push(firstDay.set({ day: firstDay.day + i }));
     }
+
     setDaysFrom(days);
   }, [selectedDate]);
+
+  if (isLoading) return <p>Loading ...</p>;
 
   /* RENDER UPCOMING DAYS */
   const DisplayDays = () => {
@@ -39,11 +52,23 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
       <>
         {daysFrom.map((day, index) => {
           return (
-            <Box key={index} py={10} px={10}>
+            <Box key={index} p={10}>
               <Text fontWeight={"bold"} color="gray">
                 {day.monthShort} {day.day} - {day.weekdayLong}
               </Text>
               <Divider />
+              {/* CHECK IF DATE MATCH TO SHOW A TODO 
+              ON THE CORRESPONDING DATE */}
+              {upcomingTodos.map((todo, idx) => {
+                const date = day.toLocaleString();
+                const todoDate = DateTime.fromJSDate(
+                  new Date(todo.dueDate)
+                ).toLocaleString();
+
+                if (date === todoDate)
+                  return <TodoCard todo={todo} key={idx} />;
+                return null;
+              })}
               <HStack
                 _focus={{
                   boxShadow: "none",
@@ -64,11 +89,9 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
     );
   };
 
-  if (isLoading) return <p>Loading</p>;
-
   return (
-    <Box mt={60}>
-      <Box>{overdueTodos && <OverdueTodos todo={overdueTodos} />}</Box>
+    <Box mt={40}>
+      <OverdueTodos />
       <DisplayDays />
     </Box>
   );

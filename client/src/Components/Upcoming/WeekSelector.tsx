@@ -1,6 +1,6 @@
-import { Box, Divider, Grid, HStack, Text, VStack } from "@chakra-ui/react";
+import { Box, Grid, HStack, Text, VStack } from "@chakra-ui/react";
 import { DateTime } from "luxon";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { FaLessThan, FaGreaterThan } from "react-icons/fa";
 
 interface WeekSelectorProps {
@@ -10,6 +10,7 @@ interface WeekSelectorProps {
   setSelectedDay: Dispatch<SetStateAction<DateTime>>;
 }
 
+/* DISPLAY BUTTONS TO NAVIGATE IN THE WEEK DISPLAY */
 const WeekSelector: React.FC<WeekSelectorProps> = ({
   date,
   setDate,

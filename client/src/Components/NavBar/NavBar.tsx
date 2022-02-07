@@ -1,4 +1,4 @@
-import { Box, Stack, useDisclosure } from "@chakra-ui/react";
+import { Box, Stack } from "@chakra-ui/react";
 import { useState } from "react";
 import { AiOutlineHome } from "react-icons/ai";
 import { NavBarSearch } from "./NavBarSearch";
@@ -9,12 +9,12 @@ import { toggleDrawer } from "../../store/Reducers/Drawer/drawerReducer";
 import { useNavigate } from "react-router-dom";
 import DrawerMenu from "../DrawerMenu/DrawerMenu";
 
+/* DISPLAYS A TOP NAVIGATION BAR */
 export const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [hoverColor] = useState("#ffffff75");
 
-  const { onOpen } = useDisclosure({ id: "draw" });
   return (
     <Stack
       alignItems={"center"}
@@ -51,8 +51,7 @@ export const NavBar = () => {
             fontSize={20}
             color="white"
             cursor={"pointer"}
-            // onClick={() => navigate("/home")}
-            onClick={onOpen}
+            onClick={() => navigate("/home")}
           />
         </Box>
         <NavBarSearch />

@@ -2,6 +2,7 @@ import { Box, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 
+/* DISPLAY THE SEARCH INPUT ON THE NAVBAR */
 export const NavBarSearch = () => {
   const [searchText, setSearchText] = useState("");
   return (

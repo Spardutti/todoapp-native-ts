@@ -6,6 +6,7 @@ import UpcomingDays from "./UpcomingDays";
 
 interface WeekDisplayProps {}
 
+/* DISPLAY THE WEEKDAY IN THE UPCOMING PAGE */
 const WeekDisplay: React.FC<WeekDisplayProps> = () => {
   const [weekToShow, setWeekToShow] = useState<DateTime[]>();
   const [date, setDate] = useState(DateTime.now());
@@ -55,7 +56,7 @@ const WeekDisplay: React.FC<WeekDisplayProps> = () => {
             setSelectedDay={setSelectedDay}
           />
         </HStack>
-        <HStack justify={"space-evenly"}>
+        <HStack justify={"space-evenly"} pb={1}>
           {weekToShow?.map((elem, index) => {
             return (
               <div key={index}>

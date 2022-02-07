@@ -20,4 +20,10 @@ router.get("/todos/:date", jwtProtected, TodoController.getTodosByDate);
 /* GET TODAY TODOS */
 router.get("/todaysTodos", jwtProtected, TodoController.getTodaysTodos);
 
+/* GET UPCOMING TODOS */
+router.get("/upcomingTodos", jwtProtected, TodoController.getUpcomingTodos);
+
+/* GET OVERDUE TODOS */
+router.get("/overdueTodos", jwtProtected, TodoController.getOverdueTodos);
+
 export { router };

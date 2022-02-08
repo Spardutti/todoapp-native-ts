@@ -101,6 +101,7 @@ const getOverdueTodos = async (
       author: req.user?._id,
       dueDate: { $lt: today },
     });
+
     res.json(todos);
   } catch (error) {
     return next(error);
@@ -117,7 +118,7 @@ const getUpcomingTodos = async (
     const date = DateTime.now().toLocaleString();
     const todos = await TodoModel.find({
       author: req.user?._id,
-      dueDate: { $gt: date },
+      dueDate: { $gte: date },
     });
 
     res.status(200).json(todos);

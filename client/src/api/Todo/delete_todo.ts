@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useMutation } from "react-query";
+import { useQueryClient, useMutation } from "react-query";
 
 const devUrl = "http://localhost:5000/api";
 
@@ -8,7 +8,14 @@ const deleteTodo = (id: string) => {
 };
 
 const useDeleteTodo = (id: string) => {
-  return useMutation(() => deleteTodo(id));
+  const queryClient = useQueryClient();
+  return useMutation(() => deleteTodo(id), {
+    onSuccess: () => {
+      queryClient.invalidateQueries("todos");
+      queryClient.invalidateQueries("overdue");
+      queryClient.invalidateQueries("upcoming");
+    },
+  });
 };
 
 export { useDeleteTodo };

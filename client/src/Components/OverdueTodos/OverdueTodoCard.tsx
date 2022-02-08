@@ -28,8 +28,7 @@ interface OverdueTodoCardProps {
 
 /* DISPLAY THE OVERDUE CARD  */
 const OverdueTodoCard: React.FC<OverdueTodoCardProps> = ({ todo }) => {
-  const [monthName] = useState(DateTime.now().monthShort);
-  const [dayNumber] = useState(DateTime.now().day);
+  const [todoDate] = useState(DateTime.fromJSDate(new Date(todo.dueDate)));
 
   const [show, setShow] = useState<string>("0");
 
@@ -70,8 +69,8 @@ const OverdueTodoCard: React.FC<OverdueTodoCardProps> = ({ todo }) => {
           </Text>
           <HStack color={"red.500"} fontSize={12}>
             <BsFillCalendarXFill />
-            <Text>{monthName}</Text>
-            <Text>{dayNumber}</Text>
+            <Text>{todoDate.monthShort}</Text>
+            <Text>{todoDate.day}</Text>
           </HStack>
         </Box>
         <MotionHStack
@@ -79,7 +78,7 @@ const OverdueTodoCard: React.FC<OverdueTodoCardProps> = ({ todo }) => {
           animate={{ opacity: show }}
           align={"flex-start"}
         >
-          <DeleteEditButtons todoId={todo._id} />
+          <DeleteEditButtons todoId={todo._id} todoName={todo.todoName} />
         </MotionHStack>
       </Grid>
       <Divider />

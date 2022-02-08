@@ -50,6 +50,8 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
     });
   };
 
+  const queryClient = useQueryClient();
+
   /* HANDLERS */
   const newTodoHandler = (e: any) => {
     const value = e.target.value;

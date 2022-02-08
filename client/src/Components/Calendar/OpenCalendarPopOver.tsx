@@ -17,10 +17,11 @@ import {
 } from "react-icons/bs";
 import { FaCouch } from "react-icons/fa";
 import { CgCalendarNext } from "react-icons/cg";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../Styles/calendar/calendarButton.scss";
 import { DateTime } from "luxon";
 import { TomorrowCalendarButton } from "./TomorrowCalendarButton";
+import { TodayCalendarButton } from "./TodayCalendarButton";
 import { NextWeekCalendarButton } from "./NextWeekButton";
 import { NextWeekEndCalendarButton } from "./NextWeekEndButton";
 
@@ -34,63 +35,80 @@ export const OpenCalendarPopOverButton: React.FC<Props> = ({
   pickedDate,
   setPickedDate,
 }) => {
-  //const [luxonDate, setluxonDate] = useState(DateTime);
+  const [tomorrowDay, setTomorrowDay] = useState(false);
+
+  useEffect(() => {
+    if (
+      pickedDate?.toLocaleDateString() ===
+      DateTime.local().plus({ day: 1 }).toLocaleString()
+    ) {
+      setTomorrowDay(true);
+    } else setTomorrowDay(false);
+  }, [pickedDate]);
+
   return (
     <>
-      <Popover placement="right">
+      <Popover placement="right" autoFocus={false}>
         <PopoverTrigger>
           <Button>
             <BsCalendar4Event color="green" />
             <Text>{pickedDate?.toString().slice(4, 10)}</Text>
           </Button>
         </PopoverTrigger>
-        <PopoverContent width="250px" height="533px">
+        <PopoverContent
+          width="250px"
+          height="541px"
+          border="0px"
+          boxShadow="dark-lg"
+        >
           <PopoverHeader
             width="250px"
-            height="43px"
+            height="42px"
             py="8px"
             paddingLeft="13px"
             paddingRight="10px"
-            borderColor="blackAlpha.200"
+            className="header"
           >
-            <Text fontSize="13px">{pickedDate?.toString().slice(4, 10)}</Text>
+            <Text fontSize="13px" width="227px" height="26px" py="1px" px="2px">
+              {pickedDate?.toString().slice(4, 10)}
+            </Text>
           </PopoverHeader>
           <PopoverBody
             width="250px"
-            height="161px"
+            height="170px"
             px="0px"
             py="4px"
-            borderBottom="1px"
+            borderY="1px"
             borderColor="blackAlpha.200"
           >
-            <Box px="10px" py="4px" height="38px" display="flex">
-              <TomorrowCalendarButton setPickedDate={setPickedDate} />
+            <Box width="250px" height="53.3px" display="flex">
+              {tomorrowDay ? (
+                <TodayCalendarButton setPickedDate={setPickedDate} />
+              ) : (
+                <TomorrowCalendarButton setPickedDate={setPickedDate} />
+              )}
             </Box>
-            <Box px="10px" py="4px" height="38px" display="flex">
+            <Box width="250px" height="53.3px" display="flex">
               <NextWeekEndCalendarButton setPickedDate={setPickedDate} />
             </Box>
-            <Box px="10px" py="4px" height="38px" display="flex">
+            <Box width="250px" height="53.3px" display="flex">
               <NextWeekCalendarButton setPickedDate={setPickedDate} />
             </Box>
-            <Box px="10px" py="4px" height="38px" display="flex">
-              <Box width="24px" height="24px" mr="10px" padding="4px">
-                <BsSlashCircle color="grey" />
-              </Box>
-              <Box maxW="100px">
-                <Text fontSize="sm" fontWeight="500">
-                  No date
-                </Text>
-              </Box>
-            </Box>
           </PopoverBody>
-          <PopoverBody padding="0px">
+          <PopoverBody padding="0px" width="250px" height="288px">
             <Calendar
               onChange={setPickedDate}
               value={pickedDate}
               className="calendar"
             />
           </PopoverBody>
-          <PopoverBody height="40px" py="8px" px="10px">
+          <PopoverBody
+            height="41px"
+            py="8px"
+            px="10px"
+            borderTop="1px"
+            borderColor="blackAlpha.200"
+          >
             <Text
               textColor="#d1453b"
               fontWeight="600"

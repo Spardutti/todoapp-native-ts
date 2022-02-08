@@ -25,7 +25,14 @@ export const NextWeekCalendarButton: React.FC<Props> = ({ setPickedDate }) => {
 
   return (
     <>
-      <Button onClick={nextWeekDate}>
+      <Button
+        onClick={nextWeekDate}
+        width="250px"
+        height="45.3px"
+        px="10px"
+        py="4px"
+        bgColor="white"
+      >
         <Box width="24px" height="24px" mr="10px" padding="4px">
           <CgCalendarNext color="purple" />
         </Box>

@@ -19,9 +19,15 @@ export const AddTodoModal: React.FC<{ color: string; text: string }> = ({
     <HStack onClick={onOpen} cursor={"pointer"}>
       <IoAddOutline color={color} fontSize={25} />
       <Text display={text ? "block" : "none"}>{text}</Text>
-      <Modal blockScrollOnMount={true} isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
+      <Modal
+        blockScrollOnMount={true}
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered
+        autoFocus={false}
+      >
+        <ModalOverlay bg="none" />
+        <ModalContent boxShadow="dark-lg">
           <AddTodo onClose={onClose} preSelectedDate={null} />
         </ModalContent>
       </Modal>

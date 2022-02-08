@@ -13,11 +13,12 @@ export const NextWeekEndCalendarButton: React.FC<Props> = ({
 }) => {
   /* LUXON FUNCTION TO GET NEXT SATURDAY */
   const nextWeekEndDate = () => {
-    if (DateTime.local().weekday === 6) {
-      const date = DateTime.local().plus({ week: 1 }).toJSDate();
-      setPickedDate(date);
-    } else if (DateTime.local().weekday === 7) {
-      const date = DateTime.local().plus({ day: 6 }).toJSDate();
+    if (DateTime.local().weekday === 6 || DateTime.local().weekday === 7) {
+      const date = DateTime.local()
+        .plus({ week: 1 })
+        .endOf("week")
+        .minus({ day: 1 })
+        .toJSDate();
       setPickedDate(date);
     } else {
       const date = DateTime.local().endOf("week").minus({ day: 1 }).toJSDate();
@@ -26,7 +27,14 @@ export const NextWeekEndCalendarButton: React.FC<Props> = ({
   };
   return (
     <>
-      <Button onClick={nextWeekEndDate}>
+      <Button
+        onClick={nextWeekEndDate}
+        width="250px"
+        height="45.3px"
+        px="10px"
+        py="4px"
+        bgColor="white"
+      >
         <Box width="24px" height="24px" mr="10px" padding="4px">
           <FaCouch color="skyblue" />
         </Box>

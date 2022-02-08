@@ -7,9 +7,11 @@ interface Props {
   setPickedDate: React.Dispatch<React.SetStateAction<Date>>;
 }
 
+/* RENDER BUTTON FOR TOMORROW DAY IN CALENDAR (ICON INCLUDED) */
 export const TomorrowCalendarButton: React.FC<Props> = ({ setPickedDate }) => {
+  /* LUXON FUNCTION TO GET TOMORROW DAY DATA */
   const tomorrowDate = () => {
-    const tDate = DateTime.now().plus({ day: 1 }).toJSDate();
+    const tDate = DateTime.local().plus({ day: 1 }).toJSDate();
     setPickedDate(tDate);
   };
 

@@ -21,12 +21,15 @@ import React, { useState } from "react";
 import "../../Styles/calendar/calendarButton.scss";
 import { DateTime } from "luxon";
 import { TomorrowCalendarButton } from "./TomorrowCalendarButton";
+import { NextWeekCalendarButton } from "./NextWeekButton";
+import { NextWeekEndCalendarButton } from "./NextWeekEndButton";
 
 interface Props {
   pickedDate: Date | null;
   setPickedDate: React.Dispatch<React.SetStateAction<Date>>;
 }
 
+/* RENDER BUTTON TO OPEN POPOUT CALENDAR. INCLUDE THE POPOUT RENDER AND CALENDAR ICON. */
 export const OpenCalendarPopOverButton: React.FC<Props> = ({
   pickedDate,
   setPickedDate,
@@ -64,25 +67,10 @@ export const OpenCalendarPopOverButton: React.FC<Props> = ({
               <TomorrowCalendarButton setPickedDate={setPickedDate} />
             </Box>
             <Box px="10px" py="4px" height="38px" display="flex">
-              <Box width="24px" height="24px" mr="10px" padding="4px">
-                <FaCouch color="skyblue" />
-              </Box>
-              <Box maxW="100px">
-                <Text fontSize="sm" fontWeight="500">
-                  Next weekend
-                </Text>
-              </Box>
-              <Box></Box>
+              <NextWeekEndCalendarButton setPickedDate={setPickedDate} />
             </Box>
             <Box px="10px" py="4px" height="38px" display="flex">
-              <Box width="24px" height="24px" mr="10px" padding="4px">
-                <CgCalendarNext color="purple" />
-              </Box>
-              <Box maxW="100px">
-                <Text fontSize="sm" fontWeight="500">
-                  Next week
-                </Text>
-              </Box>
+              <NextWeekCalendarButton setPickedDate={setPickedDate} />
             </Box>
             <Box px="10px" py="4px" height="38px" display="flex">
               <Box width="24px" height="24px" mr="10px" padding="4px">

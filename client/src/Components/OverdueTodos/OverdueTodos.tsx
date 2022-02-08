@@ -1,18 +1,25 @@
 import { Box, Divider, Heading, HStack, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useGetOverdueTodos } from "../../api/Todo/get_todo";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { setOverdue } from "../../store/Reducers/Todos/todoReducer";
 import OverdueTodoCard from "./OverdueTodoCard";
 
 /* FETCH AND DISPLAY OVERDUE TODOS */
 const OverdueTodos: React.FC = () => {
   const token = useAppSelector((state) => state.token.token);
   const [overdueTodos, setOverdueTodos] = useState([]);
+
+  const dispatch = useAppDispatch();
+
   /* GET OVERDUE TODOS */
   const { isLoading, data } = useGetOverdueTodos(token);
 
   useEffect(() => {
-    if (data) setOverdueTodos(data.data);
+    if (data) {
+      setOverdueTodos(data.data);
+      dispatch(setOverdue(data.data.length));
+    }
   }, [data]);
 
   if (isLoading) return <p>Loading...</p>;

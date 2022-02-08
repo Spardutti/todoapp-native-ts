@@ -1,11 +1,12 @@
 import { Box, Divider, Heading, HStack, Stack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useGetTodaysTodos } from "../../api/Todo/get_todo";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { AddTodoModal } from "../Todos/AddTodoModal";
 import OverdueTodos from "../OverdueTodos/OverdueTodos";
 import { DateTime } from "luxon";
 import TodoCard from "../Todos/TodoCard";
+import { setTodos } from "../../store/Reducers/Todos/todoReducer";
 
 interface TodayProps {}
 
@@ -16,9 +17,12 @@ const Today: React.FC<TodayProps> = () => {
   const [currentDate] = useState(DateTime.now());
   const { isLoading, data } = useGetTodaysTodos(token);
 
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     if (data) {
       setTodayTodos(data.data);
+      dispatch(setTodos(data.data.length));
     }
   }, [data]);
 

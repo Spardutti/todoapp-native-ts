@@ -2,13 +2,13 @@ import { Request, Response, NextFunction } from "express";
 import { CategoryModel } from "../../models/CategoryModel";
 
 /* GET ALL CATEGORIES */
-const getAllCategories = async (
+const getAllUserCategories = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const categories = await CategoryModel.find({});
+    const categories = await CategoryModel.find({ author: req.user?._id });
     res.status(200).json(categories);
   } catch (error) {
     return next(error);
@@ -27,13 +27,15 @@ const getCategory = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 /* GET CATEGORIES BY USER ID */
-const getCategoriesByUser = async (req:Request, res:Response, next: NextFunction) => {
+const getCategoriesByUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    
   } catch (error) {
-    return next(error)
+    return next(error);
   }
-}
+};
 
-
-export { getAllCategories, getCategory };
+export { getAllUserCategories, getCategory };

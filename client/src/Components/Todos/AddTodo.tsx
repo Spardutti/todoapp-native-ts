@@ -12,12 +12,12 @@ import {
 import { useState, useEffect } from "react";
 import { useQueryClient } from "react-query";
 import { Todo } from "../../api/Todo/post_todo";
-import "../../Styles/calendar/calendarButton.scss";
 import { useAppSelector } from "../../hooks";
 import { useAddTodo } from "../../api/Todo/post_todo";
 import React from "react";
 import { OpenCalendarPopOverButton } from "../Calendar/OpenCalendarPopOver";
 import { DateTime } from "luxon";
+import "../../Styles/calendar/calendarButton.scss";
 
 interface Props {
   preSelectedDate: Date | null;
@@ -75,74 +75,61 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
   const { todoName, todoDescription, dueDate } = newTodo;
   return (
     <Box
+      maxW="550px"
+      height="228px"
       width="full"
       mx="auto"
-      //border="1px"
       mt={1}
-      //borderColor={"teal"}
-      //borderRadius={5}
       p={2}
-      //textAlign={"center"}
-      //alignItems={"center"}
-      //justifyContent={"center"}
       flexDir="column"
       padding="16px"
     >
-      <CloseButton ml="auto" onClick={onClose} />
-      <FormControl mx={"auto"}>
-        <Stack maxH="121px" alignItems={"center"} marginBottom="10px">
-          <Input
-            placeholder="Todo name"
-            variant="unstyled"
-            value={todoName}
-            name="todoName"
-            onChange={(e) => newTodoHandler(e)}
-            maxH="21px"
-          />
-          <Textarea
-            resize="none"
-            placeholder="Description"
-            variant="unstyled"
-            value={todoDescription}
-            name="todoDescription"
-            onChange={(e) => newTodoHandler(e)}
-            maxH="36px"
-            padding="1px"
-            marginTop="8px"
-          />
-          <Box width="100%">
+      <FormControl mx={"auto"} height="141px">
+        <Stack height="141px" alignItems={"center"} width="100%">
+          <Box display="flex" flexDir="row" width="100%" maxH="21px">
+            <Input
+              placeholder="Todo name"
+              variant="unstyled"
+              value={todoName}
+              name="todoName"
+              onChange={(e) => newTodoHandler(e)}
+              maxH="21px"
+            />
+            <CloseButton ml="auto" onClick={onClose} maxH="21px" />
+          </Box>
+          <Box width="100%" maxH="78px" mt="8px">
+            <Textarea
+              resize="none"
+              placeholder="Description"
+              variant="unstyled"
+              value={todoDescription}
+              name="todoDescription"
+              onChange={(e) => newTodoHandler(e)}
+              padding="1px"
+              margin="0px"
+            />
+          </Box>
+          <Box width="100%" maxH="38px">
             <OpenCalendarPopOverButton
               pickedDate={pickedDate}
               setPickedDate={setPickedDate}
             />
           </Box>
-          {/*  <CalendarButton
-            dueDate={dueDate}
-            newTodo={newTodo}
-            setNewTodo={setNewTodo}
-          /> */}
           <Divider orientation="horizontal" borderColor="blackAlpha.300" />
         </Stack>
       </FormControl>
-      <Box
-        maxH="32px"
-        padding="16px"
-        //borderTop="1px"
-        marginX="-4"
-        marginTop="1.5"
-        marginBottom="-4"
-      >
+      <Box height="64px" padding="24px 16px 8px 0px">
         {isLoading ? (
           <Button
-            mt={2}
             colorScheme="teal"
             isLoading
             loadingText="Submitting"
-            maxH="44px"
+            maxH="30px"
+            maxW="78px"
+            fontSize="xs"
           />
         ) : (
           <Button
-            mt={2}
             colorScheme="messenger"
             onClick={addTodo}
             disabled={!todoName || !todoDescription || !dueDate}

@@ -36,6 +36,15 @@ export const OpenCalendarPopOverButton: React.FC<Props> = ({
   setPickedDate,
 }) => {
   const [tomorrowDay, setTomorrowDay] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [calendarText, setCalendarText] = useState(1);
+
+  const open = () => setIsOpen(!isOpen);
+  const close = () => setIsOpen(false);
+
+  useEffect(() => {
+    close();
+  }, [pickedDate]);
 
   useEffect(() => {
     if (
@@ -46,13 +55,70 @@ export const OpenCalendarPopOverButton: React.FC<Props> = ({
     } else setTomorrowDay(false);
   }, [pickedDate]);
 
+  useEffect(() => {
+    if (
+      pickedDate?.toLocaleDateString() === DateTime.local().toLocaleString()
+    ) {
+      setCalendarText(1);
+    } else if (
+      pickedDate?.toLocaleDateString() ===
+      DateTime.local().plus({ day: 1 }).toLocaleString()
+    ) {
+      setCalendarText(2);
+    } else setCalendarText(0);
+  }, [pickedDate]);
+
+  let dayText;
+  if (calendarText === 1) {
+    dayText = (
+      <Box display="flex" justifyContent="space-between">
+        <BsCalendar4Event color="green" />
+        <Text ml="5px" fontSize="13px" textColor="green">
+          Today
+        </Text>
+      </Box>
+    );
+  } else if (calendarText === 2) {
+    dayText = (
+      <Box display="flex" justifyContent="space-between">
+        <BsCalendar4Event color="#ad6200" />
+        <Text ml="5px" fontSize="13px" textColor="#ad6200">
+          Tomorrow
+        </Text>
+      </Box>
+    );
+  } else {
+    dayText = (
+      <Box display="flex" justifyContent="space-between">
+        <BsCalendar4Event color="grey" />
+        <Text ml="5px" fontSize="13px" textColor="grey">
+          {pickedDate?.toString().slice(4, 10)}
+        </Text>
+      </Box>
+    );
+  }
+
   return (
     <>
-      <Popover placement="right" autoFocus={false}>
+      <Popover
+        placement="right"
+        isOpen={isOpen}
+        onClose={close}
+        returnFocusOnClose={false}
+      >
         <PopoverTrigger>
-          <Button>
-            <BsCalendar4Event color="green" />
-            <Text>{pickedDate?.toString().slice(4, 10)}</Text>
+          <Button
+            onClick={open}
+            maxW="100px"
+            height="26px"
+            display="flex"
+            justifyContent="space-between"
+            px="8px"
+            border="1px"
+            borderColor="blackAlpha.400"
+            bgColor="white"
+          >
+            {dayText}
           </Button>
         </PopoverTrigger>
         <PopoverContent
@@ -69,7 +135,14 @@ export const OpenCalendarPopOverButton: React.FC<Props> = ({
             paddingRight="10px"
             className="header"
           >
-            <Text fontSize="13px" width="227px" height="26px" py="1px" px="2px">
+            <Text
+              fontSize="13px"
+              width="227px"
+              height="26px"
+              py="1px"
+              px="2px"
+              fontFamily="sans-serif"
+            >
               {pickedDate?.toString().slice(4, 10)}
             </Text>
           </PopoverHeader>

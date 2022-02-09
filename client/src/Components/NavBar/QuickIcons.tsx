@@ -34,7 +34,7 @@ export const QuickIcons: React.FC<HoverColor> = ({ hoverColor }) => {
         }}
         textAlign={"center"}
       >
-        <AddTodoModal color="white" text="" />
+        <AddTodoModal preSelectedDate={null} color="white" text="" />
       </Box>
       <Box
         p={2}

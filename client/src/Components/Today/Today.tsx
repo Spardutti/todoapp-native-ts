@@ -55,7 +55,7 @@ const Today: React.FC<TodayProps> = () => {
         fontSize={13}
         color={"gray"}
       >
-        <AddTodoModal color={"red"} text="Add Todo" />
+        <AddTodoModal preSelectedDate={null} color={"red"} text="Add Todo" />
       </HStack>
     </Stack>
   );

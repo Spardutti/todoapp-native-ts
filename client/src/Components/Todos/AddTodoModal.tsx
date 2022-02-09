@@ -9,9 +9,16 @@ import {
 import { IoAddOutline } from "react-icons/io5";
 import { AddTodo } from "./AddTodo";
 
-export const AddTodoModal: React.FC<{ color: string; text: string }> = ({
+interface Props {
+  preSelectedDate: Date | null;
+  color: string;
+  text: string;
+}
+
+export const AddTodoModal: React.FC<Props> = ({
   color,
   text,
+  preSelectedDate,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -27,8 +34,8 @@ export const AddTodoModal: React.FC<{ color: string; text: string }> = ({
         autoFocus={false}
       >
         <ModalOverlay bg="none" />
-        <ModalContent boxShadow="dark-lg">
-          <AddTodo onClose={onClose} preSelectedDate={null} />
+        <ModalContent boxShadow="dark-lg" maxW="550px">
+          <AddTodo onClose={onClose} preSelectedDate={preSelectedDate} />
         </ModalContent>
       </Modal>
     </HStack>

@@ -51,6 +51,7 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
     return (
       <>
         {daysFrom.map((day, index) => {
+          console.log(day);
           return (
             <Box key={index} p={10}>
               <Text fontWeight={"bold"} color="gray">
@@ -80,7 +81,11 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
                 fontSize={13}
                 color={"gray"}
               >
-                <AddTodoModal color={"red"} text="Add Todo" />
+                <AddTodoModal
+                  preSelectedDate={day.toJSDate()}
+                  color={"red"}
+                  text="Add Todo"
+                />
               </HStack>
             </Box>
           );

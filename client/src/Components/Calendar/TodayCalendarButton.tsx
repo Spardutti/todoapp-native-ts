@@ -1,4 +1,4 @@
-import { Text, Box, Button } from "@chakra-ui/react";
+import { Text, Box, Button, Spacer } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import React from "react";
 import { BsSunFill } from "react-icons/bs";
@@ -10,8 +10,8 @@ interface Props {
 /* RENDER BUTTON FOR TOMORROW DAY IN CALENDAR (ICON INCLUDED) */
 export const TodayCalendarButton: React.FC<Props> = ({ setPickedDate }) => {
   /* LUXON FUNCTION TO GET TOMORROW DAY DATA */
+  const date = DateTime.local().toJSDate();
   const todayDate = () => {
-    const date = DateTime.local().toJSDate();
     setPickedDate(date);
   };
 
@@ -31,6 +31,12 @@ export const TodayCalendarButton: React.FC<Props> = ({ setPickedDate }) => {
         <Box maxW="100px">
           <Text fontSize="sm" fontWeight="500">
             Today
+          </Text>
+        </Box>
+        <Spacer />
+        <Box>
+          <Text fontSize="sm" textColor="blackAlpha.500">
+            {date.toString().slice(0, 4) + date.toString().slice(7, 10)}
           </Text>
         </Box>
       </Button>

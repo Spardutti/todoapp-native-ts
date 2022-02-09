@@ -1,4 +1,4 @@
-import { Text, Box, Button } from "@chakra-ui/react";
+import { Text, Box, Button, Spacer } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import React from "react";
 import { FaCouch } from "react-icons/fa";
@@ -11,6 +11,16 @@ interface Props {
 export const NextWeekEndCalendarButton: React.FC<Props> = ({
   setPickedDate,
 }) => {
+  let showedDate;
+  if (DateTime.local().weekday === 6 || DateTime.local().weekday === 7) {
+    showedDate = DateTime.local()
+      .plus({ week: 1 })
+      .endOf("week")
+      .minus({ day: 1 })
+      .toJSDate();
+  } else {
+    showedDate = DateTime.local().endOf("week").minus({ day: 1 }).toJSDate();
+  }
   /* LUXON FUNCTION TO GET NEXT SATURDAY */
   const nextWeekEndDate = () => {
     if (DateTime.local().weekday === 6 || DateTime.local().weekday === 7) {
@@ -41,6 +51,13 @@ export const NextWeekEndCalendarButton: React.FC<Props> = ({
         <Box maxW="100px">
           <Text fontSize="sm" fontWeight="500">
             Next weekend
+          </Text>
+        </Box>
+        <Spacer />
+        <Box>
+          <Text fontSize="sm" textColor="blackAlpha.500">
+            {showedDate.toString().slice(0, 4) +
+              showedDate.toString().slice(7, 10)}
           </Text>
         </Box>
       </Button>

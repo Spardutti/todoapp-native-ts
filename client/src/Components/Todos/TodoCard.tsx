@@ -3,9 +3,11 @@ import {
   Divider,
   Grid,
   HStack,
+  Link,
   Stack,
   Text,
   useDisclosure,
+  VStack,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
@@ -14,6 +16,7 @@ import { BsCheck2 } from "react-icons/bs";
 import { BsFillCalendarXFill } from "react-icons/bs";
 import TodoDescription from "./TodoDescription";
 import DeleteEditButtons from "../Buttons/DeleteEditButtons";
+import { Link as RouterLink } from "react-router-dom";
 
 interface TodoCardProps {
   todo: {
@@ -84,13 +87,20 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo }) => {
             </HStack>
           </Box>
         </Box>
-        <MotionHStack
-          initial={{ opacity: 0 }}
-          animate={{ opacity: show }}
-          align={"flex-start"}
-        >
-          <DeleteEditButtons todoId={todo._id} todoName={todo.todoName} />
-        </MotionHStack>
+        <VStack>
+          <MotionHStack
+            initial={{ opacity: 0 }}
+            animate={{ opacity: show }}
+            align={"flex-start"}
+          >
+            <DeleteEditButtons todoId={todo._id} todoName={todo.todoName} />
+          </MotionHStack>
+          <Box>
+            <Link as={RouterLink} to={`/category/${todo.todoName}`}>
+              Category
+            </Link>
+          </Box>
+        </VStack>
       </Grid>
       <Divider />
       {isOpen ? (

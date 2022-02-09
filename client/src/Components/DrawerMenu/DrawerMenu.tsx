@@ -1,5 +1,4 @@
 import {
-  background,
   Box,
   Drawer,
   DrawerBody,
@@ -11,7 +10,6 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { toggleDrawer } from "../../store/Reducers/Drawer/drawerReducer";
@@ -20,6 +18,7 @@ import { HiOutlineInbox } from "react-icons/hi";
 import { DateTime } from "luxon";
 import { BsCalendar2Week } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import ShowCategories from "../Category/ShowCategories";
 
 /* DISPLAY A DRAWER MENU THAT OPENS FROM THE LEFT */
 const DrawerMenu: React.FC = () => {
@@ -39,6 +38,7 @@ const DrawerMenu: React.FC = () => {
     toggle();
   };
 
+  /* DISPLAY AN ICON CALENDAR WITH CURRENT DATE */
   const Calendar = () => {
     const today = DateTime.now().day;
     return (
@@ -68,6 +68,7 @@ const DrawerMenu: React.FC = () => {
       </Box>
     );
   };
+
   return (
     <>
       <Drawer
@@ -119,8 +120,8 @@ const DrawerMenu: React.FC = () => {
             >
               <BsCalendar2Week size={16} color="#692FC2" />
               <Text pl={3}>Upcoming</Text>
-              <Spacer />
             </Flex>
+            <ShowCategories />
           </DrawerBody>
         </DrawerContent>
       </Drawer>

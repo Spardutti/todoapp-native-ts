@@ -3,7 +3,7 @@ import passport from "passport";
 import { CategoryController } from "../../controllers/categoryController/CategoryController";
 import { validateNewCategory } from "../../validations/CategoryValidation";
 
-const jwtProtected = passport.authenticate("jwt", { session:false })
+const jwtProtected = passport.authenticate("jwt", { session: false });
 
 const router = Router();
 

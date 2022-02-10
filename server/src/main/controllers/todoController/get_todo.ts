@@ -76,7 +76,7 @@ const getTodaysTodos = async (
   next: NextFunction
 ) => {
   try {
-    const today = DateTime.now().toLocaleString();
+    const today = DateTime.now().setLocale("en-US").toLocaleString();
 
     const todos = await TodoModel.find({
       author: req.user?._id,
@@ -96,7 +96,7 @@ const getOverdueTodos = async (
   next: NextFunction
 ) => {
   try {
-    const today = DateTime.now().toLocaleString();
+    const today = DateTime.now().setLocale("en-US").toLocaleString();
     const todos = await TodoModel.find({
       author: req.user?._id,
       dueDate: { $lt: today },
@@ -115,7 +115,7 @@ const getUpcomingTodos = async (
   next: NextFunction
 ) => {
   try {
-    const date = DateTime.now().toLocaleString();
+    const date = DateTime.now().setLocale("en-US").toLocaleString();
     const todos = await TodoModel.find({
       author: req.user?._id,
       dueDate: { $gte: date },

@@ -1,79 +1,33 @@
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  FormHelperText,
-  Input,
-} from "@chakra-ui/react";
-import { useState } from "react";
-import { CategoryApi } from "../../api/Category/CategoryApi";
+import { Button } from "@chakra-ui/react";
+import React from "react";
+import { useNewCategory } from "../../api/Category/post_category";
 import { useAppSelector } from "../../hooks";
 
-export const NewCategory: React.FC = () => {
-  const [showCategoryForm, setShowCategoryForm] = useState(false);
-  const token = useAppSelector((state) => state.token);
-  const [newCategory, setNewCategory] = useState({
-    categoryName: "",
-    token,
-  });
-
-  const toggleCategoryForm = () => setShowCategoryForm(!showCategoryForm);
-
-  /* HANDLERS */
-  const newCategoryHandler = (e: any) => {
-    const value = e.target.value;
-    setNewCategory({
-      ...newCategory,
-      [e.target.name]: value,
-    });
+interface NewCategoryProps {
+  category: {
+    categoryName: string;
+    color: string;
   };
+}
 
-  /* ADD A NEW TODO TO THE DB */
-  const { mutateAsync, isLoading } = CategoryApi.useNewCategory();
+const NewCategory: React.FC<NewCategoryProps> = ({ category }) => {
+  const token = useAppSelector((state) => state.token.token);
+  const { mutateAsync, data, isLoading, error } = useNewCategory();
 
-  const addCategory = async () => {
-    await mutateAsync(newCategory);
-    setNewCategory({
-      categoryName: "",
+  const createCategory = async () => {
+    const info = {
       token,
-    });
-    toggleCategoryForm();
+      categoryName: category.categoryName,
+      color: category.color,
+    };
+    await mutateAsync(info);
   };
 
-  if (showCategoryForm) {
-    return (
-      <div>
-        <FormControl>
-          <FormLabel>Category Name</FormLabel>
-          <Input
-            value={newCategory.categoryName}
-            name="categoryName"
-            onChange={(e) => newCategoryHandler(e)}
-          />
-          <FormHelperText>
-            Please insert a name for the new category.
-          </FormHelperText>
-        </FormControl>
-        {isLoading ? (
-          <Button
-            colorScheme="teal"
-            size="sm"
-            isLoading
-            loadingText="Submitting"
-          />
-        ) : (
-          <Button colorScheme="messenger" size="sm" onClick={addCategory}>
-            Create Category
-          </Button>
-        )}
-      </div>
-    );
+  if (data) {
+    if (data.data) console.log(data.data.errors);
   }
-  return (
-    <div>
-      <Button colorScheme="teal" size="md" onClick={toggleCategoryForm}>
-        New Category
-      </Button>
-    </div>
-  );
+
+  return <Button onClick={createCategory}>Create</Button>;
 };
+
+export default NewCategory;

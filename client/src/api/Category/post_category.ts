@@ -3,21 +3,20 @@ import { useMutation } from "react-query";
 
 const devUrl = "http://localhost:5000/api";
 
-interface Token {
+interface Category {
+  categoryName: string;
+  color: string;
   token: string;
 }
 
 /* ADD A NEW CATEGORY */
-const newCategory = async (newCategory: {
-  categoryName: string;
-  token: Token;
-}) => {
+const newCategory = async (category: Category) => {
   try {
-    const { categoryName, token } = newCategory;
+    const { categoryName, token, color } = category;
 
     const response = axios.post(
       `${devUrl}/newCategory`,
-      { categoryName },
+      { categoryName, color },
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -31,7 +30,7 @@ const newCategory = async (newCategory: {
 };
 
 const useNewCategory = () => {
-  return useMutation(newCategory);
+  return useMutation<any, any, any, any>(newCategory);
 };
 
 export { useNewCategory };

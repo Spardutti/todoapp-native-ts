@@ -18,7 +18,7 @@ export interface Todo {
 const addTodo = async (newTodo: Todo) => {
   try {
     const { todoName, todoDescription, dueDate, token } = newTodo;
-    
+
     const response = axios.post(
       `${devUrl}/newTodo`,
       { todoName, todoDescription, dueDate },
@@ -28,8 +28,7 @@ const addTodo = async (newTodo: Todo) => {
         },
       }
     );
-    console.log(token?.token, newTodo.token);
-    
+
     return response;
   } catch (error) {
     return error;

@@ -12,7 +12,10 @@ import {
   FormLabel,
   Input,
   Flex,
+  Box,
+  Text,
 } from "@chakra-ui/react";
+import NewCategory from "./NewCategory";
 
 interface NewCategoryModalProps {
   isOpen: boolean;
@@ -24,7 +27,80 @@ const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
   onClose,
 }) => {
   const [showColors, setShowColors] = useState(false);
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState({
+    name: "",
+    color: "",
+  });
+  const [category, setCategory] = useState({
+    color: "",
+    categoryName: "",
+  });
+
+  const [colorsArray] = useState([
+    {
+      name: "Navy",
+      color: "#001f3f",
+    },
+    {
+      name: "Blue",
+      color: "#0074d9",
+    },
+    {
+      name: "Aqua",
+      color: "#7fdbff",
+    },
+    {
+      name: "Teal",
+      color: "#39CCCC",
+    },
+    {
+      name: "Purple",
+      color: "#B10dc9",
+    },
+    {
+      name: "Fuchsia",
+      color: "#F012BE",
+    },
+    {
+      name: "Maroon",
+      color: "#85144b",
+    },
+    {
+      name: "Red",
+      color: "#FF4136",
+    },
+    {
+      name: "Orange",
+      color: "#FF851b",
+    },
+    {
+      name: "Yellow",
+      color: "#FFDC00",
+    },
+    {
+      name: "Olive",
+      color: "#3D9970",
+    },
+    {
+      name: "Green",
+      color: "#2ecc40",
+    },
+    {
+      name: "Lime",
+      color: "#01ff70",
+    },
+    {
+      name: "Black",
+      color: "#111111",
+    },
+  ]);
+
+  const handler = (e: any) => {
+    setCategory({
+      ...category,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const Colors = () => (
     <Flex
@@ -42,22 +118,40 @@ const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
         },
       }}
     >
-      <p onClick={() => setColor("red")}>red</p>
-      <p>blue</p>
-      <p>red</p>
-      <p>blue</p>
-      <p>blue</p>
-      <p>blue</p>
-      <p>blue</p>
-      <p>blue</p>
-      <p>blue</p>
-      <p>blue</p>
-      <p>blue</p>
+      {colorsArray.map((color, index) => {
+        return (
+          <Flex
+            align={"center"}
+            p={1}
+            key={index}
+            onClick={() => {
+              setColor(color);
+              setCategory({
+                ...category,
+                color: color.color,
+              });
+            }}
+          >
+            <Box bg={color.color} h={3} w={3} borderRadius={"full"} />
+            <Text pl={3} cursor="pointer">
+              {color.name}
+            </Text>
+          </Flex>
+        );
+      })}
     </Flex>
   );
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} autoFocus={false} isCentered>
+    <Modal
+      isOpen={isOpen}
+      onClose={() => {
+        setColor({ color: "", name: "" });
+        onClose();
+      }}
+      autoFocus={false}
+      isCentered
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader bg="#FAFAFA"> New category</ModalHeader>
@@ -65,7 +159,11 @@ const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
         <ModalCloseButton />
         <ModalBody>
           <FormLabel>Name</FormLabel>
-          <Input />
+          <Input
+            value={category.categoryName}
+            name="categoryName"
+            onChange={handler}
+          />
           <FormLabel>Color</FormLabel>
           {showColors ? (
             <Colors />
@@ -79,16 +177,26 @@ const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
               pl={2}
               onClick={() => setShowColors(!showColors)}
             >
-              {color ? color : "Color"}
+              {color.name ? (
+                <Text color={color.color}>{color.name}</Text>
+              ) : (
+                <Text>Choose a color</Text>
+              )}
             </Flex>
           )}
         </ModalBody>
-
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onClose}>
+          <Button
+            variant="ghost"
+            mr={3}
+            onClick={() => {
+              setColor({ color: "", name: "" });
+              onClose();
+            }}
+          >
             Close
           </Button>
-          <Button variant="ghost">Secondary Action</Button>
+          <NewCategory category={category} />
         </ModalFooter>
       </ModalContent>
     </Modal>

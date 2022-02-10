@@ -18,6 +18,8 @@ import React from "react";
 import { OpenCalendarPopOverButton } from "../Calendar/OpenCalendarPopOver";
 import { DateTime } from "luxon";
 import "../../Styles/calendar/calendarButton.scss";
+import { ChooseCategoryButton } from "../Category/ChooseCategoryButton";
+import ShowCategories from "../Category/ShowCategories";
 
 interface Props {
   preSelectedDate: Date | null;
@@ -109,11 +111,12 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
               margin="0px"
             />
           </Box>
-          <Box width="100%" maxH="38px">
+          <Box width="100%" maxH="38px" display="flex" flexDir="row">
             <OpenCalendarPopOverButton
               pickedDate={pickedDate}
               setPickedDate={setPickedDate}
             />
+            <ShowCategories />
           </Box>
           <Divider orientation="horizontal" borderColor="blackAlpha.300" />
         </Stack>

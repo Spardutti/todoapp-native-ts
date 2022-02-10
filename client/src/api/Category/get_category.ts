@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useQuery } from "react-query";
 
 const devUrl = "http://localhost:5000/api";
 
@@ -12,3 +13,18 @@ const devUrl = "http://localhost:5000/api";
         return error;
     }
 } */
+
+/* GET ALL USER CATEGORIES */
+const getUserCategories = (token: string) => {
+  const response = axios.get(`${devUrl}/categories`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response;
+};
+
+const useGetUserCategories = (token: string) =>
+  useQuery(["categories", token], () => getUserCategories(token));
+
+export { useGetUserCategories };

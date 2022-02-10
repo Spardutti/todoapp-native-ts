@@ -10,6 +10,7 @@ import { store } from "./store/store";
 import { Provider } from "react-redux";
 import { Toaster } from "react-hot-toast";
 import Upcoming from "./Components/Views/Upcoming";
+import Category from "./Components/Views/Category";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ const Nav = () =>
   useRoutes([
     { path: "/home", element: <NavBar /> },
     { path: "/upcoming", element: <NavBar /> },
+    { path: "/category/:id", element: <NavBar /> },
     // {},
   ]);
 
@@ -35,6 +37,9 @@ function App() {
               </Route>
               <Route path="/upcoming" element={<ProtectedRoute />}>
                 <Route path="/upcoming" element={<Upcoming />} />
+              </Route>
+              <Route path="/category" element={<ProtectedRoute />}>
+                <Route path="/category/:id" element={<Category />} />
               </Route>
             </Routes>
           </ChakraProvider>

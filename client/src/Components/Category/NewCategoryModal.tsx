@@ -15,7 +15,10 @@ import {
   Box,
   Text,
 } from "@chakra-ui/react";
-import NewCategory from "./NewCategory";
+import toast from "react-hot-toast";
+import { useNewCategory } from "../../api/Category/post_category";
+import { useAppSelector } from "../../hooks";
+import { useQueryClient } from "react-query";
 
 interface NewCategoryModalProps {
   isOpen: boolean;
@@ -36,6 +39,13 @@ const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
     categoryName: "",
   });
 
+  const token = useAppSelector((state) => state.token.token);
+
+  const queryClient = useQueryClient();
+
+  const { mutateAsync } = useNewCategory();
+
+  /* DISPLAY COLORS FOR THE USER TO PICK */
   const [colorsArray] = useState([
     {
       name: "Navy",
@@ -102,6 +112,36 @@ const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
     });
   };
 
+  const resetState = () => {
+    setColor({
+      name: "",
+      color: "",
+    });
+    setCategory({
+      color: "",
+      categoryName: "",
+    });
+  };
+
+  /* CREATES A NEW CATEGORY AND DISPLAY EITHER ERROR OR SUCCESS */
+  const createCategory = async () => {
+    const info = {
+      token,
+      categoryName: category.categoryName,
+      color: category.color,
+    };
+    const response = await mutateAsync(info).catch((err) =>
+      err.data.errors.map((err: any) => toast.error(err.msg))
+    );
+    if (response.status === 200) {
+      queryClient.invalidateQueries("categories");
+      onClose();
+      toast.success("Category created successfully");
+      resetState();
+    }
+  };
+
+  /* DISPLAY A LIST OF COLOR IN THE FORM OF A DROPDOWN */
   const Colors = () => (
     <Flex
       direction="column"
@@ -146,7 +186,7 @@ const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
     <Modal
       isOpen={isOpen}
       onClose={() => {
-        setColor({ color: "", name: "" });
+        resetState();
         onClose();
       }}
       autoFocus={false}
@@ -190,13 +230,13 @@ const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
             variant="ghost"
             mr={3}
             onClick={() => {
-              setColor({ color: "", name: "" });
               onClose();
+              resetState();
             }}
           >
             Close
           </Button>
-          <NewCategory category={category} />
+          <Button onClick={createCategory}>Create</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

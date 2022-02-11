@@ -34,11 +34,12 @@ const ShowCategories: React.FC<ShowCategoriesProps> = () => {
       _id: string;
       author: string;
       categoryName: string;
+      color: string;
     }
 
     return data?.data.map((cat: Category) => (
       <Flex align={"center"} key={cat._id}>
-        <Box w={3} h={3} bg="red" borderRadius={"full"} />
+        <Box w={3} h={3} bg={cat.color} borderRadius={"full"} />
         <Text pl={4} cursor="pointer">
           {cat.categoryName}
         </Text>

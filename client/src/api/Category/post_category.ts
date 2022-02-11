@@ -11,10 +11,10 @@ interface Category {
 
 /* ADD A NEW CATEGORY */
 const newCategory = async (category: Category) => {
-  try {
-    const { categoryName, token, color } = category;
+  const { categoryName, token, color } = category;
 
-    const response = axios.post(
+  return axios
+    .post(
       `${devUrl}/newCategory`,
       { categoryName, color },
       {
@@ -22,11 +22,13 @@ const newCategory = async (category: Category) => {
           Authorization: `Bearer ${token}`,
         },
       }
-    );
-    return response;
-  } catch (error) {
-    return error;
-  }
+    )
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      if (error.response) throw error.response;
+    });
 };
 
 const useNewCategory = () => {

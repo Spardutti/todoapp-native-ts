@@ -12,7 +12,7 @@ router.get("/todos", jwtProtected, TodoController.getAllTodos);
 router.get("/todo/:id", TodoController.getTodo);
 
 /* GET TODO BY STATUS OR CATEGORY */
-router.get("/getTodoBy", TodoController.getTodoByStatus);
+router.get("/todos/:category", TodoController.getTodosByCategory);
 
 /* GET TODOS BY DATE */
 router.get("/todos/:date", jwtProtected, TodoController.getTodosByDate);

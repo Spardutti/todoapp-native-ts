@@ -2,7 +2,7 @@ import { addTodo } from "./post_todo";
 import {
   getAllTodos,
   getTodo,
-  getTodoByStatus,
+  getTodosByCategory,
   getTodosByDate,
   getTodaysTodos,
   getOverdueTodos,
@@ -15,7 +15,7 @@ export const TodoController = {
   addTodo,
   getAllTodos,
   getTodo,
-  getTodoByStatus,
+  getTodosByCategory,
   deleteTodo,
   putTodo,
   getTodosByDate,

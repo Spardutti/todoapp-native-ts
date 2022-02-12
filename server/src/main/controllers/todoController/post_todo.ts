@@ -9,15 +9,15 @@ const addTodo = async (req: Request, res: Response, next: NextFunction) => {
 
     const userId = req.user?._id;
     console.log(userId);
-    
-    // const category = await CategoryModel.findById(categoryId);
+
+    const category = await CategoryModel.findById(categoryId);
 
     const todo = new TodoModel({
       todoName,
       todoDescription,
       dueDate,
       author: userId,
-      // category,
+      category,
     });
 
     await todo.save();

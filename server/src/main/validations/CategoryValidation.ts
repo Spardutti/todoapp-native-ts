@@ -21,7 +21,7 @@ const validateNewCategory = [
   (req: Request, res: Response, next: NextFunction) => {
     const validationErrors = validationResult(req);
     if (!validationErrors.isEmpty()) {
-      return res.json(validationErrors).status(500);
+      return res.status(500).json(validationErrors);
     }
     next();
   },

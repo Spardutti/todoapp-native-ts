@@ -25,6 +25,7 @@ interface TodoCardProps {
     dueDate: string;
     isCompleted: boolean;
     todoDescription: string;
+    category: { categoryName: string; _id: string; color: string };
   };
 }
 
@@ -96,8 +97,12 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo }) => {
             <DeleteEditButtons todoId={todo._id} todoName={todo.todoName} />
           </MotionHStack>
           <Box>
-            <Link as={RouterLink} to={`/category/${todo.todoName}`}>
-              Category
+            <Link
+              color={todo.category.color}
+              as={RouterLink}
+              to={`/category/${todo.category._id}`}
+            >
+              {todo.category.categoryName}
             </Link>
           </Box>
         </VStack>

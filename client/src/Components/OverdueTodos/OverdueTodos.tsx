@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useGetOverdueTodos } from "../../api/Todo/get_todo";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { setOverdue } from "../../store/Reducers/Todos/todoReducer";
-import OverdueTodoCard from "./OverdueTodoCard";
+import TodoCard from "../Todos/TodoCard";
 
 /* FETCH AND DISPLAY OVERDUE TODOS */
 const OverdueTodos: React.FC = () => {
@@ -32,7 +32,7 @@ const OverdueTodos: React.FC = () => {
       </HStack>
       <Divider py={2} />
       {overdueTodos.map((elem, index) => {
-        return <OverdueTodoCard todo={elem} key={index} />;
+        return <TodoCard todo={elem} key={index} />;
       })}
     </Box>
   );

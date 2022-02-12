@@ -18,7 +18,7 @@ const Nav = () =>
   useRoutes([
     { path: "/home", element: <NavBar /> },
     { path: "/upcoming", element: <NavBar /> },
-    { path: "/category/:id", element: <NavBar /> },
+    { path: "/category/:categoryId", element: <NavBar /> },
     // {},
   ]);
 
@@ -38,8 +38,8 @@ function App() {
               <Route path="/upcoming" element={<ProtectedRoute />}>
                 <Route path="/upcoming" element={<Upcoming />} />
               </Route>
-              <Route path="/category" element={<ProtectedRoute />}>
-                <Route path="/category/:id" element={<Category />} />
+              <Route path="/category/:categoryId" element={<ProtectedRoute />}>
+                <Route path="/category/:categoryId" element={<Category />} />
               </Route>
             </Routes>
           </ChakraProvider>

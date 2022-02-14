@@ -65,9 +65,23 @@ const useGetTodosByCategory = (category: string | undefined) => {
     getTodosByCategory(category)
   );
 };
+
+/* GET COMPLETED TODOS */
+const getCompletedTodos = (token: string) => {
+  return axios.get(`${devUrl}/completed`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const useGetCompletedTodos = (token: string) => {
+  return useQuery(["completed", token], () => getCompletedTodos(token));
+};
 export {
   useGetTodaysTodos,
   useGetUpcomingTodos,
   useGetOverdueTodos,
   useGetTodosByCategory,
+  useGetCompletedTodos,
 };

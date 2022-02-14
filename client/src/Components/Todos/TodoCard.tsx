@@ -17,7 +17,8 @@ import { BsFillCalendarXFill } from "react-icons/bs";
 import TodoDescription from "./TodoDescription";
 import DeleteEditButtons from "../Buttons/DeleteEditButtons";
 import { Link as RouterLink } from "react-router-dom";
-
+import { useToggleIsCompelted } from "../../api/Todo/put_todo";
+import { useQueryClient } from "react-query";
 interface TodoCardProps {
   todo: {
     _id: string;
@@ -48,6 +49,19 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo }) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const { mutateAsync } = useToggleIsCompelted();
+
+  const queryClient = useQueryClient();
+  const updateIsCompleted = async (data: { id: string; status: boolean }) => {
+    const response = await mutateAsync(data);
+    if (response) {
+      queryClient.invalidateQueries("todosCategory");
+      queryClient.invalidateQueries("overdue");
+      queryClient.invalidateQueries("today");
+      queryClient.invalidateQueries("upcoming");
+    }
+  };
+
   const MotionHStack = motion(HStack);
 
   return (
@@ -71,7 +85,9 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo }) => {
         >
           <motion.div initial={{ opacity: 0 }} whileHover={{ opacity: 1 }}>
             <BsCheck2
-              onClick={() => toast("Task completed will be added later")}
+              onClick={() =>
+                updateIsCompleted({ id: todo._id, status: todo.isCompleted })
+              }
             />
           </motion.div>
         </Stack>

@@ -11,9 +11,10 @@ import React from "react";
 import { BiRightArrow } from "react-icons/bi";
 import { HiOutlinePlus } from "react-icons/hi";
 import { useGetUserCategories } from "../../api/Category/get_category";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import NewCategoryModal from "./NewCategoryModal";
 import { useNavigate } from "react-router-dom";
+import { toggleDrawer } from "../../store/Reducers/Drawer/drawerReducer";
 
 interface ShowCategoriesProps {}
 
@@ -21,6 +22,7 @@ interface ShowCategoriesProps {}
 const ShowCategories: React.FC<ShowCategoriesProps> = () => {
   const token = useAppSelector((state) => state.token.token);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   /* MODAL CONTROLLERS */
   const {
@@ -52,7 +54,10 @@ const ShowCategories: React.FC<ShowCategoriesProps> = () => {
         borderRadius={5}
         p={1}
         cursor="pointer"
-        onClick={() => navigate(`/category/${cat._id}`)}
+        onClick={() => {
+          navigate(`/category/${cat._id}`);
+          dispatch(toggleDrawer());
+        }}
       >
         <Box w={3} h={3} bg={cat.color} borderRadius={"full"} />
         <Text pl={4}>{cat.categoryName}</Text>

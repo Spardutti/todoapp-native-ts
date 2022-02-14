@@ -5,7 +5,10 @@ import { TodoModel } from "../../models/TodoModel";
 /* GET ALL USER TODOS */
 const getAllTodos = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const todos = await TodoModel.find({ author: req.user?._id });
+    const todos = await TodoModel.find({
+      author: req.user?._id,
+      isCompleted: false,
+    });
 
     res.status(200).json(todos);
   } catch (error) {
@@ -35,7 +38,10 @@ const getTodosByCategory = async (
   try {
     const { category } = req.params;
 
-    const todos = await TodoModel.find({ category }).populate("category");
+    const todos = await TodoModel.find({
+      category,
+      isCompleted: false,
+    }).populate("category");
     return res.status(200).json(todos);
   } catch (error) {
     return next(error);
@@ -74,6 +80,7 @@ const getTodaysTodos = async (
     const todos = await TodoModel.find({
       author: req.user?._id,
       dueDate: today,
+      isCompleted: false,
     }).populate("category");
 
     res.json(todos);
@@ -93,6 +100,7 @@ const getOverdueTodos = async (
     const todos = await TodoModel.find({
       author: req.user?._id,
       dueDate: { $lt: today },
+      isCompleted: false,
     }).populate("category");
 
     res.json(todos);
@@ -112,8 +120,26 @@ const getUpcomingTodos = async (
     const todos = await TodoModel.find({
       author: req.user?._id,
       dueDate: { $gte: date },
+      isCompleted: false,
     }).populate("category");
 
+    res.status(200).json(todos);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+/* GET COMPLETED TODOS */
+const getCompletedTodos = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const todos = await TodoModel.find({
+      author: req.user?._id,
+      isCompleted: true,
+    });
     res.status(200).json(todos);
   } catch (error) {
     return next(error);
@@ -128,4 +154,5 @@ export {
   getTodaysTodos,
   getOverdueTodos,
   getUpcomingTodos,
+  getCompletedTodos,
 };

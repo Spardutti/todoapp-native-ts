@@ -29,10 +29,12 @@ interface Props {
 export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
   const token = useAppSelector((state) => state.token);
   const [pickedDate, setPickedDate] = useState(new Date());
+  const [pickedCategory, setPickedCategory] = useState("Pick a category");
   const [newTodo, setNewTodo] = useState<Todo>({
     todoName: "",
     todoDescription: "",
     dueDate: pickedDate,
+    categoryId: pickedCategory,
     token: token,
   });
 
@@ -44,11 +46,19 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
     setNewTodo({ ...newTodo, dueDate: pickedDate });
   }, [pickedDate]);
 
+  useEffect(() => {
+    setNewTodo({ ...newTodo, categoryId: pickedCategory });
+    console.log(pickedCategory);
+  }, [pickedCategory]);
+
   const resetState = () => {
+    setPickedDate(new Date());
+    setPickedCategory("Pick a category");
     setNewTodo({
       todoName: "",
       todoDescription: "",
       dueDate: pickedDate,
+      categoryId: pickedCategory,
     });
   };
 
@@ -67,6 +77,7 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
   const { mutateAsync, isLoading } = useAddTodo();
   /* RUN MUTATION ON CLICK */
   const addTodo = async () => {
+    console.log(newTodo);
     await mutateAsync(newTodo);
     /* UPDATE THE TODOS QUERY IN THE DOM */
     queryClient.invalidateQueries("todos");
@@ -116,7 +127,10 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
               pickedDate={pickedDate}
               setPickedDate={setPickedDate}
             />
-            <ShowCategories />
+            <ChooseCategoryButton
+              pickedCategory={pickedCategory}
+              setPickedCategory={setPickedCategory}
+            />
           </Box>
           <Divider orientation="horizontal" borderColor="blackAlpha.300" />
         </Stack>

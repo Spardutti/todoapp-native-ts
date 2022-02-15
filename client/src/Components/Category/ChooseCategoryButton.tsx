@@ -7,11 +7,50 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverBody,
+  Flex,
+  Text,
 } from "@chakra-ui/react";
 import { useGetUserCategories } from "../../api/Category/get_category";
+import { useAppSelector } from "../../hooks";
 
-export const ChooseCategoryButton: React.FC = () => {
-  const [showCategories, setShowCategories] = useState(false);
+interface Props {
+  pickedCategory: string;
+  setPickedCategory: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export const ChooseCategoryButton: React.FC<Props> = ({
+  pickedCategory,
+  setPickedCategory,
+}) => {
+  const token = useAppSelector((state) => state.token.token);
+  const { data } = useGetUserCategories(token);
+
+  const category = (e: any) => {
+    const value = e.target.id;
+    setPickedCategory(value);
+  };
+
+  const CategoryList = () => {
+    interface Props {
+      _id: string;
+      author: string;
+      categoryName: string;
+    }
+
+    return data?.data.map((cat: Props) => (
+      <Flex key={cat._id}>
+        <Button
+          id={cat._id}
+          bgColor="white"
+          width="100%"
+          textAlign="left"
+          onClick={(e) => category(e)}
+        >
+          {cat.categoryName}
+        </Button>
+      </Flex>
+    ));
+  };
 
   return (
     <>
@@ -28,7 +67,12 @@ export const ChooseCategoryButton: React.FC = () => {
             borderColor="blackAlpha.400"
           ></Button>
         </PopoverTrigger>
-        <PopoverContent></PopoverContent>
+        <PopoverContent maxW="180px">
+          <PopoverHeader>
+            <Text textAlign="center">Select a Category</Text>
+          </PopoverHeader>
+          <PopoverBody>{data && <CategoryList />}</PopoverBody>
+        </PopoverContent>
       </Popover>
     </>
   );

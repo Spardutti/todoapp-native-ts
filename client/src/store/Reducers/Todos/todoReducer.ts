@@ -3,11 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 interface Todos {
   overdue: number;
   today: number;
+  completed: number;
 }
 
 const initialState: Todos = {
   overdue: 0,
   today: 0,
+  completed: 0,
 };
 
 export const TodoSlice = createSlice({
@@ -19,6 +21,9 @@ export const TodoSlice = createSlice({
     },
     setOverdue(state, { payload }) {
       state.overdue = payload;
+    },
+    setCompleted(state, { payload }) {
+      state.completed = payload;
     },
   },
 });

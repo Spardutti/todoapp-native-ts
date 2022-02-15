@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import { Toaster } from "react-hot-toast";
 import Upcoming from "./Components/Views/Upcoming";
 import Category from "./Components/Views/Category";
+import Completed from "./Components/Views/Completed";
 
 const queryClient = new QueryClient();
 
@@ -18,7 +19,9 @@ const Nav = () =>
   useRoutes([
     { path: "/home", element: <NavBar /> },
     { path: "/upcoming", element: <NavBar /> },
-    { path: "/category/:id", element: <NavBar /> },
+    { path: "/category/:categoryId", element: <NavBar /> },
+    { path: "/done", element: <NavBar /> },
+
     // {},
   ]);
 
@@ -38,8 +41,11 @@ function App() {
               <Route path="/upcoming" element={<ProtectedRoute />}>
                 <Route path="/upcoming" element={<Upcoming />} />
               </Route>
-              <Route path="/category" element={<ProtectedRoute />}>
-                <Route path="/category/:id" element={<Category />} />
+              <Route path="/category/:categoryId" element={<ProtectedRoute />}>
+                <Route path="/category/:categoryId" element={<Category />} />
+              </Route>
+              <Route path="/done" element={<ProtectedRoute />}>
+                <Route path="/done" element={<Completed />} />
               </Route>
             </Routes>
           </ChakraProvider>

@@ -17,6 +17,11 @@ interface Todo {
   dueDate: string;
   isCompleted: boolean;
   todoDescription: string;
+  category: {
+    categoryName: string;
+    _id: string;
+    color: string;
+  };
 }
 
 /* DISPLAY UPCOMING DAYS*/
@@ -51,7 +56,6 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
     return (
       <>
         {daysFrom.map((day, index) => {
-          console.log(day);
           return (
             <Box key={index} p={10}>
               <Text fontWeight={"bold"} color="gray">

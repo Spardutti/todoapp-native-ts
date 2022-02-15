@@ -2,10 +2,13 @@ import { TodoModel } from "../../models/TodoModel";
 import { Request, Response, NextFunction } from "express";
 
 /* EDIT TODO */
-const putTodo = async (req: Request, res: Response, next: NextFunction) => {
+const toggleIsCompleted = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const { todoName, todoDescription, dueDate, category, isCompleted } =
-      req.body;
+    const { isCompleted } = req.body;
     const { id } = req.params;
 
     const todo = await TodoModel.findByIdAndUpdate(
@@ -21,4 +24,4 @@ const putTodo = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { putTodo };
+export { toggleIsCompleted };

@@ -12,7 +12,7 @@ router.get("/todos", jwtProtected, TodoController.getAllTodos);
 router.get("/todo/:id", TodoController.getTodo);
 
 /* GET TODO BY STATUS OR CATEGORY */
-router.get("/getTodoBy", TodoController.getTodoByStatus);
+router.get("/todos/:category", TodoController.getTodosByCategory);
 
 /* GET TODOS BY DATE */
 router.get("/todos/:date", jwtProtected, TodoController.getTodosByDate);
@@ -25,5 +25,8 @@ router.get("/upcomingTodos", jwtProtected, TodoController.getUpcomingTodos);
 
 /* GET OVERDUE TODOS */
 router.get("/overdueTodos", jwtProtected, TodoController.getOverdueTodos);
+
+/* GET COMPELTED TODOS */
+router.get("/completed", jwtProtected, TodoController.getCompletedTodos);
 
 export { router };

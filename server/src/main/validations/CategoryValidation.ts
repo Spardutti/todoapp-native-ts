@@ -17,12 +17,11 @@ const validateNewCategory = [
       }
     })
     .withMessage("Category already exist"),
+  body("color").notEmpty().withMessage("Please select a color"),
   (req: Request, res: Response, next: NextFunction) => {
     const validationErrors = validationResult(req);
     if (!validationErrors.isEmpty()) {
-      return res
-        .status(500)
-        .json({ validationErrors: validationErrors.array() });
+      return res.status(500).json(validationErrors);
     }
     next();
   },

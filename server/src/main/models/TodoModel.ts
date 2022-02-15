@@ -7,7 +7,7 @@ export interface Todo {
   isCompleted: boolean;
   dueDate: Date;
   category: ObjectId;
-  //creationDate: Date;
+  creationDate: Date;
 }
 
 const TodoSchema = new Schema<Todo>({
@@ -17,7 +17,7 @@ const TodoSchema = new Schema<Todo>({
   isCompleted: { type: Boolean, default: false },
   dueDate: { type: Date, required: true },
   category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
-  //creationDate: new Date(Date.now())
+  creationDate: { type: Date, default: new Date(Date.now()) },
 });
 
 export const TodoModel = model<Todo>("Todo", TodoSchema);

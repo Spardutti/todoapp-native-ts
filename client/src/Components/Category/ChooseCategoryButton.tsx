@@ -10,6 +10,7 @@ import {
   Flex,
   Text,
   Spacer,
+  propNames,
 } from "@chakra-ui/react";
 import { useGetUserCategories } from "../../api/Category/get_category";
 import { useAppSelector } from "../../hooks";
@@ -38,33 +39,30 @@ export const ChooseCategoryButton: React.FC<Props> = ({
     close();
   }, [pickedCategory]);
 
-  const category = (e: any) => {
-    const value = e.target.id;
-    const pickedColor = e.target.name;
-    const pickedName = e.target.value;
-    setPickedCategory(value);
-    setCategoryColor(pickedColor);
-    setButtonText(pickedName);
+  interface Props {
+    _id: string;
+    author: string;
+    categoryName: string;
+    color: string;
+  }
+
+  const category = (catObj: Props) => {
+    const catId = catObj._id;
+    const catColor = catObj.color;
+    const catName = catObj.categoryName;
+    setPickedCategory(catId);
+    setCategoryColor(catColor);
+    setButtonText(catName);
   };
 
   const CategoryList = () => {
-    interface Props {
-      _id: string;
-      author: string;
-      categoryName: string;
-      color: string;
-    }
-
-    return data?.data.map((cat: Props) => (
+    return data?.data.map((cat: Props, catObj: Object) => (
       <Flex key={cat._id}>
         <Button
-          id={cat._id}
-          name={cat.color}
-          value={cat.categoryName}
           bgColor="white"
           width="100%"
           textAlign="left"
-          onClick={(e) => category(e)}
+          onClick={(e) => category(cat)}
           px="0px"
           className="categoryButton"
         >

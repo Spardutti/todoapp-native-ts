@@ -48,7 +48,6 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
 
   useEffect(() => {
     setNewTodo({ ...newTodo, categoryId: pickedCategory });
-    console.log(pickedCategory);
   }, [pickedCategory]);
 
   const resetState = () => {
@@ -77,7 +76,6 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
   const { mutateAsync, isLoading } = useAddTodo();
   /* RUN MUTATION ON CLICK */
   const addTodo = async () => {
-    console.log(newTodo);
     await mutateAsync(newTodo);
     /* UPDATE THE TODOS QUERY IN THE DOM */
     queryClient.invalidateQueries("todos");

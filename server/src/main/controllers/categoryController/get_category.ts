@@ -19,7 +19,7 @@ const getAllUserCategories = async (
 const getCategory = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-    const category = await CategoryModel.findById(id).populate("categoryName");
+    const category = await CategoryModel.findById(id).populate("categoryName").populate("color");
     res.status(200).json(category);
   } catch (error) {
     return next(error);

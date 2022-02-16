@@ -11,23 +11,25 @@ export interface Todo {
   todoName: string;
   todoDescription: string;
   dueDate: Date | null;
+  categoryId: string;
   token?: Token;
 }
 
 /* ADD A NEW TODO */
 const addTodo = async (newTodo: Todo) => {
   try {
-    const { todoName, todoDescription, dueDate, token } = newTodo;
-
+    const { todoName, todoDescription, dueDate, token, categoryId, } = newTodo;
+    
     const response = axios.post(
       `${devUrl}/newTodo`,
-      { todoName, todoDescription, dueDate },
+      { todoName, todoDescription, dueDate, categoryId },
       {
         headers: {
           Authorization: `Bearer ${token?.token}`,
         },
       }
     );
+    
 
     return response;
   } catch (error) {

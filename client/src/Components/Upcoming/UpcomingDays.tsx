@@ -6,22 +6,10 @@ import { useAppSelector } from "../../hooks";
 import OverdueTodos from "../OverdueTodos/OverdueTodos";
 import { AddTodoModal } from "../Todos/AddTodoModal";
 import TodoCard from "../Todos/TodoCard";
+import { Todo } from "../../Interface/Interface";
 
 interface UpcomingDaysProps {
   selectedDate: DateTime;
-}
-
-interface Todo {
-  _id: string;
-  todoName: string;
-  dueDate: string;
-  isCompleted: boolean;
-  todoDescription: string;
-  category: {
-    categoryName: string;
-    _id: string;
-    color: string;
-  };
 }
 
 /* DISPLAY UPCOMING DAYS*/
@@ -64,7 +52,7 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
               <Divider />
               {/* CHECK IF DATE MATCH TO SHOW A TODO 
               ON THE CORRESPONDING DATE */}
-              {upcomingTodos.map((todo, idx) => {
+              {upcomingTodos.map((todo: Todo, idx) => {
                 const date = day.toLocaleString();
                 const todoDate = DateTime.fromJSDate(
                   new Date(todo.dueDate)

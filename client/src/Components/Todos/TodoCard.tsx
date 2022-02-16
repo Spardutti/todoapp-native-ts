@@ -19,18 +19,9 @@ import DeleteEditButtons from "../Buttons/DeleteEditButtons";
 import { Link as RouterLink } from "react-router-dom";
 import { useToggleIsCompelted } from "../../api/Todo/put_todo";
 import { useQueryClient } from "react-query";
-interface TodoCardProps {
-  todo: {
-    _id: string;
-    todoName: string;
-    dueDate: string;
-    isCompleted: boolean;
-    todoDescription: string;
-    category: { categoryName: string; _id: string; color: string };
-  };
-}
+import { Todo } from "../../Interface/Interface";
 
-const TodoCard: React.FC<TodoCardProps> = ({ todo }) => {
+const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
   const [monthName] = useState(
     new Date(todo.dueDate).toLocaleString("default", {
       month: "short",

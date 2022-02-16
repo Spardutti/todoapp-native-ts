@@ -1,5 +1,6 @@
 import React from "react";
 import { useGetTodosByCategory } from "../../api/Todo/get_todo";
+import { Todo } from "../../Interface/Interface";
 import TodoCard from "../Todos/TodoCard";
 
 interface TodosByCategoryProps {
@@ -14,7 +15,7 @@ const TodosByCategory: React.FC<TodosByCategoryProps> = ({ categoryId }) => {
   if (data) {
     const { todoName, todoDescription, dueDate } = data?.data;
 
-    return data?.data.map((todo: any, index: number) => {
+    return data?.data.map((todo: Todo, index: number) => {
       return <TodoCard todo={todo} key={index} />;
     });
   }

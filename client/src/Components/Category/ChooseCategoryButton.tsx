@@ -88,6 +88,7 @@ export const ChooseCategoryButton: React.FC<Props> = ({
             border="1px"
             borderColor="blackAlpha.400"
             onClick={open}
+            ml="10px"
           >
             <MdCategory color={categoryColor} />
             <Text textColor={categoryColor} ml="4px" fontSize="13px">

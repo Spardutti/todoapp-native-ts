@@ -8,6 +8,8 @@ export interface Todo {
   dueDate: Date;
   category: ObjectId;
   creationDate: Date;
+  completedDate: Date;
+  updateDate: Date;
 }
 
 const TodoSchema = new Schema<Todo>({
@@ -18,6 +20,8 @@ const TodoSchema = new Schema<Todo>({
   dueDate: { type: Date, required: true },
   category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
   creationDate: { type: Date, default: new Date(Date.now()) },
+  completedDate: Date,
+  updateDate: Date,
 });
 
 export const TodoModel = model<Todo>("Todo", TodoSchema);

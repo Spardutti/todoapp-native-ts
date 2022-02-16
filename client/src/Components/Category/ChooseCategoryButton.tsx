@@ -56,20 +56,23 @@ export const ChooseCategoryButton: React.FC<Props> = ({
   };
 
   const CategoryList = () => {
-    return data?.data.map((cat: Props, catObj: Object) => (
-      <Flex key={cat._id}>
-        <Button
-          bgColor="white"
-          width="100%"
-          textAlign="left"
-          onClick={(e) => category(cat)}
-          px="0px"
-          className="categoryButton"
-        >
-          <Text textColor={cat.color}>{cat.categoryName}</Text>
-        </Button>
+    return (
+      <Flex direction="column">
+        {data?.data.map((cat: Props) => (
+          <Button
+            key={cat._id}
+            bgColor="white"
+            width="100%"
+            textAlign="left"
+            onClick={() => category(cat)}
+            my="2px"
+            textColor={cat.color}
+          >
+            {cat.categoryName}
+          </Button>
+        ))}
       </Flex>
-    ));
+    );
   };
 
   return (

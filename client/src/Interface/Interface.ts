@@ -5,4 +5,10 @@ export interface Todo {
   isCompleted: boolean;
   todoDescription: string;
   category: { categoryName: string; _id: string; color: string };
+  author: {
+    _id: string;
+    username: string;
+  };
+  updateDate: string;
+  completedDate: string;
 }

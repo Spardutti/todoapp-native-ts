@@ -44,6 +44,7 @@ export const QuickIcons: React.FC<HoverColor> = ({ hoverColor }) => {
           background: hoverColor,
         }}
         cursor="pointer"
+        onClick={() => navigate("/history")}
       >
         <AiOutlineLineChart color="white" fontSize={20} />
       </Box>

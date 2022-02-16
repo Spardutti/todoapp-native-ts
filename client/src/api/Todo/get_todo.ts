@@ -78,10 +78,22 @@ const getCompletedTodos = (token: string) => {
 const useGetCompletedTodos = (token: string) => {
   return useQuery(["completed", token], () => getCompletedTodos(token));
 };
+
+/* GET LATEST TODOS */
+const getLatesTodos = (token: string) => {
+  return axios.get(`${devUrl}/history`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
+
+const useGetLatestTodos = (token: string) => {
+  return useQuery(["latest", token], () => getLatesTodos(token));
+};
 export {
   useGetTodaysTodos,
   useGetUpcomingTodos,
   useGetOverdueTodos,
   useGetTodosByCategory,
   useGetCompletedTodos,
+  useGetLatestTodos,
 };

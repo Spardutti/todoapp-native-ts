@@ -76,7 +76,8 @@ const getTodaysTodos = async (
 ) => {
   try {
     const today = DateTime.now().setLocale("en-US").toLocaleString();
-
+    console.log(today);
+    
     const todos = await TodoModel.find({
       author: req.user?._id,
       dueDate: today,

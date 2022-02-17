@@ -11,7 +11,8 @@ const router = Router();
 router.post(
   "/newTodo",
   jwtProtected,
-  /* validateNewTodo, */ TodoController.addTodo
+  //validateNewTodo,
+  TodoController.addTodo
 );
 
 export { router };

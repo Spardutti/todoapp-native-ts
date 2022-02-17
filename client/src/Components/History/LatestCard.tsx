@@ -21,7 +21,20 @@ interface LatestCardProps {
 const LatestCard: React.FC<LatestCardProps> = ({ todo }) => {
   /* SHOW COMPLETED BADGE */
   const AvatarDisplay = () => {
-    if (todo.isCompleted) {
+    if (todo.updateType === "Created") {
+      return (
+        <HStack>
+          <Avatar name={todo.author.username}>
+            <AvatarBadge boxSize={"1.25em"} bg="orange" border="none">
+              <AiOutlinePlus />
+            </AvatarBadge>
+          </Avatar>
+          <Text>You added: {todo.todoName}</Text>
+        </HStack>
+      );
+    }
+
+    if (todo.updateType === "Completed") {
       return (
         <HStack>
           <Avatar name={todo.author.username}>
@@ -34,7 +47,7 @@ const LatestCard: React.FC<LatestCardProps> = ({ todo }) => {
       );
     }
 
-    if (todo.updateDate) {
+    if (todo.updateType === "Updated") {
       return (
         <HStack>
           <Avatar name={todo.author.username}>
@@ -47,16 +60,7 @@ const LatestCard: React.FC<LatestCardProps> = ({ todo }) => {
       );
     }
 
-    return (
-      <HStack>
-        <Avatar name={todo.author.username}>
-          <AvatarBadge boxSize={"1.25em"} bg="orange" border="none">
-            <AiOutlinePlus />
-          </AvatarBadge>
-        </Avatar>
-        <Text>You added: {todo.todoName}</Text>
-      </HStack>
-    );
+    return null;
   };
 
   return (

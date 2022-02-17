@@ -29,4 +29,7 @@ router.get("/overdueTodos", jwtProtected, TodoController.getOverdueTodos);
 /* GET COMPELTED TODOS */
 router.get("/completed", jwtProtected, TodoController.getCompletedTodos);
 
+/* GET LATEST TODOS */
+router.get("/history", jwtProtected, TodoController.getLatestTodos);
+
 export { router };

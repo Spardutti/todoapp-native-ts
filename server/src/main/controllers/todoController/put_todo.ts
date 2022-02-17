@@ -8,13 +8,14 @@ const toggleIsCompleted = async (
   next: NextFunction
 ) => {
   try {
-    const { isCompleted } = req.body;
+    const { isCompleted, completedDate } = req.body;
     const { id } = req.params;
 
     const todo = await TodoModel.findByIdAndUpdate(
       id,
       {
         isCompleted: !isCompleted,
+        completedDate: new Date(Date.now()),
       },
       { new: true }
     );

@@ -75,9 +75,16 @@ const getTodaysTodos = async (
   next: NextFunction
 ) => {
   try {
+<<<<<<< HEAD
     const today = DateTime.now().setLocale("en-US").toLocaleString();
     console.log(today);
     
+=======
+    // const today = DateTime.now().setLocale("en-US").toLocaleString();
+    const today = new Date(Date.now());
+    today.setHours(0, 0, 0, 0);
+
+>>>>>>> 2b1a8beb56144f67747167faa71dbc98cefe089c
     const todos = await TodoModel.find({
       author: req.user?._id,
       dueDate: today,
@@ -147,6 +154,29 @@ const getCompletedTodos = async (
   }
 };
 
+/* GET LATES ACTIVITY TODOS */
+const getLatestTodos = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const today = new Date(Date.now());
+    today.setHours(0, 0, 0, 0);
+
+    const todos = await TodoModel.find({
+      author: req.user?._id,
+    })
+      .limit(10)
+      .sort({ completedDate: -1, updateDate: -1, creationDate: -1 })
+      .populate("category")
+      .populate("author");
+    res.status(200).json(todos);
+  } catch (error) {
+    return next(error);
+  }
+};
+
 export {
   getAllTodos,
   getTodo,
@@ -156,4 +186,5 @@ export {
   getOverdueTodos,
   getUpcomingTodos,
   getCompletedTodos,
+  getLatestTodos,
 };

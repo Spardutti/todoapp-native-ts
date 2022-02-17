@@ -16,17 +16,12 @@ import toast from "react-hot-toast";
 import { BsCheck2 } from "react-icons/bs";
 import DeleteEditButtons from "../Buttons/DeleteEditButtons";
 import { BsFillCalendarXFill } from "react-icons/bs";
+import { Todo } from "../../Interface/Interface";
 
 interface TodoDescriptionProps {
   isOpen: boolean;
   onClose: () => void;
-  todo: {
-    _id: string;
-    todoName: string;
-    dueDate: string;
-    isCompleted: boolean;
-    todoDescription: string;
-  };
+  todo: Todo;
 }
 
 const TodoDescription: React.FC<TodoDescriptionProps> = ({

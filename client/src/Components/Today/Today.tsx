@@ -23,6 +23,7 @@ const Today: React.FC<TodayProps> = () => {
     if (data) {
       setTodayTodos(data.data);
       dispatch(setTodos(data.data.length));
+      console.log(data);
     }
   }, [data]);
 

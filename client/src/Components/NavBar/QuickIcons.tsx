@@ -4,6 +4,7 @@ import { AddTodoModal } from "../Todos/AddTodoModal";
 import { ImSwitch } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
+import { AiOutlineLineChart } from "react-icons/ai";
 
 interface HoverColor {
   hoverColor: string;
@@ -35,6 +36,17 @@ export const QuickIcons: React.FC<HoverColor> = ({ hoverColor }) => {
         textAlign={"center"}
       >
         <AddTodoModal preSelectedDate={null} color="white" text="" />
+      </Box>
+      <Box
+        p={2}
+        borderRadius={5}
+        _hover={{
+          background: hoverColor,
+        }}
+        cursor="pointer"
+        onClick={() => navigate("/history")}
+      >
+        <AiOutlineLineChart color="white" fontSize={20} />
       </Box>
       <Box
         p={2}

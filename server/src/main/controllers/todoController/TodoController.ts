@@ -8,6 +8,7 @@ import {
   getOverdueTodos,
   getUpcomingTodos,
   getCompletedTodos,
+  getLatestTodos,
 } from "./get_todo";
 import { deleteTodo } from "./delete_todo";
 import { toggleIsCompleted } from "./put_todo";
@@ -24,4 +25,5 @@ export const TodoController = {
   getUpcomingTodos,
   getOverdueTodos,
   getCompletedTodos,
+  getLatestTodos,
 };

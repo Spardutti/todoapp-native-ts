@@ -75,13 +75,14 @@ const getTodaysTodos = async (
   next: NextFunction
 ) => {
   try {
-    // const today = DateTime.now().setLocale("en-US").toLocaleString();
-    const today = new Date(Date.now());
-    today.setHours(0, 0, 0, 0);
+    const today = DateTime.now().setLocale("en-US");
 
     const todos = await TodoModel.find({
       author: req.user?._id,
-      dueDate: today,
+      dueDate: {
+        $gte: today.set({ hour: 0, minute: 0, second: 0 }),
+        $lte: today.set({ hour: 23, minute: 59, second: 59 }),
+      },
       isCompleted: false,
     }).populate("category");
 
@@ -119,6 +120,7 @@ const getUpcomingTodos = async (
 ) => {
   try {
     const date = DateTime.now().setLocale("en-US").toLocaleString();
+
     const todos = await TodoModel.find({
       author: req.user?._id,
       dueDate: { $gte: date },
@@ -155,18 +157,19 @@ const getLatestTodos = async (
   next: NextFunction
 ) => {
   try {
-    const today = new Date(Date.now());
-    today.setHours(0, 0, 0, 0);
-
     const todos = await TodoModel.find({
       author: req.user?._id,
     })
-      .limit(10)
-      .sort({ completedDate: -1, updateDate: -1, creationDate: -1 })
+      .sort({ updated: -1 })
+      .limit(5)
       .populate("category")
-      .populate("author");
+      .populate("author")
+      .exec();
+
     res.status(200).json(todos);
   } catch (error) {
+    console.log(error);
+
     return next(error);
   }
 };

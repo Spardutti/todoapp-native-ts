@@ -75,16 +75,10 @@ const getTodaysTodos = async (
   next: NextFunction
 ) => {
   try {
-<<<<<<< HEAD
-    const today = DateTime.now().setLocale("en-US").toLocaleString();
-    console.log(today);
-    
-=======
     // const today = DateTime.now().setLocale("en-US").toLocaleString();
     const today = new Date(Date.now());
     today.setHours(0, 0, 0, 0);
 
->>>>>>> 2b1a8beb56144f67747167faa71dbc98cefe089c
     const todos = await TodoModel.find({
       author: req.user?._id,
       dueDate: today,

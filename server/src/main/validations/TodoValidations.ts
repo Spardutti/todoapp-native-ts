@@ -21,14 +21,14 @@ const validateNewTodo = [
     .notEmpty()
     .withMessage("Please enter a todo Description"),
   body("dueDate").notEmpty().withMessage("Please select a Date"),
-  body("category").notEmpty().withMessage("Please select a Category"),
+  body("categoryId").notEmpty().withMessage("Please select a Category"),
 
   (req: Request, res: Response, next: NextFunction) => {
     const validationsErrors = validationResult(req);
     if (!validationsErrors.isEmpty())
       return res
         .status(500)
-        .json({ validationsErrors: validationsErrors.array() });
+        .json(validationsErrors);
     next();
   },
 ];

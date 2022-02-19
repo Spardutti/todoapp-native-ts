@@ -43,6 +43,7 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
   const { mutateAsync } = useToggleIsCompelted();
 
   const queryClient = useQueryClient();
+
   const updateIsCompleted = async (data: { id: string; status: boolean }) => {
     const response = await mutateAsync(data);
     if (response) {
@@ -51,6 +52,7 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
       queryClient.invalidateQueries("today");
       queryClient.invalidateQueries("upcoming");
     }
+    toast.success("Task updated sucessfully");
   };
 
   const MotionHStack = motion(HStack);
@@ -61,7 +63,7 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
       onMouseLeave={() => setShow("0")}
       cursor={"pointer"}
     >
-      <Grid templateColumns={"20px 11fr 1fr"} py={4}>
+      <Grid templateColumns={"20px 11fr 1fr"} py={1}>
         <Stack
           display={"inline-block"}
           justifyContent={"center"}

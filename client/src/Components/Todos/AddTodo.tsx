@@ -78,7 +78,7 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
   const addTodo = async () => {
     await mutateAsync(newTodo);
     /* UPDATE THE TODOS QUERY IN THE DOM */
-    queryClient.invalidateQueries("todos");
+    queryClient.invalidateQueries("today");
     queryClient.invalidateQueries("upcoming");
     resetState();
   };

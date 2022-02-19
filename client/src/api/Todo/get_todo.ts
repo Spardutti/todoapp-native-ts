@@ -16,7 +16,7 @@ const getTodaysTodos = (token: string) => {
 };
 
 const useGetTodaysTodos = (token: string) => {
-  return useQuery<any, any, any>(["todos", token], () => getTodaysTodos(token));
+  return useQuery<any, any, any>(["today", token], () => getTodaysTodos(token));
 };
 
 /* GET UPCOMING TODOS */
@@ -80,14 +80,16 @@ const useGetCompletedTodos = (token: string) => {
 };
 
 /* GET LATEST TODOS */
-const getLatesTodos = (token: string) => {
-  return axios.get(`${devUrl}/history`, {
-    headers: { Authorization: `Bearer ${token}` },
+const getLatesTodos = (data: { token: string; skipNumber: string }) => {
+  return axios.get(`${devUrl}/history/${data.skipNumber}`, {
+    headers: { Authorization: `Bearer ${data.token}` },
   });
 };
 
-const useGetLatestTodos = (token: string) => {
-  return useQuery(["latest", token], () => getLatesTodos(token));
+const useGetLatestTodos = (data: { token: string; skipNumber: string }) => {
+  return useQuery(["latest", data.token], () => getLatesTodos(data), {
+    keepPreviousData: true,
+  });
 };
 export {
   useGetTodaysTodos,

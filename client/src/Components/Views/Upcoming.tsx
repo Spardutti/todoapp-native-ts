@@ -1,5 +1,6 @@
 import { Stack } from "@chakra-ui/react";
 import React from "react";
+import Layout from "../Layout/Layout";
 import WeekDisplay from "../Upcoming/WeekDisplay";
 
 interface UpcomingProps {}
@@ -7,9 +8,9 @@ interface UpcomingProps {}
 /* SHOW UPCOMING TODOS */
 const Upcoming: React.FC<UpcomingProps> = () => {
   return (
-    <Stack>
+    <Layout>
       <WeekDisplay />
-    </Stack>
+    </Layout>
   );
 };
 

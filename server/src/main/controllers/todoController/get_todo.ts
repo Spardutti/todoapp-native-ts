@@ -157,9 +157,13 @@ const getLatestTodos = async (
   next: NextFunction
 ) => {
   try {
+    const { skip } = req.params;
+    const n = Number(skip);
+
     const todos = await TodoModel.find({
       author: req.user?._id,
     })
+      .skip(n)
       .sort({ updated: -1 })
       .limit(5)
       .populate("category")
@@ -168,8 +172,6 @@ const getLatestTodos = async (
 
     res.status(200).json(todos);
   } catch (error) {
-    console.log(error);
-
     return next(error);
   }
 };

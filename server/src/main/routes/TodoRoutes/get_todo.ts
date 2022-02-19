@@ -30,6 +30,6 @@ router.get("/overdueTodos", jwtProtected, TodoController.getOverdueTodos);
 router.get("/completed", jwtProtected, TodoController.getCompletedTodos);
 
 /* GET LATEST TODOS */
-router.get("/history", jwtProtected, TodoController.getLatestTodos);
+router.get("/history/:skip", jwtProtected, TodoController.getLatestTodos);
 
 export { router };

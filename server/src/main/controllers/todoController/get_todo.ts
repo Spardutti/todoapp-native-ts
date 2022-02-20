@@ -143,7 +143,7 @@ const getCompletedTodos = async (
     const todos = await TodoModel.find({
       author: req.user?._id,
       isCompleted: true,
-    });
+    }).populate("author");
     res.status(200).json(todos);
   } catch (error) {
     return next(error);

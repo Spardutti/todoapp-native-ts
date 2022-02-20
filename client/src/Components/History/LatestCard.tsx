@@ -14,13 +14,14 @@ import { Todo } from "../../Interface/Interface";
 import { MdOutlineRefresh } from "react-icons/md";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { DateTime } from "luxon";
 
 interface LatestCardProps {
   todo: Todo;
 }
 
 const LatestCard: React.FC<LatestCardProps> = ({ todo }) => {
-  /* SHOW COMPLETED BADGE */
+  /* SHOW ADDED BADGE */
   const AvatarDisplay = () => {
     if (todo.updateType === "Created") {
       return (
@@ -42,11 +43,20 @@ const LatestCard: React.FC<LatestCardProps> = ({ todo }) => {
               <AiOutlinePlus />
             </AvatarBadge>
           </Avatar>
-          <Text>You added: {todo.todoName}</Text>
+          <Box>
+            <Text fontSize={13}>
+              <b>You</b> created task:{" "}
+              <span style={{ color: "gray" }}>{todo.todoName}</span>
+            </Text>
+            <Text color="gray" fontSize={11}>
+              {DateTime.fromISO(todo.updated).monthShort}{" "}
+              {DateTime.fromISO(todo.updated).day}
+            </Text>
+          </Box>
         </HStack>
       );
     }
-    /* SHOW UPDATED BADGE */
+    /* SHOW COMPLETED BADGE */
     if (todo.updateType === "Completed") {
       return (
         <HStack>
@@ -67,12 +77,21 @@ const LatestCard: React.FC<LatestCardProps> = ({ todo }) => {
               <AiOutlineCheck />
             </AvatarBadge>
           </Avatar>
-          <Text>You completed: {todo.todoName}</Text>
+          <Box>
+            <Text fontSize={13}>
+              <b>You</b> completed a task:{" "}
+              <span style={{ color: "gray" }}>{todo.todoName}</span>
+            </Text>
+            <Text color="gray" fontSize={11}>
+              {DateTime.fromISO(todo.updated).monthShort}{" "}
+              {DateTime.fromISO(todo.updated).day}
+            </Text>
+          </Box>
         </HStack>
       );
     }
 
-    /* SHOW ADDED BADGE */
+    /* SHOW UPDATED BADGE */
     return (
       <HStack>
         <Avatar
@@ -88,7 +107,16 @@ const LatestCard: React.FC<LatestCardProps> = ({ todo }) => {
             <MdOutlineRefresh />
           </AvatarBadge>
         </Avatar>
-        <Text>You updated: {todo.todoName}</Text>
+        <Box>
+          <Text fontSize={13}>
+            <b>You</b> updated task:{" "}
+            <span style={{ color: "gray" }}>{todo.todoName}</span>
+          </Text>
+          <Text color="gray" fontSize={11}>
+            {DateTime.fromISO(todo.updated).monthShort}{" "}
+            {DateTime.fromISO(todo.updated).day}
+          </Text>
+        </Box>
       </HStack>
     );
   };
@@ -109,6 +137,7 @@ const LatestCard: React.FC<LatestCardProps> = ({ todo }) => {
       <Flex align={"center"}>
         <Button
           onClick={() => navigate(`/category/${todo.category._id}`)}
+          size="sm"
           bg={todo.category.color}
         >
           {todo.category.categoryName}

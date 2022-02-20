@@ -8,8 +8,10 @@ interface CompletedProps {}
 const History: React.FC<CompletedProps> = () => {
   return (
     <Layout>
-      <Heading fontSize={25}>Activity</Heading>
-      <Box py={10} my={2}>
+      <Heading px={10} fontSize={25}>
+        Activity
+      </Heading>
+      <Box p={10} my={2}>
         <LatestActivity />
       </Box>
     </Layout>

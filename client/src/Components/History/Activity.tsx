@@ -1,8 +1,9 @@
-import { Box, Button, Center, HStack, Spinner } from "@chakra-ui/react";
+import { Box, Button, Center, HStack, Spinner, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useGetLatestTodos } from "../../api/Todo/get_todo";
 import { useAppSelector } from "../../hooks";
 import { Todo } from "../../Interface/Interface";
+import Completed from "./Completed";
 import LatestCard from "./LatestCard";
 
 interface CompletedTodosProps {}
@@ -13,9 +14,8 @@ const LatestActivity: React.FC<CompletedTodosProps> = () => {
     token: token,
     skipNumber: "0",
   });
-  const [todos, setTodos] = useState<Todo[]>([]);
 
-  const { data, isLoading, refetch } = useGetLatestTodos(fetchData);
+  const { data, isLoading, refetch, isFetching } = useGetLatestTodos(fetchData);
 
   const fetchMore = () => {
     let skipable = Number(fetchData.skipNumber);
@@ -39,25 +39,33 @@ const LatestActivity: React.FC<CompletedTodosProps> = () => {
     refetch();
   }, [fetchData]);
 
-  useEffect(() => {
-    setTodos(data?.data);
-  }, [data]);
-
   const NavButtons = () => {
     if (fetchData.skipNumber === "0") {
       return (
-        <Button colorScheme={"green"} onClick={fetchMore}>
+        <Button
+          isLoading={isFetching}
+          colorScheme={"green"}
+          onClick={fetchMore}
+        >
           More
         </Button>
       );
     }
-    if (todos.length === 5) {
+    if (data?.data.length === 5) {
       return (
         <HStack w={400} justify="space-around">
-          <Button colorScheme={"red"} onClick={fetchLess}>
+          <Button
+            isLoading={isFetching}
+            colorScheme={"red"}
+            onClick={fetchLess}
+          >
             Less
           </Button>
-          <Button colorScheme={"green"} onClick={fetchMore}>
+          <Button
+            isLoading={isFetching}
+            colorScheme={"green"}
+            onClick={fetchMore}
+          >
             More
           </Button>
         </HStack>
@@ -65,7 +73,11 @@ const LatestActivity: React.FC<CompletedTodosProps> = () => {
     } else {
       return (
         <>
-          <Button colorScheme={"red"} onClick={fetchLess}>
+          <Button
+            isLoading={isFetching}
+            colorScheme={"red"}
+            onClick={fetchLess}
+          >
             Less
           </Button>
         </>
@@ -83,11 +95,19 @@ const LatestActivity: React.FC<CompletedTodosProps> = () => {
 
   return (
     <Box>
-      {todos &&
-        todos.map((todo: Todo) => <LatestCard key={todo._id} todo={todo} />)}
+      {data?.data.length === 0 ? (
+        <Center>
+          <Text>No more data to display</Text>
+        </Center>
+      ) : (
+        data?.data.map((todo: Todo) => (
+          <LatestCard key={todo._id} todo={todo} />
+        ))
+      )}
       <Center pt={10}>
         <NavButtons />
       </Center>
+      <Completed />
     </Box>
   );
 };

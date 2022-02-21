@@ -3,7 +3,6 @@ import {
   Button,
   CloseButton,
   FormControl,
-  FormLabel,
   Input,
   Stack,
   Textarea,
@@ -16,10 +15,10 @@ import { useAppSelector } from "../../hooks";
 import { useAddTodo } from "../../api/Todo/post_todo";
 import React from "react";
 import { OpenCalendarPopOverButton } from "../Calendar/OpenCalendarPopOver";
-import { DateTime } from "luxon";
 import "../../Styles/calendar/calendarButton.scss";
 import { ChooseCategoryButton } from "../Category/ChooseCategoryButton";
-import ShowCategories from "../Category/ShowCategories";
+import toast from "react-hot-toast";
+import { error } from "console";
 
 interface Props {
   preSelectedDate: Date | null;
@@ -29,7 +28,7 @@ interface Props {
 export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
   const token = useAppSelector((state) => state.token);
   const [pickedDate, setPickedDate] = useState(new Date());
-  const [pickedCategory, setPickedCategory] = useState("Pick a category");
+  const [pickedCategory, setPickedCategory] = useState("");
   const [newTodo, setNewTodo] = useState<Todo>({
     todoName: "",
     todoDescription: "",
@@ -52,7 +51,7 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
 
   const resetState = () => {
     setPickedDate(new Date());
-    setPickedCategory("Pick a category");
+    setPickedCategory("");
     setNewTodo({
       todoName: "",
       todoDescription: "",
@@ -60,8 +59,6 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
       categoryId: pickedCategory,
     });
   };
-
-  const queryClient = useQueryClient();
 
   /* HANDLERS */
   const newTodoHandler = (e: any) => {
@@ -72,15 +69,23 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
     });
   };
 
-  /* ADD A NEW TODO TO THE DB */
+  const queryClient = useQueryClient();
+
+  /* ADD A NEW TODO TO THE DB OR SHOW ERRORS*/
   const { mutateAsync, isLoading } = useAddTodo();
   /* RUN MUTATION ON CLICK */
   const addTodo = async () => {
-    await mutateAsync(newTodo);
-    /* UPDATE THE TODOS QUERY IN THE DOM */
-    queryClient.invalidateQueries("today");
-    queryClient.invalidateQueries("upcoming");
-    resetState();
+    const response = await mutateAsync(newTodo).catch((err) =>
+      err.data.errors.map((err: any) => toast.error(err.msg))
+    );
+    if (response.status === 200) {
+      /* UPDATE THE TODOS QUERY IN THE DOM */
+      queryClient.invalidateQueries("todos");
+      queryClient.invalidateQueries("upcoming");
+      toast.success("Todo created succesfully");
+      onClose();
+      resetState();
+    }
   };
 
   const { todoName, todoDescription, dueDate } = newTodo;

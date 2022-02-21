@@ -17,25 +17,29 @@ export interface Todo {
 
 /* ADD A NEW TODO */
 const addTodo = async (newTodo: Todo) => {
-  try {
-    const { todoName, todoDescription, dueDate, token, categoryId, } = newTodo;
+  
+    const { todoName, todoDescription, dueDate, token, categoryId } = newTodo;
     
-    const response = axios.post(
-      `${devUrl}/newTodo`,
-      { todoName, todoDescription, dueDate, categoryId },
-      {
-        headers: {
-          Authorization: `Bearer ${token?.token}`,
-        },
-      }
-    );
+  return axios
+    .post(
+        `${devUrl}/newTodo`,
+        { todoName, todoDescription, dueDate, categoryId },
+        {
+          headers: {
+            Authorization: `Bearer ${token?.token}`,
+          },
+        }
+        )
     
+    .then((response) => {
+      return response;
+    })
+    .catch ((error) => {
+      if (error.response) throw error.response;
+      }); 
+      
+  };
 
-    return response;
-  } catch (error) {
-    return error;
-  }
-};
 
 const useAddTodo = () => {
   return useMutation(addTodo);

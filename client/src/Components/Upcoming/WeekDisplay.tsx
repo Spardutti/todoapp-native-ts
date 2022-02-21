@@ -36,16 +36,15 @@ const WeekDisplay: React.FC<WeekDisplayProps> = () => {
   return (
     <Box>
       <Box
-        pt={3}
+        pt={10}
         position="fixed"
-        bg={"white"}
-        mt={12}
-        w="100%"
-        zIndex={100}
-        pb={5}
+        top={12}
+        w={"100%"}
         px={10}
+        bg="white"
+        zIndex={100}
       >
-        <HStack mb={5} justify={"space-between"} align={"center"}>
+        <HStack w={800} mb={5} justify={"space-between"} align={"center"}>
           <Heading fontSize={20} cursor={"pointer"}>
             {date.monthLong} {date.year}
           </Heading>
@@ -56,7 +55,7 @@ const WeekDisplay: React.FC<WeekDisplayProps> = () => {
             setSelectedDay={setSelectedDay}
           />
         </HStack>
-        <HStack justify={"space-evenly"} pb={1}>
+        <HStack justify={"space-evenly"} pb={1} w={800}>
           {weekToShow?.map((elem, index) => {
             return (
               <div key={index}>
@@ -100,7 +99,7 @@ const WeekDisplay: React.FC<WeekDisplayProps> = () => {
             );
           })}
         </HStack>
-        <Divider />
+        <Divider maxW={800} />
       </Box>
       <UpcomingDays selectedDate={selectedDay} />
     </Box>

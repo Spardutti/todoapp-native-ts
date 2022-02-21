@@ -6,12 +6,9 @@ import { DateTime } from "luxon";
 /* ADD A NEW TODO */
 const addTodo = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { todoName, todoDescription, categoryId } = req.body;
+    const { todoName, todoDescription, categoryId, dueDate } = req.body;
 
     const userId = req.user?._id;
-
-    const dueDate = new Date(req.body.dueDate);
-    dueDate.setHours(0, 0, 0, 0);
 
     const category = await CategoryModel.findById(categoryId);
 
@@ -21,9 +18,12 @@ const addTodo = async (req: Request, res: Response, next: NextFunction) => {
       dueDate,
       author: userId,
       category,
+      updated: DateTime.now(),
     });
 
     await todo.save();
+    console.log(todo);
+
     return res.json(todo);
   } catch (error) {
     return next(error);

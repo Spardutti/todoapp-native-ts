@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { Schema, model, ObjectId } from "mongoose";
 
 export interface Todo {
@@ -7,9 +8,8 @@ export interface Todo {
   isCompleted: boolean;
   dueDate: Date;
   category: ObjectId;
-  creationDate: Date;
-  completedDate: Date;
-  updateDate: Date;
+  updated: DateTime;
+  updateType: string;
 }
 
 const TodoSchema = new Schema<Todo>({
@@ -19,9 +19,8 @@ const TodoSchema = new Schema<Todo>({
   isCompleted: { type: Boolean, default: false },
   dueDate: { type: Date, required: true },
   category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
-  creationDate: { type: Date, default: new Date(Date.now()) },
-  completedDate: Date,
-  updateDate: Date,
+  updated: { type: Date },
+  updateType: { type: String, default: "Created" },
 });
 
 export const TodoModel = model<Todo>("Todo", TodoSchema);

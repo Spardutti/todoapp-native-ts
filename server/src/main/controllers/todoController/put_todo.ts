@@ -1,5 +1,6 @@
 import { TodoModel } from "../../models/TodoModel";
 import { Request, Response, NextFunction } from "express";
+import { DateTime } from "luxon";
 
 /* EDIT TODO */
 const toggleIsCompleted = async (
@@ -8,14 +9,15 @@ const toggleIsCompleted = async (
   next: NextFunction
 ) => {
   try {
-    const { isCompleted, completedDate } = req.body;
+    const { isCompleted } = req.body;
     const { id } = req.params;
 
     const todo = await TodoModel.findByIdAndUpdate(
       id,
       {
         isCompleted: !isCompleted,
-        completedDate: new Date(Date.now()),
+        updated: DateTime.now(),
+        updateType: "Completed",
       },
       { new: true }
     );

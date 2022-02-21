@@ -25,15 +25,19 @@ const OverdueTodos: React.FC = () => {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <Box p={10}>
-      <HStack overflow={"hidden"} justify={"space-between"}>
-        <Heading fontSize={15}>Overdue</Heading>
-        <Text color={"red"}>Reschedule</Text>
-      </HStack>
-      <Divider py={2} />
-      {overdueTodos.map((elem, index) => {
-        return <TodoCard todo={elem} key={index} />;
-      })}
+    <Box>
+      {data.data.length === 0 ? null : (
+        <Box p={10}>
+          <HStack overflow={"hidden"} justify={"space-between"}>
+            <Heading fontSize={15}>Overdue</Heading>
+            <Text color={"red"}>Reschedule</Text>
+          </HStack>
+          <Divider py={2} />
+          {overdueTodos.map((elem, index) => {
+            return <TodoCard todo={elem} key={index} />;
+          })}
+        </Box>
+      )}
     </Box>
   );
 };

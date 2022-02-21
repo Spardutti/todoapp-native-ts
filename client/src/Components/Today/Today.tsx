@@ -31,9 +31,9 @@ const Today: React.FC<TodayProps> = () => {
   return (
     <Stack>
       <OverdueTodos />
-      <Box mt={10} px={10}>
+      <Box mt={10} p={10}>
         <HStack overflow={"hidden"} justify={"space-between"}>
-          <Heading fontSize={15}>
+          <Heading fontSize={14}>
             {currentDate.monthShort} {currentDate.day} - Today
           </Heading>
         </HStack>

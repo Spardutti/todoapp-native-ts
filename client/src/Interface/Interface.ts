@@ -9,6 +9,6 @@ export interface Todo {
     _id: string;
     username: string;
   };
-  updateDate: string;
-  completedDate: string;
+  updated: string;
+  updateType: string;
 }

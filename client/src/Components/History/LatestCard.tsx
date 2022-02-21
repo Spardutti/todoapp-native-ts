@@ -13,51 +13,115 @@ import { AiOutlineCheck } from "react-icons/ai";
 import { Todo } from "../../Interface/Interface";
 import { MdOutlineRefresh } from "react-icons/md";
 import { AiOutlinePlus } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+import { DateTime } from "luxon";
 
 interface LatestCardProps {
   todo: Todo;
 }
 
 const LatestCard: React.FC<LatestCardProps> = ({ todo }) => {
-  /* SHOW COMPLETED BADGE */
+  /* SHOW ADDED BADGE */
   const AvatarDisplay = () => {
-    if (todo.isCompleted) {
+    if (todo.updateType === "Created") {
       return (
         <HStack>
-          <Avatar name={todo.author.username}>
-            <AvatarBadge boxSize={"1.25em"} bg="green" border="none">
+          <Avatar
+            name={todo.author.username}
+            size={"md"}
+            src="#"
+            bg="white"
+            border="2px"
+            color={"green.400"}
+          >
+            <AvatarBadge
+              color="white"
+              boxSize={"1.25em"}
+              bg="orange"
+              border="none"
+            >
+              <AiOutlinePlus />
+            </AvatarBadge>
+          </Avatar>
+          <Box>
+            <Text fontSize={13}>
+              <b>You</b> created task:{" "}
+              <span style={{ color: "gray" }}>{todo.todoName}</span>
+            </Text>
+            <Text color="gray" fontSize={11}>
+              {DateTime.fromISO(todo.updated).monthShort}{" "}
+              {DateTime.fromISO(todo.updated).day}
+            </Text>
+          </Box>
+        </HStack>
+      );
+    }
+    /* SHOW COMPLETED BADGE */
+    if (todo.updateType === "Completed") {
+      return (
+        <HStack>
+          <Avatar
+            name={todo.author.username}
+            size={"md"}
+            src="#"
+            bg="white"
+            border="2px"
+            color={"green.400"}
+          >
+            <AvatarBadge
+              color="white"
+              boxSize={"1.25em"}
+              bg="green"
+              border="none"
+            >
               <AiOutlineCheck />
             </AvatarBadge>
           </Avatar>
-          <Text>You completed: {todo.todoName}</Text>
+          <Box>
+            <Text fontSize={13}>
+              <b>You</b> completed a task:{" "}
+              <span style={{ color: "gray" }}>{todo.todoName}</span>
+            </Text>
+            <Text color="gray" fontSize={11}>
+              {DateTime.fromISO(todo.updated).monthShort}{" "}
+              {DateTime.fromISO(todo.updated).day}
+            </Text>
+          </Box>
         </HStack>
       );
     }
 
-    if (todo.updateDate) {
-      return (
-        <HStack>
-          <Avatar name={todo.author.username}>
-            <AvatarBadge boxSize={"1.25em"} bg="blue" border="none">
-              <MdOutlineRefresh />
-            </AvatarBadge>
-          </Avatar>
-          <Text>You updated: {todo.todoName}</Text>
-        </HStack>
-      );
-    }
-
+    /* SHOW UPDATED BADGE */
     return (
       <HStack>
-        <Avatar name={todo.author.username}>
-          <AvatarBadge boxSize={"1.25em"} bg="orange" border="none">
-            <AiOutlinePlus />
+        <Avatar
+          name={todo.author.username}
+          size={"md"}
+          src="#"
+          bg="white"
+          border="2px"
+          color={"green.400"}
+          cursor={"pointer"}
+        >
+          <AvatarBadge color="white" boxSize={"1.25em"} bg="blue" border="none">
+            <MdOutlineRefresh />
           </AvatarBadge>
         </Avatar>
-        <Text>You added: {todo.todoName}</Text>
+        <Box>
+          <Text fontSize={13}>
+            <b>You</b> updated task:{" "}
+            <span style={{ color: "gray" }}>{todo.todoName}</span>
+          </Text>
+          <Text color="gray" fontSize={11}>
+            {DateTime.fromISO(todo.updated).monthShort}{" "}
+            {DateTime.fromISO(todo.updated).day}
+          </Text>
+        </Box>
       </HStack>
     );
   };
+
+  const navigate = useNavigate();
 
   return (
     <Grid
@@ -71,7 +135,13 @@ const LatestCard: React.FC<LatestCardProps> = ({ todo }) => {
       <AvatarDisplay />
 
       <Flex align={"center"}>
-        <Button bg={todo.category.color}>{todo.category.categoryName}</Button>
+        <Button
+          onClick={() => navigate(`/category/${todo.category._id}`)}
+          size="sm"
+          bg={todo.category.color}
+        >
+          {todo.category.categoryName}
+        </Button>
       </Flex>
     </Grid>
   );

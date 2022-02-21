@@ -71,8 +71,8 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
           border={"1px"}
           borderColor={"gray"}
           borderRadius={"3xl"}
-          w={4}
-          h={4}
+          w={[3, 4]}
+          h={[3, 4]}
           mt={1}
           cursor={"pointer"}
         >
@@ -116,7 +116,7 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
           </Box>
         </VStack>
       </Grid>
-      <Divider />
+      <Divider w="100%" />
       {isOpen ? (
         <TodoDescription todo={todo} isOpen={isOpen} onClose={onClose} />
       ) : null}

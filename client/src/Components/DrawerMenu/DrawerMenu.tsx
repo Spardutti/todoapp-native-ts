@@ -2,6 +2,7 @@ import {
   Box,
   Drawer,
   DrawerBody,
+  DrawerCloseButton,
   DrawerContent,
   DrawerOverlay,
   Flex,
@@ -80,6 +81,7 @@ const DrawerMenu: React.FC = () => {
       >
         <DrawerOverlay bg="none" />
         <DrawerContent>
+          <DrawerCloseButton />
           <DrawerBody bg={"#FAFAFA"} p={10}>
             <Flex
               _hover={{ background: "#ECECEC" }}

@@ -20,7 +20,7 @@ const Completed: React.FC<CompletedProps> = () => {
 
   return (
     <Layout>
-      <Heading pb={10} fontSize={25}>
+      <Heading pb={10} fontSize={16}>
         Completed
       </Heading>
       {data?.data.map((todo: Todo) => (

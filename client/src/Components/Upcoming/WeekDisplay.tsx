@@ -33,17 +33,11 @@ const WeekDisplay: React.FC<WeekDisplayProps> = () => {
     setSelectedDay(date);
   };
 
+  //TODO FIX THIS RESPONSIVENESS
+
   return (
-    <Box>
-      <Box
-        pt={10}
-        position="fixed"
-        top={12}
-        w={"100%"}
-        px={10}
-        bg="white"
-        zIndex={100}
-      >
+    <Box px={10}>
+      <Box pt={10} position="fixed" top={12} zIndex={100}>
         <HStack w={800} mb={5} justify={"space-between"} align={"center"}>
           <Heading fontSize={20} cursor={"pointer"}>
             {date.monthLong} {date.year}

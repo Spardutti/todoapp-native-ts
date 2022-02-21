@@ -6,7 +6,7 @@ import { BsSearch } from "react-icons/bs";
 export const NavBarSearch = () => {
   const [searchText, setSearchText] = useState("");
   return (
-    <Box>
+    <Box display={["none", "block"]}>
       <InputGroup
         _hover={{
           background: "white",

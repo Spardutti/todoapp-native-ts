@@ -15,6 +15,8 @@ const Today: React.FC<TodayProps> = () => {
   const token = useAppSelector((state) => state.token.token);
   const [todayTodos, setTodayTodos] = useState([]);
   const [currentDate] = useState(DateTime.now());
+
+  /* FETCH TODAY TODOS */
   const { isLoading, data } = useGetTodaysTodos(token);
 
   const dispatch = useAppDispatch();
@@ -24,14 +26,20 @@ const Today: React.FC<TodayProps> = () => {
       setTodayTodos(data.data);
       dispatch(setTodos(data.data.length));
     }
-  }, [data]);
+  }, [data, dispatch]);
 
   if (isLoading) return <p>Loading</p>;
 
   return (
-    <Stack>
+    <Stack px={10}>
+      <Heading fontSize={20} alignSelf="flex-start">
+        Today{" "}
+        <span style={{ fontSize: "12px", color: "gray", fontWeight: "normal" }}>
+          {currentDate.weekdayShort} {currentDate.monthShort} {currentDate.day}
+        </span>
+      </Heading>
       <OverdueTodos />
-      <Box mt={10} p={10}>
+      <Box mt={10} p={10} px={0}>
         <HStack overflow={"hidden"} justify={"space-between"}>
           <Heading fontSize={14}>
             {currentDate.monthShort} {currentDate.day} - Today
@@ -43,7 +51,7 @@ const Today: React.FC<TodayProps> = () => {
         })}
       </Box>
       <HStack
-        px={10}
+        px={0}
         pb={10}
         _focus={{
           boxShadow: "none",

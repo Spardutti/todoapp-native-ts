@@ -25,9 +25,9 @@ const OverdueTodos: React.FC = () => {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <Box>
+    <Box w={"100%"}>
       {data.data.length === 0 ? null : (
-        <Box p={10}>
+        <Box p={10} px={0}>
           <HStack overflow={"hidden"} justify={"space-between"}>
             <Heading fontSize={15}>Overdue</Heading>
             {/* <Text color={"red"}>Reschedule</Text> */}

@@ -1,7 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { UserHome } from "./Components/User/UserHome";
 import { BrowserRouter, Routes, Route, useRoutes } from "react-router-dom";
 import { ProtectedRoute } from "./Components/Auth/ProtectedRoute";
 import { Home } from "./Components/Views/Home";
@@ -12,6 +11,7 @@ import { Toaster } from "react-hot-toast";
 import Upcoming from "./Components/Views/Upcoming";
 import Category from "./Components/Views/Category";
 import History from "./Components/Views/History";
+import WelcomeScreen from "./Components/Views/WelcomeScreen";
 
 const queryClient = new QueryClient();
 
@@ -34,7 +34,7 @@ function App() {
             <Toaster />
             <Nav />
             <Routes>
-              <Route path="/" element={<UserHome />} />
+              <Route path="/" element={<WelcomeScreen />} />
               <Route path="/home" element={<ProtectedRoute />}>
                 <Route path="/home" element={<Home />} />
               </Route>

@@ -14,6 +14,7 @@ import {
 import React from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
+import { useQueryClient } from "react-query";
 import { useDeleteTodo } from "../../api/Todo/delete_todo";
 
 interface DeleteEditButtonsProps {
@@ -30,9 +31,19 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const queryClient = useQueryClient();
+
   /* DELETE TODO */
   const deleteTodo = async () => {
     await mutateAsync();
+    queryClient.invalidateQueries("today");
+    queryClient.invalidateQueries("upcoming");
+    queryClient.invalidateQueries("overdue");
+    queryClient.invalidateQueries("today");
+    queryClient.invalidateQueries("completed");
+    queryClient.invalidateQueries("latest");
+
+    onClose();
   };
 
   /* DISPLAY A CONFIRMATION MODAL */

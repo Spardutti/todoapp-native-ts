@@ -17,6 +17,8 @@ export const LocalUser = () => {
     password: "",
   });
 
+  const { email, password } = userCredentials;
+
   /* ONCHANGE HANDLER */
   const onChange = (e: any) => {
     setUserCredentials({
@@ -45,14 +47,14 @@ export const LocalUser = () => {
         <FormLabel textAlign={"center"}>{error.data}</FormLabel>
         <Input
           name="email"
-          value={userCredentials.email}
+          value={email}
           onChange={(e) => onChange(e)}
           placeholder="email"
           type={"email"}
         />
         <Input
           name="password"
-          value={userCredentials.password}
+          value={password}
           onChange={(e) => onChange(e)}
           placeholder="Password"
           type="password"
@@ -80,22 +82,28 @@ export const LocalUser = () => {
       <Text>Please log in to continue</Text>
       <Input
         name="email"
-        value={userCredentials.email}
+        value={email}
         onChange={(e) => onChange(e)}
         placeholder="email"
         type={"email"}
       />
       <Input
         name="password"
-        value={userCredentials.password}
+        value={password}
         onChange={(e) => onChange(e)}
         placeholder="Password"
         type="password"
       />
-      {isLoading ? (
-        <Button colorScheme="teal" isLoading loadingText="Loading" />
+      {email && password ? (
+        isLoading ? (
+          <Button colorScheme="teal" isLoading loadingText="Loading" />
+        ) : (
+          <Button onClick={localLogin} colorScheme={"blue"}>
+            Log in
+          </Button>
+        )
       ) : (
-        <Button onClick={localLogin} colorScheme={"blue"}>
+        <Button disabled colorScheme={"blue"}>
           Log in
         </Button>
       )}

@@ -18,7 +18,6 @@ import { OpenCalendarPopOverButton } from "../Calendar/OpenCalendarPopOver";
 import "../../Styles/calendar/calendarButton.scss";
 import { ChooseCategoryButton } from "../Category/ChooseCategoryButton";
 import toast from "react-hot-toast";
-import { error } from "console";
 
 interface Props {
   preSelectedDate: Date | null;
@@ -39,15 +38,15 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
 
   useEffect(() => {
     if (preSelectedDate) setPickedDate(preSelectedDate);
-  }, []);
+  }, [preSelectedDate]);
 
   useEffect(() => {
     setNewTodo({ ...newTodo, dueDate: pickedDate });
-  }, [pickedDate]);
+  }, [pickedDate, newTodo]);
 
   useEffect(() => {
     setNewTodo({ ...newTodo, categoryId: pickedCategory });
-  }, [pickedCategory]);
+  }, [pickedCategory, newTodo]);
 
   const resetState = () => {
     setPickedDate(new Date());
@@ -73,15 +72,18 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
 
   /* ADD A NEW TODO TO THE DB OR SHOW ERRORS*/
   const { mutateAsync, isLoading } = useAddTodo();
+
   /* RUN MUTATION ON CLICK */
   const addTodo = async () => {
     const response = await mutateAsync(newTodo).catch((err) =>
       err.data.errors.map((err: any) => toast.error(err.msg))
     );
+
     if (response.status === 200) {
       /* UPDATE THE TODOS QUERY IN THE DOM */
-      queryClient.invalidateQueries("todos");
+      queryClient.invalidateQueries("today");
       queryClient.invalidateQueries("upcoming");
+      queryClient.invalidateQueries("latest");
       toast.success("Todo created succesfully");
       onClose();
       resetState();
@@ -91,7 +93,6 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
   const { todoName, todoDescription, dueDate } = newTodo;
   return (
     <Box
-      maxW="550px"
       height="228px"
       width="full"
       mx="auto"
@@ -100,8 +101,8 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
       flexDir="column"
       padding="16px"
     >
-      <FormControl mx={"auto"} height="141px">
-        <Stack height="141px" alignItems={"center"} width="100%">
+      <FormControl height="141px">
+        <Stack height="141px" alignItems={"center"}>
           <Box display="flex" flexDir="row" width="100%" maxH="21px">
             <Input
               placeholder="Todo name"
@@ -111,7 +112,7 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
               onChange={(e) => newTodoHandler(e)}
               maxH="21px"
             />
-            <CloseButton ml="auto" onClick={onClose} maxH="21px" />
+            <CloseButton onClick={onClose} maxH="21px" />
           </Box>
           <Box width="100%" maxH="78px" mt="8px">
             <Textarea
@@ -135,7 +136,7 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
               setPickedCategory={setPickedCategory}
             />
           </Box>
-          <Divider orientation="horizontal" borderColor="blackAlpha.300" />
+          <Divider borderColor="blackAlpha.300" />
         </Stack>
       </FormControl>
       <Box height="64px" padding="24px 16px 8px 0px">
@@ -144,8 +145,7 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
             colorScheme="teal"
             isLoading
             loadingText="Submitting"
-            maxH="30px"
-            maxW="78px"
+            size={"sm"}
             fontSize="xs"
           />
         ) : (
@@ -153,8 +153,7 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
             colorScheme="messenger"
             onClick={addTodo}
             disabled={!todoName || !todoDescription || !dueDate}
-            maxH="30px"
-            maxW="78px"
+            size={"sm"}
             fontSize="xs"
           >
             Create Todo

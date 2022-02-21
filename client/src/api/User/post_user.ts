@@ -1,4 +1,5 @@
 import axios from "axios";
+import toast from "react-hot-toast";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +14,11 @@ const newUser = (data: {}) => {
 };
 
 export const useNewuser = () => {
-  return useMutation<any, any, any, any>(newUser);
+  return useMutation<any, any, any, any>(newUser, {
+    onSuccess: () => {
+      toast.success("Created");
+    },
+  });
 };
 
 /* LOGIN LOCAL USER */

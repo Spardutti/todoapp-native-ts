@@ -27,12 +27,12 @@ const newCategory = async (category: Category) => {
       return response;
     })
     .catch((error) => {
-      if (error.response) throw error.response;
+      if (error.response) return error.response;
     });
 };
 
 const useNewCategory = () => {
-  return useMutation<any, any, any, any>(newCategory);
+  return useMutation(newCategory);
 };
 
 export { useNewCategory };

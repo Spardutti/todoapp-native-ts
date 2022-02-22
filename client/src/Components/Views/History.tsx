@@ -11,7 +11,7 @@ const History: React.FC<CompletedProps> = () => {
       <Heading px={10} fontSize={16}>
         Activity
       </Heading>
-      <Box p={10} my={2}>
+      <Box p={10} my={2} w="100%" maxW={800}>
         <LatestActivity />
       </Box>
     </Layout>

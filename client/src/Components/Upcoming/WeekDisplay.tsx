@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { DateTime } from "luxon";
-import { Box, Divider, Heading, HStack, Text } from "@chakra-ui/react";
+import { Box, Divider, Heading, HStack, Stack, Text } from "@chakra-ui/react";
 import WeekSelector from "./WeekSelector";
 import UpcomingDays from "./UpcomingDays";
 
@@ -36,9 +36,25 @@ const WeekDisplay: React.FC<WeekDisplayProps> = () => {
   //TODO FIX THIS RESPONSIVENESS
 
   return (
-    <Box px={10}>
-      <Box pt={10} position="fixed" top={12} zIndex={100}>
-        <HStack w={800} mb={5} justify={"space-between"} align={"center"}>
+    <Box px={10} w="100%" maxW={800}>
+      <Stack
+        pt={10}
+        position="fixed"
+        left={0}
+        top={12}
+        zIndex={100}
+        bg="white"
+        w="100%"
+        align={"center"}
+      >
+        <HStack
+          mb={5}
+          justify={"space-between"}
+          align={"center"}
+          w={"100%"}
+          maxW={800}
+          px={10}
+        >
           <Heading fontSize={20} cursor={"pointer"}>
             {date.monthLong} {date.year}
           </Heading>
@@ -49,7 +65,7 @@ const WeekDisplay: React.FC<WeekDisplayProps> = () => {
             setSelectedDay={setSelectedDay}
           />
         </HStack>
-        <HStack justify={"space-evenly"} pb={1} w={800}>
+        <HStack justify={"space-evenly"} pb={1} w={"100%"} maxW={800} px={10}>
           {weekToShow?.map((elem, index) => {
             return (
               <div key={index}>
@@ -58,20 +74,20 @@ const WeekDisplay: React.FC<WeekDisplayProps> = () => {
                     textAlign={"center"}
                     cursor={"pointer"}
                     _hover={{ background: "#EEEEEE" }}
-                    w={20}
+                    w={[6, 10, 20]}
                     py={2}
                     borderRadius={10}
                     onClick={() => selectDate(elem)}
                   >
-                    <Text fontSize={13}>{elem.weekdayShort}</Text>
-                    <Text fontSize={13} color={"#DD4B56"}>
+                    <Text fontSize={[10, 13]}>{elem.weekdayShort}</Text>
+                    <Text fontSize={[10, 13]} color={"#DD4B66"}>
                       {elem.day}
                     </Text>
                   </Box>
                 ) : elem.startOf("day") < today.startOf("day") ? (
-                  <Box>
-                    <Text fontSize={13}>{elem.weekdayShort}</Text>
-                    <Text fontSize={13} color={"#DEDEDE"}>
+                  <Box w={[6, 10, 20]}>
+                    <Text fontSize={[10, 13]}>{elem.weekdayShort}</Text>
+                    <Text fontSize={[10, 13]} color={"#DEDEDE"}>
                       {elem.day}
                     </Text>
                   </Box>
@@ -80,13 +96,13 @@ const WeekDisplay: React.FC<WeekDisplayProps> = () => {
                     textAlign={"center"}
                     cursor={"pointer"}
                     _hover={{ background: "#EEEEEE" }}
-                    w={20}
+                    w={[6, 10, 20]}
                     py={2}
                     borderRadius={10}
                     onClick={() => selectDate(elem)}
                   >
-                    <Text fontSize={13}>{elem.weekdayShort}</Text>
-                    <Text fontSize={13}>{elem.day}</Text>
+                    <Text fontSize={[10, 13]}>{elem.weekdayShort}</Text>
+                    <Text fontSize={[10, 13]}>{elem.day}</Text>
                   </Box>
                 )}
               </div>
@@ -94,7 +110,7 @@ const WeekDisplay: React.FC<WeekDisplayProps> = () => {
           })}
         </HStack>
         <Divider maxW={800} />
-      </Box>
+      </Stack>
       <UpcomingDays selectedDate={selectedDay} />
     </Box>
   );

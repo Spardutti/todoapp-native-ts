@@ -9,9 +9,7 @@ interface UpcomingProps {}
 const Upcoming: React.FC<UpcomingProps> = () => {
   return (
     <Layout>
-      <Box>
-        <WeekDisplay />
-      </Box>
+      <WeekDisplay />
     </Layout>
   );
 };

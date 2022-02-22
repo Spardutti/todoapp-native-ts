@@ -1,11 +1,10 @@
-import { Heading } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import React from "react";
 import { useGetCompletedTodos } from "../../api/Todo/get_todo";
 import { useAppSelector } from "../../hooks";
 import { Todo } from "../../Interface/Interface";
 import Layout from "../Layout/Layout";
 import CompletedTodo from "./CompletedTodo";
-import LatestCard from "./LatestCard";
 
 interface CompletedProps {}
 
@@ -23,9 +22,11 @@ const Completed: React.FC<CompletedProps> = () => {
       <Heading pb={10} fontSize={16}>
         Completed
       </Heading>
-      {data?.data.map((todo: Todo) => (
-        <CompletedTodo key={todo._id} todo={todo} />
-      ))}
+      <Box w={"100%"} maxW={800}>
+        {data?.data.map((todo: Todo) => (
+          <CompletedTodo key={todo._id} todo={todo} />
+        ))}
+      </Box>
     </Layout>
   );
 };

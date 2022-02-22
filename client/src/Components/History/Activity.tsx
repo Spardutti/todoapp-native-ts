@@ -46,8 +46,9 @@ const LatestActivity: React.FC<CompletedTodosProps> = () => {
           isLoading={isFetching}
           colorScheme={"green"}
           onClick={fetchMore}
+          size={"sm"}
         >
-          More
+          Next page
         </Button>
       );
     }
@@ -58,15 +59,17 @@ const LatestActivity: React.FC<CompletedTodosProps> = () => {
             isLoading={isFetching}
             colorScheme={"red"}
             onClick={fetchLess}
+            size={"sm"}
           >
-            Less
+            Prev page
           </Button>
           <Button
             isLoading={isFetching}
             colorScheme={"green"}
             onClick={fetchMore}
+            size={"sm"}
           >
-            More
+            Next page
           </Button>
         </HStack>
       );
@@ -77,8 +80,9 @@ const LatestActivity: React.FC<CompletedTodosProps> = () => {
             isLoading={isFetching}
             colorScheme={"red"}
             onClick={fetchLess}
+            size={"sm"}
           >
-            Less
+            Prev page
           </Button>
         </>
       );

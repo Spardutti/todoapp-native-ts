@@ -137,7 +137,7 @@ const LatestCard: React.FC<LatestCardProps> = ({ todo }) => {
       <Flex align={"center"}>
         <Button
           onClick={() => navigate(`/category/${todo.category._id}`)}
-          size="sm"
+          size="xs"
           bg={todo.category.color}
         >
           {todo.category.categoryName}

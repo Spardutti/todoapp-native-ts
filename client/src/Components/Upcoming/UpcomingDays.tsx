@@ -45,7 +45,7 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
       <>
         {daysFrom.map((day, index) => {
           return (
-            <Box key={index} p={10} px={0}>
+            <Box key={index} p={10} px={0} w={"100%"} maxW={800}>
               <Text fontWeight={"bold"} color="gray">
                 {day.monthShort} {day.day} - {day.weekdayLong}
               </Text>

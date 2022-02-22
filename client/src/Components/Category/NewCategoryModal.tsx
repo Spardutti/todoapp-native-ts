@@ -43,7 +43,7 @@ const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
 
   const queryClient = useQueryClient();
 
-  const { mutateAsync } = useNewCategory();
+  const { mutateAsync, isLoading } = useNewCategory();
 
   /* DISPLAY COLORS FOR THE USER TO PICK */
   const [colorsArray] = useState([
@@ -121,6 +121,7 @@ const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
       color: "",
       categoryName: "",
     });
+    setShowColors(false);
   };
 
   /* CREATES A NEW CATEGORY AND DISPLAY EITHER ERROR OR SUCCESS */
@@ -130,9 +131,12 @@ const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
       categoryName: category.categoryName,
       color: category.color,
     };
-    const response = await mutateAsync(info).catch((err) =>
-      err.data.errors.map((err: any) => toast.error(err.msg))
-    );
+
+    const response = await mutateAsync(info);
+
+    if (response.status === 500) {
+      response.data.errors.map((err: any) => toast.error(err.msg));
+    }
     if (response.status === 200) {
       queryClient.invalidateQueries("categories");
       onClose();
@@ -191,6 +195,7 @@ const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
       }}
       autoFocus={false}
       isCentered
+      size={"xs"}
     >
       <ModalOverlay />
       <ModalContent>
@@ -203,6 +208,7 @@ const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
             value={category.categoryName}
             name="categoryName"
             onChange={handler}
+            placeholder="Enter a new for the new category"
           />
           <FormLabel>Color</FormLabel>
           {showColors ? (
@@ -227,7 +233,8 @@ const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
         </ModalBody>
         <ModalFooter>
           <Button
-            variant="ghost"
+            colorScheme={"red"}
+            size="sm"
             mr={3}
             onClick={() => {
               onClose();
@@ -236,7 +243,20 @@ const NewCategoryModal: React.FC<NewCategoryModalProps> = ({
           >
             Close
           </Button>
-          <Button onClick={createCategory}>Create</Button>
+          {color.name && category.categoryName ? (
+            <Button
+              isLoading={isLoading}
+              colorScheme={"green"}
+              size="sm"
+              onClick={createCategory}
+            >
+              Create
+            </Button>
+          ) : (
+            <Button colorScheme={"green"} size="sm" disabled>
+              Create
+            </Button>
+          )}
         </ModalFooter>
       </ModalContent>
     </Modal>

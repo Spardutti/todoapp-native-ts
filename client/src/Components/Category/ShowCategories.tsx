@@ -15,6 +15,9 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import NewCategoryModal from "./NewCategoryModal";
 import { useNavigate } from "react-router-dom";
 import { toggleDrawer } from "../../store/Reducers/Drawer/drawerReducer";
+import { AiOutlineDelete } from "react-icons/ai";
+import { scale } from "chroma-js";
+import DeleteCategory from "./DeleteCategory";
 
 interface ShowCategoriesProps {}
 
@@ -61,6 +64,8 @@ const ShowCategories: React.FC<ShowCategoriesProps> = () => {
       >
         <Box w={3} h={3} bg={cat.color} borderRadius={"full"} />
         <Text pl={4}>{cat.categoryName}</Text>
+
+        <DeleteCategory id={cat._id} />
       </Flex>
     ));
   };

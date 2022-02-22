@@ -1,6 +1,5 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
-import { useParams } from "react-router-dom";
 import TodosByCategory from "../Category/TodosByCategory";
 import Layout from "../Layout/Layout";
 

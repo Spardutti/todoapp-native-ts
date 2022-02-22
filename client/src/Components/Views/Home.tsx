@@ -6,7 +6,7 @@ import Layout from "../Layout/Layout";
 export const Home = () => {
   return (
     <Layout>
-      <Box mx="auto">
+      <Box mx="auto" w="100%" maxW={800}>
         <Today />
       </Box>
     </Layout>

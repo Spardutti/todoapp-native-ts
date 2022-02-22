@@ -1,4 +1,12 @@
-import { Box, Divider, Heading, HStack, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Divider,
+  Heading,
+  HStack,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useGetTodaysTodos } from "../../api/Todo/get_todo";
 import { useAppDispatch, useAppSelector } from "../../hooks";
@@ -7,6 +15,7 @@ import OverdueTodos from "../OverdueTodos/OverdueTodos";
 import { DateTime } from "luxon";
 import TodoCard from "../Todos/TodoCard";
 import { setTodos } from "../../store/Reducers/Todos/todoReducer";
+import { ReactComponent as Relax } from "../../Images/relax.svg";
 
 interface TodayProps {}
 
@@ -28,6 +37,20 @@ const Today: React.FC<TodayProps> = () => {
     }
   }, [data, dispatch]);
 
+  const NoTodos = () => (
+    <Center align={"center"}>
+      <Stack>
+        <Relax width={400} height={400} />
+        <Heading fontSize={20} pt={10}>
+          Everything is up to date
+        </Heading>
+        <Center>
+          <AddTodoModal preSelectedDate={null} color={"red"} text="Add Todo" />
+        </Center>
+      </Stack>
+    </Center>
+  );
+
   if (isLoading) return <p>Loading</p>;
 
   return (
@@ -38,33 +61,44 @@ const Today: React.FC<TodayProps> = () => {
           {currentDate.weekdayShort} {currentDate.monthShort} {currentDate.day}
         </span>
       </Heading>
-      <OverdueTodos />
-      <Box mt={10} p={10} px={0}>
-        <HStack overflow={"hidden"} justify={"space-between"}>
-          <Heading fontSize={14}>
-            {currentDate.monthShort} {currentDate.day} - Today
-          </Heading>
-        </HStack>
-        <Divider py={2} />
-        {todayTodos.map((elem, index) => {
-          return <TodoCard todo={elem} key={index} />;
-        })}
-      </Box>
-      <HStack
-        px={0}
-        pb={10}
-        _focus={{
-          boxShadow: "none",
-        }}
-        variant={"none"}
-        mt={2}
-        _hover={{ color: "red" }}
-        fontWeight={"normal"}
-        fontSize={13}
-        color={"gray"}
-      >
-        <AddTodoModal preSelectedDate={null} color={"red"} text="Add Todo" />
-      </HStack>
+
+      {todayTodos.length === 0 ? (
+        <NoTodos />
+      ) : (
+        <>
+          <OverdueTodos />
+          <Box mt={10} p={10} px={0}>
+            <HStack overflow={"hidden"} justify={"space-between"}>
+              <Heading fontSize={14}>
+                {currentDate.monthShort} {currentDate.day} - Today
+              </Heading>
+            </HStack>
+            <Divider py={2} />
+            {todayTodos.map((elem, index) => {
+              return <TodoCard todo={elem} key={index} />;
+            })}
+          </Box>
+          <HStack
+            px={0}
+            pb={10}
+            _focus={{
+              boxShadow: "none",
+            }}
+            variant={"none"}
+            mt={2}
+            _hover={{ color: "red" }}
+            fontWeight={"normal"}
+            fontSize={13}
+            color={"gray"}
+          >
+            <AddTodoModal
+              preSelectedDate={null}
+              color={"red"}
+              text="Add Todo"
+            />
+          </HStack>
+        </>
+      )}
     </Stack>
   );
 };

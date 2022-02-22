@@ -6,10 +6,11 @@ const validateNewTodo = [
   body("todoName")
     .notEmpty()
     .withMessage("Please enter a task name")
-    .custom(async (todoName) => {
+    .custom(async (todoName, { req }) => {
       try {
         const todo = await TodoModel.findOne({
           todoName: new RegExp(`^${todoName}$`, "i"),
+          author: req.user._id,
         });
         if (todo) return Promise.reject();
       } catch (error) {
@@ -26,9 +27,7 @@ const validateNewTodo = [
   (req: Request, res: Response, next: NextFunction) => {
     const validationsErrors = validationResult(req);
     if (!validationsErrors.isEmpty())
-      return res
-        .status(500)
-        .json(validationsErrors);
+      return res.status(500).json(validationsErrors);
     next();
   },
 ];

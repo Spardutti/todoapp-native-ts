@@ -8,6 +8,8 @@ const newCategory = async (req: Request, res: Response, next: NextFunction) => {
 
     const userId = req.user?._id;
 
+    console.log(categoryName, color);
+
     const category = new CategoryModel({
       categoryName,
       author: userId,

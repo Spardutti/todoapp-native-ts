@@ -6,10 +6,11 @@ const validateNewCategory = [
   body("categoryName")
     .notEmpty()
     .withMessage("Please enter a category name")
-    .custom(async (categoryName) => {
+    .custom(async (categoryName, { req }) => {
       try {
         const category = await CategoryModel.findOne({
           categoryName: new RegExp(`^${categoryName}$`, "i"),
+          author: req.user._id,
         });
         if (category) return Promise.reject();
       } catch (error) {

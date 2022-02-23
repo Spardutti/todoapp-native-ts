@@ -7,6 +7,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { IoAddOutline } from "react-icons/io5";
+import { RiTodoLine } from "react-icons/ri";
 import { AddTodo } from "./AddTodo";
 
 interface Props {
@@ -24,7 +25,7 @@ export const AddTodoModal: React.FC<Props> = ({
 
   return (
     <HStack onClick={onOpen} cursor={"pointer"}>
-      <IoAddOutline color={color} fontSize={25} />
+      <RiTodoLine color={color} fontSize={25} />
       <Text display={text ? "block" : "none"}>{text}</Text>
       <Modal
         blockScrollOnMount={true}

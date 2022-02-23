@@ -103,7 +103,7 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
             animate={{ opacity: show }}
             align={"flex-start"}
           >
-            <DeleteEditButtons todoId={todo._id} todoName={todo.todoName} />
+            <DeleteEditButtons todo={todo} />
           </MotionHStack>
           <Box>
             <Link

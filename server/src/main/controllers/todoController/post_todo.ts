@@ -22,7 +22,6 @@ const addTodo = async (req: Request, res: Response, next: NextFunction) => {
     });
 
     await todo.save();
-    console.log(todo);
 
     return res.json(todo);
   } catch (error) {

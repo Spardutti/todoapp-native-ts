@@ -44,7 +44,7 @@ const editTodo = async (
       dueDate,
       category,
       updated: DateTime.now(),
-      updatedType: "Edited",
+      updateType: "Edited",
     })
 
     res.status(200).json(todo);

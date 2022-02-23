@@ -11,25 +11,28 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
 import { useQueryClient } from "react-query";
 import { useDeleteTodo } from "../../api/Todo/delete_todo";
+import { Todo } from "../../Interface/Interface";
+import EditTodo from "./EditButtonInfo";
 
 interface DeleteEditButtonsProps {
-  todoId: string;
-  todoName: string;
+  todo: Todo;
 }
 
 /* RENDERS TODOCARD BUTTONS FOR EDIT AND DELETE */
-const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({
-  todoId,
-  todoName,
-}) => {
-  const { isLoading, mutateAsync } = useDeleteTodo(todoId);
+const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({ todo }) => {
+  const { isLoading, mutateAsync } = useDeleteTodo(todo._id);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isEditOpen,
+    onOpen: onEditOpen,
+    onClose: onEditClose,
+  } = useDisclosure();
 
   const queryClient = useQueryClient();
 
@@ -55,7 +58,7 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({
             <ModalHeader></ModalHeader>
             <ModalBody p={5} boxShadow={"dark-sm"}>
               <Text>
-                Are you sure you want to delete <b>{todoName}</b> ?
+                Are you sure you want to delete <b>{todo.todoName}</b> ?
               </Text>
               <Flex justify={"flex-end"} p={5}>
                 <Button size={"sm"} variant="outline" onClick={onClose}>
@@ -82,7 +85,7 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({
     <>
       <Box
         onClick={onOpen}
-        id={todoId}
+        id={todo._id}
         _hover={{ background: "#dcdbdb" }}
         p={1}
         borderRadius={5}
@@ -93,6 +96,7 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({
         {isLoading ? <Spinner /> : <AiOutlineDelete />}
       </Box>
       <Box
+        onClick={onEditOpen}
         cursor={"pointer"}
         _hover={{ background: "#dcdbdb" }}
         p={1}
@@ -101,8 +105,14 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({
         fontSize={20}
       >
         <BsPencil />
-        <ConfirmDelete />
       </Box>
+      <ConfirmDelete />
+      <EditTodo
+        isOpen={isEditOpen}
+        onClose={onEditClose}
+        todo={todo}
+        preSelectedCategory={todo.category._id}
+      />
     </>
   );
 };

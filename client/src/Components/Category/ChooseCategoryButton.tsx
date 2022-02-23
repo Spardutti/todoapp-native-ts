@@ -11,20 +11,26 @@ import {
   Text,
   Spacer,
   propNames,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useGetUserCategories } from "../../api/Category/get_category";
 import { useAppSelector } from "../../hooks";
 import { MdCategory } from "react-icons/md";
+import { HiOutlinePlus } from "react-icons/hi";
 import "../../Styles/calendar/calendarButton.scss";
+import NewCategoryModal from "./NewCategoryModal";
+import { useGetCategoryById } from "../../api/Category/get_category";
 
 interface Props {
   pickedCategory: string;
   setPickedCategory: React.Dispatch<React.SetStateAction<string>>;
+  preSelectedCategory: string;
 }
 
 export const ChooseCategoryButton: React.FC<Props> = ({
   pickedCategory,
   setPickedCategory,
+  preSelectedCategory,
 }) => {
   const token = useAppSelector((state) => state.token.token);
   const { data } = useGetUserCategories(token);
@@ -32,33 +38,45 @@ export const ChooseCategoryButton: React.FC<Props> = ({
   const [buttonText, setButtonText] = useState("Category");
   const [isOpen, setIsOpen] = useState(false);
 
+  const { data: categoryInfo } = useGetCategoryById(preSelectedCategory);
+  useEffect(() => {
+    if (preSelectedCategory) {
+      setButtonText(categoryInfo?.data.categoryName);
+      setCategoryColor(categoryInfo?.data.color);
+    }
+  }, []);
+
   const open = () => setIsOpen(!isOpen);
   const close = () => setIsOpen(false);
+
+  const {
+    isOpen: isModalOpen,
+    onClose: onModalClose,
+    onOpen: onModalOpen,
+  } = useDisclosure();
 
   useEffect(() => {
     close();
   }, [pickedCategory]);
 
-  interface Props {
+  interface Category {
     _id: string;
     author: string;
     categoryName: string;
     color: string;
   }
 
-  const category = (catObj: Props) => {
-    const catId = catObj._id;
-    const catColor = catObj.color;
-    const catName = catObj.categoryName;
-    setPickedCategory(catId);
-    setCategoryColor(catColor);
-    setButtonText(catName);
+  const category = (catObj: Category) => {
+    const { _id, color, categoryName } = catObj;
+    setPickedCategory(_id);
+    setCategoryColor(color);
+    setButtonText(categoryName);
   };
 
   const CategoryList = () => {
     return (
       <Flex direction="column">
-        {data?.data.map((cat: Props) => (
+        {data?.data.map((cat: Category) => (
           <Button
             key={cat._id}
             bgColor="white"
@@ -98,9 +116,23 @@ export const ChooseCategoryButton: React.FC<Props> = ({
         </PopoverTrigger>
         <PopoverContent maxW="180px">
           <PopoverHeader>
-            <Text textAlign="center">Select a Category</Text>
+            <Box
+              cursor={"pointer"}
+              display="flex"
+              borderRadius={5}
+              justifyContent="center"
+            >
+              <Button
+                colorScheme="messenger"
+                textColor="white"
+                onClick={onModalOpen}
+              >
+                New Category
+              </Button>
+            </Box>
           </PopoverHeader>
           <PopoverBody padding="0px">{data && <CategoryList />}</PopoverBody>
+          <NewCategoryModal isOpen={isModalOpen} onClose={onModalClose} />
         </PopoverContent>
       </Popover>
     </>

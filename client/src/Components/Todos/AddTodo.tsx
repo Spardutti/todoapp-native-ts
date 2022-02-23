@@ -42,11 +42,11 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
 
   useEffect(() => {
     setNewTodo({ ...newTodo, dueDate: pickedDate });
-  }, [pickedDate, newTodo]);
+  }, [pickedDate]);
 
   useEffect(() => {
     setNewTodo({ ...newTodo, categoryId: pickedCategory });
-  }, [pickedCategory, newTodo]);
+  }, [pickedCategory]);
 
   const resetState = () => {
     setPickedDate(new Date());
@@ -90,7 +90,7 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
     }
   };
 
-  const { todoName, todoDescription, dueDate } = newTodo;
+  const { todoName, todoDescription, dueDate, categoryId } = newTodo;
   return (
     <Box
       height="228px"
@@ -134,6 +134,7 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
             <ChooseCategoryButton
               pickedCategory={pickedCategory}
               setPickedCategory={setPickedCategory}
+              preSelectedCategory={pickedCategory}
             />
           </Box>
           <Divider borderColor="blackAlpha.300" />
@@ -152,7 +153,7 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
           <Button
             colorScheme="messenger"
             onClick={addTodo}
-            disabled={!todoName || !todoDescription || !dueDate}
+            disabled={!todoName || !todoDescription || !dueDate || !categoryId}
             size={"sm"}
             fontSize="xs"
           >

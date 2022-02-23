@@ -2,6 +2,7 @@ import { Box } from "@chakra-ui/react";
 import React from "react";
 import toast from "react-hot-toast";
 import { AiOutlineDelete } from "react-icons/ai";
+import { useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { useDeleteCategory } from "../../api/Category/delete_category";
 import { useAppSelector } from "../../hooks";
@@ -14,6 +15,8 @@ const DeleteCategory: React.FC<DeleteCategoryProps> = ({ id }) => {
   const token = useAppSelector((state) => state.token.token);
 
   const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
 
   /* DELETE CATEGORY */
   const { mutateAsync } = useDeleteCategory();
@@ -33,7 +36,10 @@ const DeleteCategory: React.FC<DeleteCategoryProps> = ({ id }) => {
         }
       );
     }
-    if (resposne.status === 200) toast.success("Category deleted succesfully");
+    if (resposne.status === 200) {
+      toast.success("Category deleted succesfully");
+    }
+    queryClient.invalidateQueries("todosCategory");
   };
 
   return (

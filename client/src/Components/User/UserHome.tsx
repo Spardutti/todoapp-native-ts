@@ -16,7 +16,7 @@ export const UserHome = () => {
   }, [navigate]);
 
   return (
-    <Center pt={10}>
+    <Center h={"100vh"}>
       <Stack direction={"column"} textAlign={"center"}>
         <LocalUser />
         <TestUser />

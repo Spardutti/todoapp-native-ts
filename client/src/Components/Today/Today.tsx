@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Center,
   Divider,
   Heading,
@@ -22,6 +23,7 @@ interface TodayProps {}
 /*  SHOW TODAY TODOS & OVERDUES IF THEY EXIST */
 const Today: React.FC<TodayProps> = () => {
   const token = useAppSelector((state) => state.token.token);
+  const overdueLength = useAppSelector((state) => state.todos.overdue);
   const [todayTodos, setTodayTodos] = useState([]);
   const [currentDate] = useState(DateTime.now());
 
@@ -45,7 +47,18 @@ const Today: React.FC<TodayProps> = () => {
           Everything is up to date
         </Heading>
         <Center>
-          <AddTodoModal preSelectedDate={null} color={"red"} text="Add Todo" />
+          <Box>
+            <Text py={5} color="gray" fontSize={10}>
+              All your tasks that are due today will show up here.
+            </Text>
+            <Button colorScheme={"red"}>
+              <AddTodoModal
+                preSelectedDate={null}
+                color={"white"}
+                text="Add a task"
+              />
+            </Button>
+          </Box>
         </Center>
       </Stack>
     </Center>
@@ -62,7 +75,7 @@ const Today: React.FC<TodayProps> = () => {
         </span>
       </Heading>
 
-      {todayTodos.length === 0 ? (
+      {todayTodos.length === 0 && overdueLength === 0 ? (
         <NoTodos />
       ) : (
         <>

@@ -5,6 +5,7 @@ import { useGetuser } from "../../api/User/get_user";
 import { getUserInfo } from "../../store/Reducers/User/userReducer";
 import { useAppDispatch } from "../../hooks";
 import { getToken } from "../../store/Reducers/Token/tokenReducer";
+import { Center, Spinner } from "@chakra-ui/react";
 
 /* CHECKS FOR TOKEN AND REDIRECT  */
 export const ProtectedRoute = () => {
@@ -26,19 +27,26 @@ export const ProtectedRoute = () => {
     }
 
     setIsLoading(false);
-  }, [dispatch]);
+  }, []);
 
   /* WAIT FOR USERID BEFORE FETCHING */
   useEffect(() => {
     userId && refetch();
-  }, [userId, refetch]);
+  }, [userId]);
 
   /* WAIT FOR DATA AND SET IT TO USER */
   useEffect(() => {
     data && dispatch(getUserInfo(data.data));
-  }, [data, dispatch]);
+  }, [data]);
 
-  if (isLoading) return <div>Loading</div>;
+  if (!loading && data) alert("hola");
+
+  if (isLoading)
+    return (
+      <Center>
+        <Spinner />
+      </Center>
+    );
 
   if (data) {
     return <Outlet />;

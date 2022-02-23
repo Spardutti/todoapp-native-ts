@@ -12,6 +12,7 @@ import Upcoming from "./Components/Views/Upcoming";
 import Category from "./Components/Views/Category";
 import History from "./Components/Views/History";
 import WelcomeScreen from "./Components/Views/WelcomeScreen";
+import { UserHome } from "./Components/User/UserHome";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +48,7 @@ function App() {
               <Route path="/history" element={<ProtectedRoute />}>
                 <Route path="/history" element={<History />} />
               </Route>
+              <Route path="/login" element={<UserHome />} />
             </Routes>
           </ChakraProvider>
           <ReactQueryDevtools initialIsOpen={false} />

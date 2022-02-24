@@ -24,7 +24,7 @@ import { useGetCategoryById } from "../../api/Category/get_category";
 interface Props {
   pickedCategory: string;
   setPickedCategory: React.Dispatch<React.SetStateAction<string>>;
-  preSelectedCategory: string;
+  preSelectedCategory: { categoryName: string, color: string} | null;
 }
 
 export const ChooseCategoryButton: React.FC<Props> = ({
@@ -38,13 +38,18 @@ export const ChooseCategoryButton: React.FC<Props> = ({
   const [buttonText, setButtonText] = useState("Category");
   const [isOpen, setIsOpen] = useState(false);
 
-  const { data: categoryInfo } = useGetCategoryById(preSelectedCategory);
+
+
+  /* IF PRESELECTEDCATEGORY EXISTS UPDATE COLOR AND NAME INFO */
   useEffect(() => {
+
     if (preSelectedCategory) {
-      setButtonText(categoryInfo?.data.categoryName);
-      setCategoryColor(categoryInfo?.data.color);
+      const preCategoryName = preSelectedCategory.categoryName
+      setButtonText(preCategoryName)
+      const preColorName = preSelectedCategory.color
+      setCategoryColor(preColorName)
     }
-  }, []);
+  }, [])
 
   const open = () => setIsOpen(!isOpen);
   const close = () => setIsOpen(false);

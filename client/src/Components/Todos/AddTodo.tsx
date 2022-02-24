@@ -28,6 +28,7 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
   const token = useAppSelector((state) => state.token);
   const [pickedDate, setPickedDate] = useState(new Date());
   const [pickedCategory, setPickedCategory] = useState("");
+  const preSelectedCategory = null
   const [newTodo, setNewTodo] = useState<Todo>({
     todoName: "",
     todoDescription: "",
@@ -47,6 +48,8 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
   useEffect(() => {
     setNewTodo({ ...newTodo, categoryId: pickedCategory });
   }, [pickedCategory]);
+
+
 
   const resetState = () => {
     setPickedDate(new Date());
@@ -134,7 +137,7 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
             <ChooseCategoryButton
               pickedCategory={pickedCategory}
               setPickedCategory={setPickedCategory}
-              preSelectedCategory={pickedCategory}
+              preSelectedCategory={preSelectedCategory}
             />
           </Box>
           <Divider borderColor="blackAlpha.300" />

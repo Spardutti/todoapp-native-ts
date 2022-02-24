@@ -11,7 +11,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
 import { useQueryClient } from "react-query";
@@ -26,7 +26,7 @@ interface DeleteEditButtonsProps {
 /* RENDERS TODOCARD BUTTONS FOR EDIT AND DELETE */
 const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({ todo }) => {
   const { isLoading, mutateAsync } = useDeleteTodo(todo._id);
-
+  const [ preSelectedCategory, setPreSelectedCategory] = useState({categoryName: "", color:""})
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isEditOpen,
@@ -35,6 +35,13 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({ todo }) => {
   } = useDisclosure();
 
   const queryClient = useQueryClient();
+
+
+
+  /* SAVE CATEGORY INFO OF SELECTED TODO TO EDIT */
+  useEffect(() => {
+    setPreSelectedCategory({categoryName: todo.category.categoryName, color: todo.category.color})
+  }, [])
 
   /* DELETE TODO */
   const deleteTodo = async () => {
@@ -111,7 +118,7 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({ todo }) => {
         isOpen={isEditOpen}
         onClose={onEditClose}
         todo={todo}
-        preSelectedCategory={todo.category._id}
+        preSelectedCategory={preSelectedCategory}
       />
     </>
   );

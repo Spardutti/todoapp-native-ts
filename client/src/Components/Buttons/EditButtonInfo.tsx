@@ -18,12 +18,14 @@ import { Todo } from "../../Interface/Interface";
 import { OpenCalendarPopOverButton } from "../Calendar/OpenCalendarPopOver";
 import { ChooseCategoryButton } from "../Category/ChooseCategoryButton";
 import { useGetCategoryById } from "../../api/Category/get_category";
+import {useEditTodo} from "../../api/Todo/put_todo"
+import { useQueryClient } from "react-query";
 
 interface EditTodoProps {
   isOpen: boolean;
   onClose: () => void;
   todo: Todo;
-  preSelectedCategory: string;
+  preSelectedCategory: {categoryName: string, color: string};
 }
 
 const EditTodo: React.FC<EditTodoProps> = ({
@@ -33,7 +35,7 @@ const EditTodo: React.FC<EditTodoProps> = ({
   preSelectedCategory,
 }) => {
   const { todoName, todoDescription, dueDate } = todo;
-  const [editedTodo, setEditedTodo] = useState(todo);
+  const [editedTodo, setEditedTodo] = useState({todoName: "", todoDescription:"", dueDate: new Date(), categoryId: "" });
   const [pickedDate, setPickedDate] = useState(new Date(dueDate));
   const [pickedCategory, setPickedCategory] = useState(todo.category._id);
 
@@ -48,7 +50,7 @@ const EditTodo: React.FC<EditTodoProps> = ({
   useEffect(() => {
     setEditedTodo({
       ...editedTodo,
-      dueDate: pickedDate.toString(),
+      dueDate: pickedDate,
     });
   }, [pickedDate, todoName, todoDescription]);
 
@@ -56,13 +58,23 @@ const EditTodo: React.FC<EditTodoProps> = ({
   useEffect(() => {
     setEditedTodo({
       ...editedTodo,
-      category: {
-        categoryName: categoryInfo?.data.categoryName,
-        _id: categoryInfo?.data._id,
-        color: categoryInfo?.data.color,
-      },
+      categoryId:  categoryInfo?.data._id,
     });
   }, [pickedCategory]);
+
+  const queryClient = useQueryClient()
+
+  /* SEND EDITED TODO INFO TO THE DB */
+  const {mutateAsync, isLoading} = useEditTodo();
+
+  const editTodo = async() => {
+    const response = await mutateAsync(editedTodo)   
+            /* UPDATE THE TODOS QUERY IN THE DOM */
+            queryClient.invalidateQueries("today");
+            queryClient.invalidateQueries("upcoming");
+            queryClient.invalidateQueries("latest");
+            toast.success("Todo edited succesfully");
+  }
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -95,7 +107,7 @@ const EditTodo: React.FC<EditTodoProps> = ({
               />
             </Box>
           </Box>
-          <Box>
+          <Box onClick={editTodo}>
             <Button>Save</Button>
           </Box>
         </Grid>

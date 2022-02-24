@@ -28,15 +28,11 @@ const toggleIsCompleted = async (
   }
 };
 
-const editTodo = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const editTodo = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { todoName, todoDescription, dueDate, categoryId} = req.body;
+    const { todoName, todoDescription, dueDate, categoryId } = req.body;
     const { id } = req.params;
-    const category = await CategoryModel.findById(categoryId)
+    const category = await CategoryModel.findById(categoryId);
 
     const todo = await TodoModel.findByIdAndUpdate(id, {
       todoName,
@@ -45,13 +41,12 @@ const editTodo = async (
       category,
       updated: DateTime.now(),
       updateType: "Edited",
-    })
+    });
 
     res.status(200).json(todo);
-
   } catch (error) {
-    return next(error)
+    return next(error);
   }
-}
+};
 
-export { toggleIsCompleted };
+export { toggleIsCompleted, editTodo };

@@ -23,7 +23,9 @@ interface TodayProps {}
 /*  SHOW TODAY TODOS & OVERDUES IF THEY EXIST */
 const Today: React.FC<TodayProps> = () => {
   const token = useAppSelector((state) => state.token.token);
-  const overdueLength = useAppSelector((state) => state.todos.overdue);
+  const [overdueLength] = useState(
+    useAppSelector((state) => state.todos.overdue)
+  );
   const [todayTodos, setTodayTodos] = useState([]);
   const [currentDate] = useState(DateTime.now());
 
@@ -75,7 +77,7 @@ const Today: React.FC<TodayProps> = () => {
         </span>
       </Heading>
 
-      {todayTodos.length === 0 && overdueLength === 0 ? (
+      {overdueLength && todayTodos.length === 0 && overdueLength === 0 ? (
         <NoTodos />
       ) : (
         <>

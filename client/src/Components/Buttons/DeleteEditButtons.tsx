@@ -11,7 +11,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
 import { useQueryClient } from "react-query";
@@ -101,7 +101,7 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({
         fontSize={20}
       >
         <BsPencil />
-        <ConfirmDelete />
+        {isOpen && <ConfirmDelete />}
       </Box>
     </>
   );

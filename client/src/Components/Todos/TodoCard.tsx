@@ -36,7 +36,7 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
     })
   );
 
-  const [show, setShow] = useState<string>("0");
+  const [show, setShow] = useState(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -59,8 +59,8 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
 
   return (
     <Box
-      onMouseEnter={() => setShow("1")}
-      onMouseLeave={() => setShow("0")}
+      onMouseEnter={() => setShow(true)}
+      onMouseLeave={() => setShow(false)}
       cursor={"pointer"}
     >
       <Grid templateColumns={"20px 11fr 1fr"} py={1}>
@@ -98,12 +98,10 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
           </Box>
         </Box>
         <VStack>
-          <MotionHStack
-            initial={{ opacity: 0 }}
-            animate={{ opacity: show }}
-            align={"flex-start"}
-          >
-            <DeleteEditButtons todoId={todo._id} todoName={todo.todoName} />
+          <MotionHStack align={"flex-start"}>
+            {show ? (
+              <DeleteEditButtons todoId={todo._id} todoName={todo.todoName} />
+            ) : null}
           </MotionHStack>
           <Box>
             <Link

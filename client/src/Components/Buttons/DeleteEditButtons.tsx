@@ -26,7 +26,7 @@ interface DeleteEditButtonsProps {
 /* RENDERS TODOCARD BUTTONS FOR EDIT AND DELETE */
 const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({ todo }) => {
   const { isLoading, mutateAsync } = useDeleteTodo(todo._id);
-  const [ preSelectedCategory, setPreSelectedCategory] = useState({categoryName: "", color:""})
+  //const [ preSelectedCategory, setPreSelectedCategory] = useState({categoryName: "", color:""})
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isEditOpen,
@@ -36,20 +36,12 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({ todo }) => {
 
   const queryClient = useQueryClient();
 
-
-
-  /* SAVE CATEGORY INFO OF SELECTED TODO TO EDIT */
-  useEffect(() => {
-    setPreSelectedCategory({categoryName: todo.category.categoryName, color: todo.category.color})
-  }, [])
-
   /* DELETE TODO */
   const deleteTodo = async () => {
     await mutateAsync();
     queryClient.invalidateQueries("today");
     queryClient.invalidateQueries("upcoming");
     queryClient.invalidateQueries("overdue");
-    queryClient.invalidateQueries("today");
     queryClient.invalidateQueries("completed");
     queryClient.invalidateQueries("latest");
 
@@ -112,14 +104,14 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({ todo }) => {
         fontSize={20}
       >
         <BsPencil />
-      </Box>
-      <ConfirmDelete />
       <EditTodo
         isOpen={isEditOpen}
         onClose={onEditClose}
         todo={todo}
-        preSelectedCategory={preSelectedCategory}
+        //preSelectedCategory={preSelectedCategory}
       />
+      </Box>
+      <ConfirmDelete />
     </>
   );
 };

@@ -21,6 +21,7 @@ interface LatestCardProps {
 }
 
 const LatestCard: React.FC<LatestCardProps> = ({ todo }) => {
+  
   /* SHOW ADDED BADGE */
   const AvatarDisplay = () => {
     if (todo.updateType === "Created") {

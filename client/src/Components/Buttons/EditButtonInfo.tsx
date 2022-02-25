@@ -25,19 +25,16 @@ interface EditTodoProps {
   isOpen: boolean;
   onClose: () => void;
   todo: Todo;
-  preSelectedCategory: {categoryName: string, color: string};
 }
 
 const EditTodo: React.FC<EditTodoProps> = ({
   isOpen,
   onClose,
   todo,
-  preSelectedCategory,
 }) => {
-  const { todoName, todoDescription, dueDate } = todo;
-  const [editedTodo, setEditedTodo] = useState({todoName: "", todoDescription:"", dueDate: new Date(), categoryId: "" });
-  const [pickedDate, setPickedDate] = useState(new Date(dueDate));
-  const [pickedCategory, setPickedCategory] = useState(todo.category._id);
+  const [editedTodo, setEditedTodo] = useState({_id: todo._id, todoName: todo.todoName, todoDescription: todo.todoDescription, dueDate: new Date(todo.dueDate), categoryId: todo.category._id });
+  const [pickedDate, setPickedDate] = useState(new Date(editedTodo.dueDate));
+  const [pickedCategory, setPickedCategory] = useState(editedTodo.categoryId);
 
   const editTodoHandler = (e: any) => {
     const value = e.target.value;
@@ -52,14 +49,14 @@ const EditTodo: React.FC<EditTodoProps> = ({
       ...editedTodo,
       dueDate: pickedDate,
     });
-  }, [pickedDate, todoName, todoDescription]);
+    
+  }, [pickedDate]);
 
-  const { data: categoryInfo } = useGetCategoryById(pickedCategory);
   useEffect(() => {
     setEditedTodo({
       ...editedTodo,
-      categoryId:  categoryInfo?.data._id,
-    });
+      categoryId: pickedCategory,
+    });        
   }, [pickedCategory]);
 
   const queryClient = useQueryClient()
@@ -72,7 +69,10 @@ const EditTodo: React.FC<EditTodoProps> = ({
             /* UPDATE THE TODOS QUERY IN THE DOM */
             queryClient.invalidateQueries("today");
             queryClient.invalidateQueries("upcoming");
+            queryClient.invalidateQueries("overdue");
+            queryClient.invalidateQueries("completed");
             queryClient.invalidateQueries("latest");
+        
             toast.success("Todo edited succesfully");
   }
 
@@ -86,12 +86,12 @@ const EditTodo: React.FC<EditTodoProps> = ({
               fontSize={22}
               fontWeight={"bold"}
               width="200px"
-              value={todoName}
+              value={editedTodo.todoName}
               name="todoName"
               onChange={(e) => editTodoHandler(e)}
             />
             <Textarea
-              value={todoDescription}
+              value={editedTodo.todoDescription}
               name="todoDescription"
               onChange={(e) => editTodoHandler(e)}
             />
@@ -103,7 +103,7 @@ const EditTodo: React.FC<EditTodoProps> = ({
               <ChooseCategoryButton
                 pickedCategory={pickedCategory}
                 setPickedCategory={setPickedCategory}
-                preSelectedCategory={preSelectedCategory}
+                preSelectedCategory={{categoryName: todo.category.categoryName, color: todo.category.color}}
               />
             </Box>
           </Box>

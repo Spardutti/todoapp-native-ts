@@ -15,19 +15,12 @@ export const useToggleIsCompelted = () => {
 const editTodo = (editedTodo: Todo) => {
   const { todoName, todoDescription, dueDate, categoryId } = editedTodo;
 
-  return axios
-    .put(`${devUrl}/editTodo`, {
-      todoName,
-      todoDescription,
-      dueDate,
-      categoryId,
-    })
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      if (error.response) throw error.response;
-    });
+  return axios.put(`${devUrl}/editTodo/${editedTodo._id}`, {
+    todoName,
+    todoDescription,
+    dueDate,
+    categoryId,
+  });
 };
 
 export const useEditTodo = () => {

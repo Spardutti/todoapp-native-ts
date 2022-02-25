@@ -24,7 +24,7 @@ import { useGetCategoryById } from "../../api/Category/get_category";
 interface Props {
   pickedCategory: string;
   setPickedCategory: React.Dispatch<React.SetStateAction<string>>;
-  preSelectedCategory: { categoryName: string, color: string} | null;
+  preSelectedCategory: { categoryName: string; color: string } | null;
 }
 
 export const ChooseCategoryButton: React.FC<Props> = ({
@@ -38,18 +38,15 @@ export const ChooseCategoryButton: React.FC<Props> = ({
   const [buttonText, setButtonText] = useState("Category");
   const [isOpen, setIsOpen] = useState(false);
 
-
-
   /* IF PRESELECTEDCATEGORY EXISTS UPDATE COLOR AND NAME INFO */
   useEffect(() => {
-
     if (preSelectedCategory) {
-      const preCategoryName = preSelectedCategory.categoryName
-      setButtonText(preCategoryName)
-      const preColorName = preSelectedCategory.color
-      setCategoryColor(preColorName)
+      const preCategoryName = preSelectedCategory.categoryName;
+      setButtonText(preCategoryName);
+      const preColorName = preSelectedCategory.color;
+      setCategoryColor(preColorName);
     }
-  }, [])
+  }, []);
 
   const open = () => setIsOpen(!isOpen);
   const close = () => setIsOpen(false);
@@ -112,6 +109,7 @@ export const ChooseCategoryButton: React.FC<Props> = ({
             borderColor="blackAlpha.400"
             onClick={open}
             ml="10px"
+            bg="white"
           >
             <MdCategory color={categoryColor} />
             <Text textColor={categoryColor} ml="4px" fontSize="13px">

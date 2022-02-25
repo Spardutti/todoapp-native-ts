@@ -70,7 +70,7 @@ const TodoDescription: React.FC<TodoDescriptionProps> = ({
               Yesterday
             </Button>
             <HStack justify={"flex-end"}>
-              <DeleteEditButtons todo={todo} />
+              <DeleteEditButtons todoId={todo._id} todoName={todo.todoName} todo={todo} />
             </HStack>
           </Box>
         </Grid>

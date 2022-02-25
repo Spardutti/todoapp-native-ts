@@ -22,12 +22,12 @@ import EditTodo from "./EditButtonInfo";
 interface DeleteEditButtonsProps {
   todoId: string,
   todoName: string,
+  todo: Todo,
 }
 
 /* RENDERS TODOCARD BUTTONS FOR EDIT AND DELETE */
-const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({ todoId, todoName, }) => {
+const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({ todoId, todoName, todo }) => {
   const { isLoading, mutateAsync } = useDeleteTodo(todoId);
-  //const [ preSelectedCategory, setPreSelectedCategory] = useState({categoryName: "", color:""})
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isEditOpen,
@@ -108,6 +108,7 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({ todoId, todoName,
         {isOpen && <ConfirmDelete />}
       </Box>
       <ConfirmDelete />
+      <EditTodo isOpen={isEditOpen} onClose={onEditClose} todo={todo} />
     </>
   );
 };

@@ -100,7 +100,7 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
         <VStack>
           <MotionHStack align={"flex-start"}>
             {show ? (
-              <DeleteEditButtons todoId={todo._id} todoName={todo.todoName} />
+              <DeleteEditButtons todoId={todo._id} todoName={todo.todoName} todo={todo} />
             ) : null}
           </MotionHStack>
           <Box>

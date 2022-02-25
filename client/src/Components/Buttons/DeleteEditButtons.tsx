@@ -11,11 +11,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-<<<<<<< HEAD
-import React, { useEffect, useState } from "react";
-=======
 import React, { useEffect } from "react";
->>>>>>> e954cbecb1911347339fa5b15f23f3c1ae94a282
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
 import { useQueryClient } from "react-query";
@@ -24,12 +20,13 @@ import { Todo } from "../../Interface/Interface";
 import EditTodo from "./EditButtonInfo";
 
 interface DeleteEditButtonsProps {
-  todo: Todo;
+  todoId: string,
+  todoName: string,
 }
 
 /* RENDERS TODOCARD BUTTONS FOR EDIT AND DELETE */
-const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({ todo }) => {
-  const { isLoading, mutateAsync } = useDeleteTodo(todo._id);
+const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({ todoId, todoName, }) => {
+  const { isLoading, mutateAsync } = useDeleteTodo(todoId);
   //const [ preSelectedCategory, setPreSelectedCategory] = useState({categoryName: "", color:""})
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -61,7 +58,7 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({ todo }) => {
             <ModalHeader></ModalHeader>
             <ModalBody p={5} boxShadow={"dark-sm"}>
               <Text>
-                Are you sure you want to delete <b>{todo.todoName}</b> ?
+                Are you sure you want to delete <b>{todoName}</b> ?
               </Text>
               <Flex justify={"flex-end"} p={5}>
                 <Button size={"sm"} variant="outline" onClick={onClose}>
@@ -88,7 +85,7 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({ todo }) => {
     <>
       <Box
         onClick={onOpen}
-        id={todo._id}
+        id={todoId}
         _hover={{ background: "#dcdbdb" }}
         p={1}
         borderRadius={5}
@@ -108,16 +105,7 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({ todo }) => {
         fontSize={20}
       >
         <BsPencil />
-<<<<<<< HEAD
-      <EditTodo
-        isOpen={isEditOpen}
-        onClose={onEditClose}
-        todo={todo}
-        //preSelectedCategory={preSelectedCategory}
-      />
-=======
         {isOpen && <ConfirmDelete />}
->>>>>>> e954cbecb1911347339fa5b15f23f3c1ae94a282
       </Box>
       <ConfirmDelete />
     </>

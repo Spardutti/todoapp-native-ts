@@ -98,19 +98,10 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
           </Box>
         </Box>
         <VStack>
-<<<<<<< HEAD
-          <MotionHStack
-            initial={{ opacity: 0 }}
-            animate={{ opacity: show }}
-            align={"flex-start"}
-          >
-            <DeleteEditButtons todo={todo} />
-=======
           <MotionHStack align={"flex-start"}>
             {show ? (
               <DeleteEditButtons todoId={todo._id} todoName={todo.todoName} />
             ) : null}
->>>>>>> e954cbecb1911347339fa5b15f23f3c1ae94a282
           </MotionHStack>
           <Box>
             <Link

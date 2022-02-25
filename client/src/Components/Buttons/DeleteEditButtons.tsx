@@ -11,7 +11,11 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
+=======
+import React, { useEffect } from "react";
+>>>>>>> e954cbecb1911347339fa5b15f23f3c1ae94a282
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
 import { useQueryClient } from "react-query";
@@ -104,12 +108,16 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({ todo }) => {
         fontSize={20}
       >
         <BsPencil />
+<<<<<<< HEAD
       <EditTodo
         isOpen={isEditOpen}
         onClose={onEditClose}
         todo={todo}
         //preSelectedCategory={preSelectedCategory}
       />
+=======
+        {isOpen && <ConfirmDelete />}
+>>>>>>> e954cbecb1911347339fa5b15f23f3c1ae94a282
       </Box>
       <ConfirmDelete />
     </>

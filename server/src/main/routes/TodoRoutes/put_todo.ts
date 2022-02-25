@@ -9,6 +9,6 @@ router.put(
   /*  validateNewTodo, */ TodoController.toggleIsCompleted
 );
 
-router.put("/editTodo", TodoController.editTodo);
+router.put("/editTodo/:id", TodoController.editTodo);
 
 export { router };

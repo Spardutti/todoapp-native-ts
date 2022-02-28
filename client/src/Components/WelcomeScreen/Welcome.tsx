@@ -78,7 +78,7 @@ const Welcome: React.FC<WelcomeProps> = () => {
       <Center w={"100vw"} h={"80vh"}>
         <Stack align={"center"}>
           <Heading textAlign={"center"} fontSize={[45, 65, 100, 120]}>
-            Organize it all <br /> with Tasker
+            Organize it all <br /> with Tasker <br />
           </Heading>
           <Box pt={20}>
             <Button

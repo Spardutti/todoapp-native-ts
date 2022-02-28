@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useMutation } from "react-query";
-
-const devUrl = "http://localhost:5000/api";
+import url from "../url";
 
 interface Category {
   categoryName: string;
@@ -15,7 +14,7 @@ const newCategory = async (category: Category) => {
 
   return axios
     .post(
-      `${devUrl}/newCategory`,
+      `${url}/newCategory`,
       { categoryName, color },
       {
         headers: {

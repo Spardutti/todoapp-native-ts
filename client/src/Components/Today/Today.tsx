@@ -109,7 +109,7 @@ const Today: React.FC<TodayProps> = () => {
             <AddTodoModal
               preSelectedDate={null}
               color={"red"}
-              text="Add Todo"
+              text="Add Task"
             />
           </HStack>
         </>

@@ -15,8 +15,6 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import NewCategoryModal from "./NewCategoryModal";
 import { useNavigate } from "react-router-dom";
 import { toggleDrawer } from "../../store/Reducers/Drawer/drawerReducer";
-import { AiOutlineDelete } from "react-icons/ai";
-import { scale } from "chroma-js";
 import DeleteCategory from "./DeleteCategory";
 
 interface ShowCategoriesProps {}

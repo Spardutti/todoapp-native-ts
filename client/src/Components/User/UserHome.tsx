@@ -1,4 +1,4 @@
-import { Center, Stack, Text } from "@chakra-ui/react";
+import { Center, Stack } from "@chakra-ui/react";
 import { NewUser } from "./NewUser";
 import { LocalUser } from "./LocalUser";
 import { useEffect } from "react";

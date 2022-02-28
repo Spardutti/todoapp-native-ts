@@ -11,7 +11,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
 import { useQueryClient } from "react-query";
@@ -20,13 +20,17 @@ import { Todo } from "../../Interface/Interface";
 import EditTodo from "./EditButtonInfo";
 
 interface DeleteEditButtonsProps {
-  todoId: string,
-  todoName: string,
-  todo: Todo,
+  todoId: string;
+  todoName: string;
+  todo: Todo;
 }
 
 /* RENDERS TODOCARD BUTTONS FOR EDIT AND DELETE */
-const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({ todoId, todoName, todo }) => {
+const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({
+  todoId,
+  todoName,
+  todo,
+}) => {
   const { isLoading, mutateAsync } = useDeleteTodo(todoId);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {

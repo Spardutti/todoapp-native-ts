@@ -38,7 +38,7 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
 
   const [show, setShow] = useState(false);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onClose } = useDisclosure();
 
   const { mutateAsync } = useToggleIsCompelted();
 
@@ -84,7 +84,7 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
             />
           </motion.div>
         </Stack>
-        <Box py={0} onClick={onOpen}>
+        <Box py={0} /* onClick={onOpen} */>
           <Box>
             <Text>{todo.todoName}</Text>
             <Text fontSize={10} color={"gray"}>
@@ -100,7 +100,11 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
         <VStack>
           <MotionHStack align={"flex-start"}>
             {show ? (
-              <DeleteEditButtons todoId={todo._id} todoName={todo.todoName} todo={todo} />
+              <DeleteEditButtons
+                todoId={todo._id}
+                todoName={todo.todoName}
+                todo={todo}
+              />
             ) : null}
           </MotionHStack>
           <Box>

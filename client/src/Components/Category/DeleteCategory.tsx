@@ -30,7 +30,7 @@ const DeleteCategory: React.FC<DeleteCategoryProps> = ({ id }) => {
     if (resposne.status === 500) {
       navigate(`/category/${id}`);
       toast.error(
-        "You can't delete a category \n that still have existing todos ",
+        "You can't delete a category \n that still have existing tasks ",
         {
           duration: 5000,
         }

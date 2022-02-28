@@ -6,7 +6,6 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { IoAddOutline } from "react-icons/io5";
 import { RiTodoLine } from "react-icons/ri";
 import { AddTodo } from "./AddTodo";
 

@@ -10,7 +10,7 @@ export const NewUser = () => {
     password: "",
     email: "",
   });
-  const [showErrors, setShowErrors] = useState(false);
+  const [, setShowErrors] = useState(false);
 
   /* POST THE DATA TO CREATE A NEW USER */
   const { mutateAsync, isLoading, error } = useNewuser();
@@ -24,7 +24,7 @@ export const NewUser = () => {
   };
 
   const createUser = async () => {
-    const createdAcount = await mutateAsync(userInfo);
+    await mutateAsync(userInfo);
     toast.success("Account created succesfully!");
     setUserInfo({
       username: "",

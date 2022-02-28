@@ -1,4 +1,3 @@
-import { Box, Stack } from "@chakra-ui/react";
 import React from "react";
 import Layout from "../Layout/Layout";
 import WeekDisplay from "../Upcoming/WeekDisplay";

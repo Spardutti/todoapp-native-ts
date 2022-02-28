@@ -92,7 +92,7 @@ const DrawerMenu: React.FC = () => {
               onClick={() => navigateTo("/history")}
             >
               <HiOutlineInbox size={20} color="blue" />
-              <Text pl={3}>History</Text>
+              <Text pl={3}>Activity</Text>
               <Spacer />
               <Text color="#C1DAEC">{overdue === 0 ? null : overdue}</Text>
             </Flex>

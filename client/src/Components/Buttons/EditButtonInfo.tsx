@@ -4,15 +4,11 @@ import {
   CloseButton,
   Divider,
   FormControl,
-  Grid,
-  HStack,
   Input,
   Modal,
-  ModalCloseButton,
   ModalContent,
   ModalOverlay,
   Stack,
-  Text,
   Textarea,
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
@@ -20,7 +16,6 @@ import toast from "react-hot-toast";
 import { Todo } from "../../Interface/Interface";
 import { OpenCalendarPopOverButton } from "../Calendar/OpenCalendarPopOver";
 import { ChooseCategoryButton } from "../Category/ChooseCategoryButton";
-import { useGetCategoryById } from "../../api/Category/get_category";
 import { useEditTodo } from "../../api/Todo/put_todo";
 import { useQueryClient } from "react-query";
 

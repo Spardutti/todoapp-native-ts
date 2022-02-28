@@ -9,17 +9,13 @@ import {
   PopoverBody,
   Flex,
   Text,
-  Spacer,
-  propNames,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useGetUserCategories } from "../../api/Category/get_category";
 import { useAppSelector } from "../../hooks";
 import { MdCategory } from "react-icons/md";
-import { HiOutlinePlus } from "react-icons/hi";
 import "../../Styles/calendar/calendarButton.scss";
 import NewCategoryModal from "./NewCategoryModal";
-import { useGetCategoryById } from "../../api/Category/get_category";
 
 interface Props {
   pickedCategory: string;

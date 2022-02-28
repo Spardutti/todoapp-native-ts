@@ -10,13 +10,7 @@ import {
 } from "@chakra-ui/react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import {
-  BsCalendar4Event,
-  BsFillCalendar2RangeFill,
-  BsSlashCircle,
-} from "react-icons/bs";
-import { FaCouch } from "react-icons/fa";
-import { CgCalendarNext } from "react-icons/cg";
+import { BsCalendar4Event } from "react-icons/bs";
 import React, { useEffect, useState } from "react";
 import "../../Styles/calendar/calendarButton.scss";
 import { DateTime } from "luxon";

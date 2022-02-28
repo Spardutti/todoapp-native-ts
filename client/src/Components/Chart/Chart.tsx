@@ -41,7 +41,7 @@ const Chart: React.FC<ChartProps> = () => {
     labels: [`Completed`, `Overdue`, `Pending`],
     datasets: [
       {
-        label: "# of Todos",
+        label: "# of Tasks",
         data: [todosData.completed, todosData.overdue, todosData.upcoming],
         backgroundColor: ["#2ECC40", "#FF4136", "#FFDC00"],
 

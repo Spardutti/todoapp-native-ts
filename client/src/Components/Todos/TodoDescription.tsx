@@ -29,7 +29,7 @@ const TodoDescription: React.FC<TodoDescriptionProps> = ({
   onClose,
   todo,
 }) => {
-  const { todoName, todoDescription, dueDate, isCompleted } = todo;
+  const { todoName, todoDescription } = todo;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -70,7 +70,11 @@ const TodoDescription: React.FC<TodoDescriptionProps> = ({
               Yesterday
             </Button>
             <HStack justify={"flex-end"}>
-              <DeleteEditButtons todoId={todo._id} todoName={todo.todoName} todo={todo} />
+              <DeleteEditButtons
+                todoId={todo._id}
+                todoName={todo.todoName}
+                todo={todo}
+              />
             </HStack>
           </Box>
         </Grid>

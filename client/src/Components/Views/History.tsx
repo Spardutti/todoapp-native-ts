@@ -1,4 +1,4 @@
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import React from "react";
 import LatestActivity from "../History/Activity";
 import Layout from "../Layout/Layout";

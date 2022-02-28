@@ -76,7 +76,7 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
                 <AddTodoModal
                   preSelectedDate={day.toJSDate()}
                   color={"red"}
-                  text="Add Todo"
+                  text="Add Task"
                 />
               </HStack>
             </Box>

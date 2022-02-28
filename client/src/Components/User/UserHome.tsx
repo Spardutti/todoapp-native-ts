@@ -17,7 +17,15 @@ export const UserHome = () => {
 
   return (
     <Center h={"100vh"}>
-      <Stack direction={"column"} textAlign={"center"}>
+      <Stack
+        direction={"column"}
+        textAlign={"center"}
+        w={560}
+        fontSize={30}
+        p={10}
+        boxShadow="lg"
+        bg="#fafafa"
+      >
         <LocalUser />
         <TestUser />
         <NewUser />

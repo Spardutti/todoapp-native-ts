@@ -4,14 +4,21 @@ import { CategoryModel } from "../../models/CategoryModel";
 /* NEW CATEGORY */
 const newCategory = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { name } = req.body;
+    const { categoryName, color } = req.body;
+
+    const userId = req.user?._id;
+
+    console.log(categoryName, color);
+
     const category = new CategoryModel({
-      name,
+      categoryName,
+      author: userId,
+      color,
     });
     await category.save();
-    res.status(200).json(category);
+    return res.json(category);
   } catch (error) {
-    res.status(500).json(next(error));
+    return next(error);
   }
 };
 

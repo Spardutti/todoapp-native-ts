@@ -12,7 +12,7 @@ passport.use(
     },
 
     (jwtpayload: any, done: any) => {
-      UserModel.findById(jwtpayload._id, (err: any, user: any) => {
+      UserModel.findById(jwtpayload.id, (err: any, user: any) => {
         if (err) return err;
         return done(null, user);
       });

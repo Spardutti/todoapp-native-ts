@@ -1,4 +1,13 @@
-import { Schema, model } from "mongoose";
+import { any } from "async";
+import { Schema, model, ObjectId } from "mongoose";
+
+declare global {
+  namespace Express {
+    interface User {
+      _id: string
+    }
+  }
+}
 
 export type User = {
   username: string;

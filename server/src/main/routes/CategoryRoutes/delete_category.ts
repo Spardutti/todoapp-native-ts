@@ -1,7 +1,14 @@
 import { CategoryController } from "../../controllers/categoryController/CategoryController";
 import { Router } from "express";
+import passport from "passport";
 const router = Router();
 
-router.delete("/deleteCategory/:id", CategoryController.deleteCategory);
+const jwtProtected = passport.authenticate("jwt", { session: false });
+
+router.delete(
+  "/deleteCategory/:id",
+  jwtProtected,
+  CategoryController.deleteCategory
+);
 
 export { router };

@@ -3,13 +3,14 @@ import { body, validationResult } from "express-validator";
 import { CategoryModel } from "../models/CategoryModel";
 
 const validateNewCategory = [
-  body("name")
+  body("categoryName")
     .notEmpty()
     .withMessage("Please enter a category name")
-    .custom(async (name) => {
+    .custom(async (categoryName, { req }) => {
       try {
         const category = await CategoryModel.findOne({
-          name: new RegExp(`^${name}$`, "i"),
+          categoryName: new RegExp(`^${categoryName}$`, "i"),
+          author: req.user._id,
         });
         if (category) return Promise.reject();
       } catch (error) {
@@ -17,12 +18,11 @@ const validateNewCategory = [
       }
     })
     .withMessage("Category already exist"),
+  body("color").notEmpty().withMessage("Please select a color"),
   (req: Request, res: Response, next: NextFunction) => {
     const validationErrors = validationResult(req);
     if (!validationErrors.isEmpty()) {
-      return res
-        .status(500)
-        .json({ validationErrors: validationErrors.array() });
+      return res.status(500).json(validationErrors);
     }
     next();
   },

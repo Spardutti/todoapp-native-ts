@@ -1,16 +1,16 @@
 import { Router } from "express";
 const router = Router();
 
-/* TASKS */
-import { router as postTask } from "./TaskRoutes/post_task";
-import { router as getTasks } from "./TaskRoutes/get_task";
-import { router as deleteTask } from "./TaskRoutes/delete_task";
-import { router as putTask } from "./TaskRoutes/put_task";
+/* TODOS */
+import { router as postTodo } from "./TodoRoutes/post_todo";
+import { router as getTodos } from "./TodoRoutes/get_todo";
+import { router as deleteTodo } from "./TodoRoutes/delete_todo";
+import { router as putTodo } from "./TodoRoutes/put_todo";
 
-router.use(postTask);
-router.use(getTasks);
-router.use(deleteTask);
-router.use(putTask);
+router.use(postTodo);
+router.use(getTodos);
+router.use(deleteTodo);
+router.use(putTodo);
 
 /* CATEGORIES */
 import { router as postCategories } from "./CategoryRoutes/post_category";
@@ -25,7 +25,9 @@ router.use(putCategories);
 
 /* USER */
 import { router as postUser } from "./UserRoutes/post_user";
+import { router as getUser } from "./UserRoutes/get_user";
 
 router.use(postUser);
+router.use(getUser);
 
 export { router };

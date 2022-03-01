@@ -3,20 +3,20 @@ import express from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
-import { router as indexRouter } from "./routes/routes";
+import { router as indexRouter } from "./main/routes/routes";
 import { Request, Response, NextFunction, Application } from "express";
 import passport from "passport";
 import session from "express-session";
-// const cors = require("cors");
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 
 // require("dotenv").config();
-require("./Passport/passport-local");
-require("./Passport/jwt");
+require("./main/Passport/passport-local");
+require("./main/Passport/jwt");
 
 const app: Application = express();
+app.use(cors());
 
 /* MONGODB CONNECTION */
 import mongoose, { ConnectOptions } from "mongoose";
@@ -44,8 +44,6 @@ app.use(
     resave: false,
   })
 );
-
-app.use(cors());
 
 app.use(passport.initialize());
 app.use(passport.session());

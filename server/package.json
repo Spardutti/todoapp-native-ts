@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "heroku",
+    "start": "node ./dist/app.js",
     "dev": "nodemon ./src/main/app.ts",
     "build": "tsc -p .",
     "test": "jest"

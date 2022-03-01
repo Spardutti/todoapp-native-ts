@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useMutation } from "react-query";
-
-const devUrl = "http://localhost:5000/api";
+import url from "../url";
 
 interface Info {
   id: string;
@@ -11,7 +10,7 @@ interface Info {
 /* DELETE CATEGORY */
 const deleteCategory = (info: Info) => {
   return axios
-    .delete(`${devUrl}/deletecategory/${info.id}`, {
+    .delete(`${url}/deletecategory/${info.id}`, {
       headers: {
         Authorization: `Bearer ${info.token}`,
       },

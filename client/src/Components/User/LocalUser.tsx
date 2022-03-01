@@ -2,12 +2,14 @@ import {
   Button,
   Divider,
   FormLabel,
+  HStack,
   Input,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useLocalUser } from "../../api/User/post_user";
+import { RiTodoLine } from "react-icons/ri";
 
 /* DISPLAY A FORM TO LOGIN WITH EMAIL AND PASSWORD */
 export const LocalUser = () => {
@@ -43,7 +45,10 @@ export const LocalUser = () => {
   if (error) {
     return (
       <>
-        <Text>Please log in to continue</Text>
+        <HStack color="red">
+          <RiTodoLine fontSize={40} />
+          <Text fontWeight={"bold"}>Tasker</Text>
+        </HStack>
         <FormLabel textAlign={"center"}>{error.data}</FormLabel>
         <Input
           name="email"
@@ -68,7 +73,7 @@ export const LocalUser = () => {
             loadingText="Submitting"
           />
         ) : (
-          <Button onClick={localLogin} colorScheme={"blue"}>
+          <Button onClick={localLogin} colorScheme={"red"}>
             Log in
           </Button>
         )}
@@ -79,7 +84,11 @@ export const LocalUser = () => {
 
   return (
     <Stack>
-      <Text>Please log in to continue</Text>
+      <HStack color="red">
+        <RiTodoLine fontSize={40} />
+        <Text fontWeight={"bold"}>Tasker</Text>
+      </HStack>
+      <Text textAlign={"left"}>Log in</Text>
       <Input
         name="email"
         value={email}
@@ -96,14 +105,14 @@ export const LocalUser = () => {
       />
       {email && password ? (
         isLoading ? (
-          <Button colorScheme="teal" isLoading loadingText="Loading" />
+          <Button colorScheme="red" isLoading loadingText="Loading" />
         ) : (
-          <Button onClick={localLogin} colorScheme={"blue"}>
+          <Button onClick={localLogin} colorScheme={"red"}>
             Log in
           </Button>
         )
       ) : (
-        <Button disabled colorScheme={"blue"}>
+        <Button disabled colorScheme={"red"}>
           Log in
         </Button>
       )}

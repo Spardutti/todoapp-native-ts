@@ -1,12 +1,11 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-
-const devUrl = "http://localhost:5000/api";
+import url from "../url";
 
 /* GET USER */
 const getUser = async (userId: string) => {
   try {
-    const response = axios.get(`${devUrl}/user/${userId}`);
+    const response = axios.get(`${url}/user/${userId}`);
     return response;
   } catch (error) {
     return error;

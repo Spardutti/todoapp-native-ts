@@ -60,7 +60,7 @@ export const NewUser = () => {
           value={password}
           placeholder="Password"
         />
-        <Button onClick={createUser} colorScheme={"blue"}>
+        <Button onClick={createUser} colorScheme={"red"}>
           Create{" "}
         </Button>
       </>
@@ -69,7 +69,7 @@ export const NewUser = () => {
 
   return (
     <Stack>
-      <Text>Dont have an account ?</Text>
+      <Text fontSize={25}>Sign up?</Text>
 
       <Input
         onChange={(e) => onChange(e)}
@@ -92,11 +92,11 @@ export const NewUser = () => {
         type={"password"}
       />
       {username && email && password ? (
-        <Button onClick={createUser} colorScheme={"blue"}>
+        <Button onClick={createUser} colorScheme={"red"}>
           Create{" "}
         </Button>
       ) : (
-        <Button disabled colorScheme={"blue"}>
+        <Button disabled colorScheme={"red"}>
           Create{" "}
         </Button>
       )}

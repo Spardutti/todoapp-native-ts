@@ -6,7 +6,6 @@ import { useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { useDeleteCategory } from "../../api/Category/delete_category";
 import { useAppSelector } from "../../hooks";
-
 interface DeleteCategoryProps {
   id: string;
 }
@@ -38,6 +37,7 @@ const DeleteCategory: React.FC<DeleteCategoryProps> = ({ id }) => {
     }
     if (resposne.status === 200) {
       toast.success("Category deleted succesfully");
+      navigate("/home");
     }
     queryClient.invalidateQueries("todosCategory");
   };

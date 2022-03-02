@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useGetCategoryById } from "../../api/Category/get_category";
 import { useGetTodosByCategory } from "../../api/Todo/get_todo";
 import { Todo } from "../../Interface/Interface";
+import LoadingSpinner from "../Buttons/LoadingSpinner";
 import TodoCard from "../Todos/TodoCard";
 import DeleteCategory from "./DeleteCategory";
 
@@ -16,7 +17,7 @@ const TodosByCategory: React.FC<TodosByCategoryProps> = () => {
 
   const { data, isLoading } = useGetTodosByCategory(categoryId);
 
-  if (isLoading) return <p>Loading</p>;
+  if (isLoading) return <LoadingSpinner />;
 
   if (data) {
     return data?.data.map((todo: Todo, index: number) => {

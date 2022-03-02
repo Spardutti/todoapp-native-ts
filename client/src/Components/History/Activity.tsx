@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useGetLatestTodos } from "../../api/Todo/get_todo";
 import { useAppSelector } from "../../hooks";
 import { Todo } from "../../Interface/Interface";
+import LoadingSpinner from "../Buttons/LoadingSpinner";
 import Completed from "./Completed";
 import LatestCard from "./LatestCard";
 
@@ -40,6 +41,10 @@ const LatestActivity: React.FC<CompletedTodosProps> = () => {
   }, [fetchData]);
 
   const NavButtons = () => {
+    if (data?.data.length === 0 && fetchData.skipNumber === "0") {
+      return null;
+    }
+
     if (fetchData.skipNumber === "0") {
       return (
         <Button
@@ -52,6 +57,7 @@ const LatestActivity: React.FC<CompletedTodosProps> = () => {
         </Button>
       );
     }
+
     if (data?.data.length === 5) {
       return (
         <HStack w={400} justify="space-around">
@@ -90,18 +96,14 @@ const LatestActivity: React.FC<CompletedTodosProps> = () => {
   };
 
   if (isLoading) {
-    return (
-      <Center>
-        <Spinner />
-      </Center>
-    );
+    return <LoadingSpinner />;
   }
 
   return (
     <Box>
       {data?.data.length === 0 ? (
         <Center>
-          <Text>No more data to display</Text>
+          <Text>No data to display</Text>
         </Center>
       ) : (
         data?.data.map((todo: Todo) => (

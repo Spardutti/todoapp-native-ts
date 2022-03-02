@@ -108,7 +108,7 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
         <Stack height="141px" alignItems={"center"}>
           <Box display="flex" flexDir="row" width="100%" maxH="21px">
             <Input
-              placeholder="Todo name"
+              placeholder="Task name"
               variant="unstyled"
               value={todoName}
               name="todoName"
@@ -120,7 +120,7 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
           <Box width="100%" maxH="78px" mt="8px">
             <Textarea
               resize="none"
-              placeholder="Description"
+              placeholder="Ex: Do groceries, laundry, etc."
               variant="unstyled"
               value={todoDescription}
               name="todoDescription"

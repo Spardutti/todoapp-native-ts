@@ -34,7 +34,7 @@ export const AddTodoModal: React.FC<Props> = ({
         autoFocus={false}
       >
         <ModalOverlay bg="none" />
-        <ModalContent boxShadow="dark-lg" w={[200, 550]}>
+        <ModalContent boxShadow="dark-lg" w={[350, 550]}>
           <AddTodo onClose={onClose} preSelectedDate={preSelectedDate} />
         </ModalContent>
       </Modal>

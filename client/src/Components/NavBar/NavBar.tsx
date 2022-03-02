@@ -21,7 +21,7 @@ export const NavBar = () => {
       direction={"row"}
       bg={"red.500"}
       h={12}
-      px={10}
+      px={[4, 4, 10]}
       w={"100%"}
       position="fixed"
       zIndex={100}
@@ -54,7 +54,7 @@ export const NavBar = () => {
             onClick={() => navigate("/home")}
           />
         </Box>
-        <NavBarSearch />
+        {/* <NavBarSearch /> */}
       </Stack>
       <Stack justify={"end"} w="50%" direction={"row"} alignItems={"center"}>
         <QuickIcons hoverColor={hoverColor} />

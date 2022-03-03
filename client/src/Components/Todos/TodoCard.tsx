@@ -71,7 +71,7 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
       onMouseLeave={() => setShow(false)}
       cursor={"pointer"}
     >
-      <Grid templateColumns={"20px 10fr 2fr"} py={1}>
+      <Grid templateColumns={"20px 10fr 2fr"} py={3}>
         <Stack
           display={"inline-block"}
           justifyContent={"center"}

@@ -37,7 +37,7 @@ const WeekDisplay: React.FC<WeekDisplayProps> = () => {
 
   return (
     <Box px={10} w="100%" maxW={800}>
-      <Stack
+      {/*    <Stack
         pt={10}
         position="fixed"
         left={0}
@@ -110,7 +110,7 @@ const WeekDisplay: React.FC<WeekDisplayProps> = () => {
           })}
         </HStack>
         <Divider maxW={800} />
-      </Stack>
+      </Stack> */}
       <UpcomingDays selectedDate={selectedDay} />
     </Box>
   );

@@ -90,8 +90,8 @@ const Today: React.FC<TodayProps> = () => {
             <HStack overflow={"hidden"} justify={"space-between"}>
               <Heading fontSize={14}>
                 {/*   {currentDate.monthLong} */} <br />{" "}
-                {currentDate.weekdayLong} {currentDate.day} -{" "}
-                {currentDate.monthLong}
+                {currentDate.weekdayLong} {currentDate.monthLong}{" "}
+                {currentDate.day}
               </Heading>
             </HStack>
             <Divider py={2} />

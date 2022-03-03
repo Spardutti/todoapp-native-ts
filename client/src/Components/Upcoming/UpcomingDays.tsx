@@ -18,6 +18,7 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
   const token = useAppSelector((state) => state.token.token);
   const [daysFrom, setDaysFrom] = useState<DateTime[]>([]);
   const [upcomingTodos, setUpcomingTodos] = useState<Todo[]>([]);
+  const [months, setMonths] = useState<string[]>([]);
 
   /* GET UPCOMING TODOS */
   const { isLoading, data } = useGetUpcomingTodos(token);
@@ -26,20 +27,36 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
     if (data) setUpcomingTodos(data.data);
   }, [data]);
 
-  /* CREATES AN ARRAY TO DISPLAY UPCOMING DAYS */
+  // /* CREATES AN ARRAY TO DISPLAY UPCOMING DAYS */
+  // useEffect(() => {
+  //   const firstDay = selectedDate;
+  //   const days = [];
+
+  //   for (let i = 0; i < 30; i++) {
+  //     days.push(firstDay.set({ day: firstDay.day + i }));
+  //   }
+
+  //   setDaysFrom(days);
+  //   return () => {
+  //     setDaysFrom([]);
+  //   };
+  // }, [selectedDate]);
+
+  const getMonths = () => {
+    const monthsArr: string[] = [];
+    upcomingTodos.map((todo: Todo, index) => {
+      const jsDate = new Date(todo.dueDate);
+      const month = DateTime.fromJSDate(jsDate).setLocale("en-US").monthLong;
+      if (monthsArr.indexOf(month) === -1) {
+        monthsArr.push(month);
+      }
+    });
+    setMonths(monthsArr);
+  };
+
   useEffect(() => {
-    const firstDay = selectedDate;
-    const days = [];
-
-    for (let i = 0; i < 30; i++) {
-      days.push(firstDay.set({ day: firstDay.day + i }));
-    }
-
-    setDaysFrom(days);
-    return () => {
-      setDaysFrom([]);
-    };
-  }, [selectedDate]);
+    getMonths();
+  }, [upcomingTodos]);
 
   if (isLoading) return <LoadingSpinner />;
 
@@ -47,25 +64,22 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
   const DisplayDays = () => {
     return (
       <>
-        {daysFrom.map((day, index) => {
+        {months.map((month, index) => {
           return (
             <Box key={index} p={10} px={0} w={"100%"} maxW={800}>
-              <Text fontWeight={"bold"} color="gray">
-                {day.monthShort} {day.day} - {day.weekdayLong}
+              <Text fontWeight={"bold"} color="black.500" pb={1}>
+                {month}
               </Text>
               <Divider />
-              {/* CHECK IF DATE MATCH TO SHOW A TODO 
-              ON THE CORRESPONDING DATE */}
-              {upcomingTodos.map((todo: Todo, idx) => {
-                const date = day.toLocaleString();
+              {upcomingTodos.map((todo: Todo, index) => {
                 const todoDate = DateTime.fromJSDate(
                   new Date(todo.dueDate)
-                ).toLocaleString();
-
-                if (date === todoDate)
-                  return <TodoCard todo={todo} key={idx} />;
-                return null;
+                ).setLocale("en-US");
+                if (todoDate.monthLong === month) {
+                  return <TodoCard todo={todo} key={index} />;
+                }
               })}
+
               <HStack
                 _focus={{
                   boxShadow: "none",
@@ -77,11 +91,11 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
                 fontSize={13}
                 color={"gray"}
               >
-                <AddTodoModal
+                {/*        <AddTodoModal
                   preSelectedDate={day.toJSDate()}
                   color={"red"}
                   text="Add Task"
-                />
+                /> */}
               </HStack>
             </Box>
           );

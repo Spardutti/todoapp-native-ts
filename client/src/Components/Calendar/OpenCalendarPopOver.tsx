@@ -94,12 +94,7 @@ export const OpenCalendarPopOverButton: React.FC<Props> = ({
 
   return (
     <>
-      <Popover
-        placement="right"
-        isOpen={isOpen}
-        onClose={close}
-        returnFocusOnClose={false}
-      >
+      <Popover isOpen={isOpen} onClose={close} returnFocusOnClose={false}>
         <PopoverTrigger>
           <Button
             onClick={open}

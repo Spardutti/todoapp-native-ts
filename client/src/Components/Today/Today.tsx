@@ -77,7 +77,7 @@ const Today: React.FC<TodayProps> = () => {
         </span>
       </Heading>
 
-      {overdueLength && todayTodos.length === 0 && overdueLength === 0 ? (
+      {todayTodos.length === 0 && overdueLength === 0 ? (
         <NoTodos />
       ) : (
         <>

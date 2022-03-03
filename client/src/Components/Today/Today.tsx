@@ -27,7 +27,7 @@ const Today: React.FC<TodayProps> = () => {
   const overdueLength = useAppSelector((state) => state.todos.overdue);
 
   const [todayTodos, setTodayTodos] = useState([]);
-  const [currentDate] = useState(DateTime.now());
+  const [currentDate] = useState(DateTime.now().setLocale("en-US"));
 
   /* FETCH TODAY TODOS */
   const { isLoading, data } = useGetTodaysTodos(token);
@@ -74,7 +74,7 @@ const Today: React.FC<TodayProps> = () => {
 
   return (
     <Stack px={10}>
-      <Heading fontSize={20} alignSelf="flex-start">
+      <Heading fontSize={25} alignSelf="flex-start">
         Today{" "}
         <span style={{ fontSize: "12px", color: "gray", fontWeight: "normal" }}>
           {currentDate.weekdayShort} {currentDate.monthShort} {currentDate.day}
@@ -86,10 +86,12 @@ const Today: React.FC<TodayProps> = () => {
       ) : (
         <>
           <OverdueTodos />
-          <Box mt={10} p={10} px={0}>
+          <Box p={5} px={0}>
             <HStack overflow={"hidden"} justify={"space-between"}>
               <Heading fontSize={14}>
-                {currentDate.monthShort} {currentDate.day} - Today
+                {/*   {currentDate.monthLong} */} <br />{" "}
+                {currentDate.weekdayLong} {currentDate.day} -{" "}
+                {currentDate.monthLong}
               </Heading>
             </HStack>
             <Divider py={2} />

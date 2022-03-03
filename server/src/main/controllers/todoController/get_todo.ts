@@ -125,7 +125,9 @@ const getUpcomingTodos = async (
       author: req.user?._id,
       dueDate: { $gte: date },
       isCompleted: false,
-    }).populate("category");
+    })
+      .sort({ dueDate: 1 })
+      .populate("category");
 
     res.status(200).json(todos);
   } catch (error) {

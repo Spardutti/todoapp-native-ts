@@ -14,10 +14,10 @@ import { Todo } from "../../api/Todo/post_todo";
 import { useAppSelector } from "../../hooks";
 import { useAddTodo } from "../../api/Todo/post_todo";
 import React from "react";
-import { OpenCalendarPopOverButton } from "../Calendar/OpenCalendarPopOver";
 import "../../Styles/calendar/calendarButton.scss";
 import { ChooseCategoryButton } from "../Category/ChooseCategoryButton";
 import toast from "react-hot-toast";
+import { OpenCalendarButton } from "../Calendar/OpenCalendarButton";
 
 interface Props {
   preSelectedDate: Date | null;
@@ -130,7 +130,7 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
             />
           </Box>
           <Box width="100%" maxH="38px" display="flex" flexDir="row">
-            <OpenCalendarPopOverButton
+            <OpenCalendarButton
               pickedDate={pickedDate}
               setPickedDate={setPickedDate}
             />

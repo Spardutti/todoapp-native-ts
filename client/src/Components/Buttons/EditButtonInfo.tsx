@@ -14,10 +14,10 @@ import {
 import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { Todo } from "../../Interface/Interface";
-import { OpenCalendarPopOverButton } from "../Calendar/OpenCalendarPopOver";
-import { ChooseCategoryButton } from "../Category/ChooseCategoryButton";
 import { useEditTodo } from "../../api/Todo/put_todo";
 import { useQueryClient } from "react-query";
+import { OpenChooseCategoryButton } from "../Category/OpenChooseCategoryButton";
+import { OpenCalendarButton } from "../Calendar/OpenCalendarButton";
 
 interface EditTodoProps {
   isOpen: boolean;
@@ -64,7 +64,7 @@ const EditTodo: React.FC<EditTodoProps> = ({ isOpen, onClose, todo }) => {
   const { mutateAsync, isLoading } = useEditTodo();
 
   const editTodo = async () => {
-    const response = await mutateAsync(editedTodo);
+    await mutateAsync(editedTodo);
     /* UPDATE THE TODOS QUERY IN THE DOM */
     queryClient.invalidateQueries("today");
     queryClient.invalidateQueries("upcoming");
@@ -110,12 +110,11 @@ const EditTodo: React.FC<EditTodoProps> = ({ isOpen, onClose, todo }) => {
                 />
               </Box>
               <Box w="100%" maxH="38px" display="flex" flexDir="row">
-                <OpenCalendarPopOverButton
+                <OpenCalendarButton
                   pickedDate={pickedDate}
                   setPickedDate={setPickedDate}
                 />
-                <ChooseCategoryButton
-                  pickedCategory={pickedCategory}
+                <OpenChooseCategoryButton
                   setPickedCategory={setPickedCategory}
                   preSelectedCategory={{
                     categoryName: todo.category.categoryName,
@@ -133,7 +132,7 @@ const EditTodo: React.FC<EditTodoProps> = ({ isOpen, onClose, todo }) => {
                 isLoading
                 loadingText="Submitting"
                 size={"sm"}
-                fonSize="xs"
+                fontSize="xs"
               />
             ) : (
               <Button

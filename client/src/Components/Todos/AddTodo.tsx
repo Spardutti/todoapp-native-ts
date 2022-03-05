@@ -15,9 +15,9 @@ import { useAppSelector } from "../../hooks";
 import { useAddTodo } from "../../api/Todo/post_todo";
 import React from "react";
 import "../../Styles/calendar/calendarButton.scss";
-import { ChooseCategoryButton } from "../Category/ChooseCategoryButton";
 import toast from "react-hot-toast";
 import { OpenCalendarButton } from "../Calendar/OpenCalendarButton";
+import { OpenChooseCategoryButton } from "../Category/OpenChooseCategoryButton";
 
 interface Props {
   preSelectedDate: Date | null;
@@ -134,8 +134,7 @@ export const AddTodo: React.FC<Props> = ({ preSelectedDate, onClose }) => {
               pickedDate={pickedDate}
               setPickedDate={setPickedDate}
             />
-            <ChooseCategoryButton
-              pickedCategory={pickedCategory}
+            <OpenChooseCategoryButton
               setPickedCategory={setPickedCategory}
               preSelectedCategory={preSelectedCategory}
             />

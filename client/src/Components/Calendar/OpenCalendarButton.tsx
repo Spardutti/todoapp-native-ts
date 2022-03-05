@@ -1,7 +1,8 @@
 import { Button, useDisclosure, Box, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { CalendarModal } from "./CalendarModal";
 import { BsCalendar4Event } from "react-icons/bs";
+import "../../Styles/calendar/calendarButton.scss";
 
 interface CalendarProps {
   pickedDate: Date | null;
@@ -12,12 +13,15 @@ export const OpenCalendarButton: React.FC<CalendarProps> = ({
   pickedDate,
   setPickedDate,
 }) => {
+  const [calendarText, setCalendarText] = useState(1);
+
   const {
     isOpen: isCalendarOpen,
     onOpen: onCalendarOpen,
     onClose: onCalendarClose,
   } = useDisclosure();
 
+  /* DISPLAY THE CORRECT DAY TEXT DEPENDING ON THE CALENDAR TEXT INFO */
   let dayText = (
     <Box display="flex" justifyContent="space-between">
       <BsCalendar4Event color="green" />
@@ -26,6 +30,35 @@ export const OpenCalendarButton: React.FC<CalendarProps> = ({
       </Text>
     </Box>
   );
+
+  if (calendarText === 1) {
+    dayText = (
+      <Box display="flex" justifyContent="space-between">
+        <BsCalendar4Event color="green" />
+        <Text ml="5px" fontSize="13px" textColor="green">
+          Today
+        </Text>
+      </Box>
+    );
+  } else if (calendarText === 2) {
+    dayText = (
+      <Box display="flex" justifyContent="space-between">
+        <BsCalendar4Event color="#ad6200" />
+        <Text ml="5px" fontSize="13px" textColor="#ad6200">
+          Tomorrow
+        </Text>
+      </Box>
+    );
+  } else {
+    dayText = (
+      <Box display="flex" justifyContent="space-between">
+        <BsCalendar4Event color="#0074D9" />
+        <Text ml="5px" fontSize="13px" textColor="#0074D9">
+          {pickedDate?.toString().slice(4, 10)}
+        </Text>
+      </Box>
+    );
+  }
 
   return (
     <>
@@ -45,7 +78,7 @@ export const OpenCalendarButton: React.FC<CalendarProps> = ({
       <CalendarModal
         pickedDate={pickedDate}
         setPickedDate={setPickedDate}
-        dayText={dayText}
+        setCalendarText={setCalendarText}
         isOpen={isCalendarOpen}
         onClose={onCalendarClose}
       />

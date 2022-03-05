@@ -3,10 +3,8 @@ import { TodoModel } from "../models/TodoModel";
 import { Request, Response, NextFunction } from "express";
 
 const validateNewTodo = [
-  body("todoName")
-    .notEmpty()
-    .withMessage("Please enter a task name")
-    .custom(async (todoName, { req }) => {
+  body("todoName").notEmpty().withMessage("Please enter a task name"),
+  /*    .custom(async (todoName, { req }) => {
       try {
         const todo = await TodoModel.findOne({
           todoName: new RegExp(`^${todoName}$`, "i"),
@@ -17,7 +15,7 @@ const validateNewTodo = [
         throw error;
       }
     })
-    .withMessage("Todo already exist"),
+    .withMessage("Todo already exist"), */
   body("todoDescription")
     .notEmpty()
     .withMessage("Please enter a todo Description"),

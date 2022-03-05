@@ -1,7 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { BrowserRouter, Routes, Route, useRoutes } from "react-router-dom";
+import { HashRouter, Routes, Route, useRoutes } from "react-router-dom";
 import { ProtectedRoute } from "./Components/Auth/ProtectedRoute";
 import { Home } from "./Components/Views/Home";
 import { NavBar } from "./Components/NavBar/NavBar";
@@ -28,7 +28,7 @@ const Nav = () =>
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
           <ChakraProvider>
@@ -54,7 +54,7 @@ function App() {
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </Provider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

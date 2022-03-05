@@ -1,12 +1,11 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-
-const devUrl = "http://localhost:5000/api";
+import url from "../url";
 
 /* GET TODAY AND OLDERS TODOS */
 const getTodaysTodos = (token: string) => {
   try {
-    const response = axios.get(`${devUrl}/todaystodos`, {
+    const response = axios.get(`${url}/todaystodos`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response;
@@ -22,7 +21,7 @@ const useGetTodaysTodos = (token: string) => {
 /* GET UPCOMING TODOS */
 const getUpcomingTodos = (token: string) => {
   try {
-    const response = axios.get(`${devUrl}/upcomingtodos`, {
+    const response = axios.get(`${url}/upcomingtodos`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response;
@@ -40,7 +39,7 @@ const useGetUpcomingTodos = (token: string) => {
 /* GET OVERDUE TODOS */
 const getOverdueTodos = (token: string) => {
   try {
-    const response = axios.get(`${devUrl}/overduetodos`, {
+    const response = axios.get(`${url}/overduetodos`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response;
@@ -57,7 +56,7 @@ const useGetOverdueTodos = (token: string) => {
 
 /* GET TODOS BY CATEGORY */
 const getTodosByCategory = (category: string | undefined) => {
-  return axios.get(`${devUrl}/todos/${category}`);
+  return axios.get(`${url}/todos/${category}`);
 };
 
 const useGetTodosByCategory = (category: string | undefined) => {
@@ -68,7 +67,7 @@ const useGetTodosByCategory = (category: string | undefined) => {
 
 /* GET COMPLETED TODOS */
 const getCompletedTodos = (token: string) => {
-  return axios.get(`${devUrl}/completed`, {
+  return axios.get(`${url}/completed`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -81,7 +80,7 @@ const useGetCompletedTodos = (token: string) => {
 
 /* GET LATEST TODOS */
 const getLatesTodos = (data: { token: string; skipNumber: string }) => {
-  return axios.get(`${devUrl}/history/${data.skipNumber}`, {
+  return axios.get(`${url}/history/${data.skipNumber}`, {
     headers: { Authorization: `Bearer ${data.token}` },
   });
 };

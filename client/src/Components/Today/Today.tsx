@@ -17,17 +17,17 @@ import { DateTime } from "luxon";
 import TodoCard from "../Todos/TodoCard";
 import { setTodos } from "../../store/Reducers/Todos/todoReducer";
 import { ReactComponent as Relax } from "../../Images/relax.svg";
+import LoadingSpinner from "../Buttons/LoadingSpinner";
 
 interface TodayProps {}
 
 /*  SHOW TODAY TODOS & OVERDUES IF THEY EXIST */
 const Today: React.FC<TodayProps> = () => {
   const token = useAppSelector((state) => state.token.token);
-  const [overdueLength] = useState(
-    useAppSelector((state) => state.todos.overdue)
-  );
+  const overdueLength = useAppSelector((state) => state.todos.overdue);
+
   const [todayTodos, setTodayTodos] = useState([]);
-  const [currentDate] = useState(DateTime.now());
+  const [currentDate] = useState(DateTime.now().setLocale("en-US"));
 
   /* FETCH TODAY TODOS */
   const { isLoading, data } = useGetTodaysTodos(token);
@@ -39,6 +39,10 @@ const Today: React.FC<TodayProps> = () => {
       setTodayTodos(data.data);
       dispatch(setTodos(data.data.length));
     }
+
+    return () => {
+      setTodayTodos([]);
+    };
   }, [data, dispatch]);
 
   const NoTodos = () => (
@@ -66,26 +70,28 @@ const Today: React.FC<TodayProps> = () => {
     </Center>
   );
 
-  if (isLoading) return <p>Loading</p>;
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <Stack px={10}>
-      <Heading fontSize={20} alignSelf="flex-start">
+      <Heading fontSize={25} alignSelf="flex-start">
         Today{" "}
         <span style={{ fontSize: "12px", color: "gray", fontWeight: "normal" }}>
           {currentDate.weekdayShort} {currentDate.monthShort} {currentDate.day}
         </span>
       </Heading>
 
-      {overdueLength && todayTodos.length === 0 && overdueLength === 0 ? (
+      {todayTodos.length === 0 && overdueLength === 0 ? (
         <NoTodos />
       ) : (
         <>
           <OverdueTodos />
-          <Box mt={10} p={10} px={0}>
+          <Box p={5} px={0}>
             <HStack overflow={"hidden"} justify={"space-between"}>
               <Heading fontSize={14}>
-                {currentDate.monthShort} {currentDate.day} - Today
+                {/*   {currentDate.monthLong} */} <br />{" "}
+                {currentDate.weekdayLong} {currentDate.day} -{" "}
+                {currentDate.monthLong}
               </Heading>
             </HStack>
             <Divider py={2} />

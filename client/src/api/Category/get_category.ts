@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-
-const devUrl = "http://localhost:5000/api";
+import url from "../url";
 
 /* GET ALL USER CATEGORIES */
 const getUserCategories = (token: string) => {
-  const response = axios.get(`${devUrl}/categories`, {
+  const response = axios.get(`${url}/categories`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -18,7 +17,7 @@ const useGetUserCategories = (token: string) =>
 
 /* GET CATEGORY BY ID */
 const getCategoryById = (id: string | undefined) => {
-  return axios.get(`${devUrl}/category/${id}`);
+  return axios.get(`${url}/category/${id}`);
 };
 
 const useGetCategoryById = (id: string | undefined) =>

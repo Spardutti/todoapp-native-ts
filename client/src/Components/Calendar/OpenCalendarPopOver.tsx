@@ -92,6 +92,18 @@ export const OpenCalendarPopOverButton: React.FC<Props> = ({
     );
   }
 
+  const addTimeToDueDate = (value: Date) => {
+    const currentHours = new Date().getHours();
+    const currentMinutes = new Date().getMinutes();
+    const currentTime = DateTime.fromJSDate(value)
+      .set({
+        hour: currentHours,
+        minute: currentMinutes,
+      })
+      .setLocale("en-US");
+    setPickedDate(currentTime.toJSDate());
+  };
+
   return (
     <>
       <Popover
@@ -164,7 +176,7 @@ export const OpenCalendarPopOverButton: React.FC<Props> = ({
           </PopoverBody>
           <PopoverBody padding="0px" width="250px" height="288px">
             <Calendar
-              onChange={setPickedDate}
+              onChange={addTimeToDueDate} //setPickedDate}
               value={pickedDate}
               className="calendar"
             />

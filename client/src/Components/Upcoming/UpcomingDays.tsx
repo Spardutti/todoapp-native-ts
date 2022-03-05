@@ -7,6 +7,7 @@ import OverdueTodos from "../OverdueTodos/OverdueTodos";
 import { AddTodoModal } from "../Todos/AddTodoModal";
 import TodoCard from "../Todos/TodoCard";
 import { Todo } from "../../Interface/Interface";
+import LoadingSpinner from "../Buttons/LoadingSpinner";
 
 interface UpcomingDaysProps {
   selectedDate: DateTime;
@@ -35,9 +36,12 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
     }
 
     setDaysFrom(days);
+    return () => {
+      setDaysFrom([]);
+    };
   }, [selectedDate]);
 
-  if (isLoading) return <p>Loading ...</p>;
+  if (isLoading) return <LoadingSpinner />;
 
   /* RENDER UPCOMING DAYS */
   const DisplayDays = () => {

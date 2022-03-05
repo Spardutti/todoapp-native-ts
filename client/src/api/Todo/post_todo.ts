@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useMutation } from "react-query";
-
-const devUrl = "http://localhost:5000/api";
+import url from "../url";
 
 interface Token {
   token: string;
@@ -22,7 +21,7 @@ const addTodo = async (newTodo: Todo) => {
 
   return axios
     .post(
-      `${devUrl}/newTodo`,
+      `${url}/newTodo`,
       { todoName, todoDescription, dueDate, categoryId },
       {
         headers: {

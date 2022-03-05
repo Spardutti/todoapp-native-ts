@@ -12,6 +12,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
+import toast from "react-hot-toast";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
 import { useQueryClient } from "react-query";
@@ -49,7 +50,7 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({
     queryClient.invalidateQueries("overdue");
     queryClient.invalidateQueries("completed");
     queryClient.invalidateQueries("latest");
-
+    toast.success("Task deleted");
     onClose();
   };
 

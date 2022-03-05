@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useMutation } from "react-query";
 import { Todo } from "./post_todo";
-
-const devUrl = "http://localhost:5000/api";
+import url from "../url";
 
 const toggleIsCompleted = (data: { id: string; status: boolean }) => {
-  return axios.put(`${devUrl}/todo/${data.id}`, { isCompleted: data.status });
+  return axios.put(`${url}/todo/${data.id}`, { isCompleted: data.status });
 };
 
 export const useToggleIsCompelted = () => {
@@ -15,7 +14,7 @@ export const useToggleIsCompelted = () => {
 const editTodo = (editedTodo: Todo) => {
   const { todoName, todoDescription, dueDate, categoryId } = editedTodo;
 
-  return axios.put(`${devUrl}/editTodo/${editedTodo._id}`, {
+  return axios.put(`${url}/editTodo/${editedTodo._id}`, {
     todoName,
     todoDescription,
     dueDate,

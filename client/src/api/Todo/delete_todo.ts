@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useQueryClient, useMutation } from "react-query";
-
-const devUrl = "http://localhost:5000/api";
+import url from "../url";
 
 const deleteTodo = (id: string) => {
-  return axios.delete(`${devUrl}/todo/${id}`);
+  return axios.delete(`${url}/todo/${id}`);
 };
 
 const useDeleteTodo = (id: string) => {

@@ -10,7 +10,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { BsCheck2 } from "react-icons/bs";
 import { BsFillCalendarXFill } from "react-icons/bs";
@@ -21,6 +21,7 @@ import { useToggleIsCompelted } from "../../api/Todo/put_todo";
 import { useQueryClient } from "react-query";
 import { Todo } from "../../Interface/Interface";
 
+/* RENDERS A TODO CARD WITH PROPS */
 const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
   const [monthName] = useState(
     new Date(todo.dueDate).toLocaleString("default", {
@@ -38,12 +39,19 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
 
   const [show, setShow] = useState(false);
 
+  /* CHECK IF MOBILE OR DESKTOP */
+  useEffect(() => {
+    if (window.innerWidth <= 600) setShow(true);
+  }, []);
+
   const { isOpen, onClose } = useDisclosure();
 
+  /* COMPLETE THE TASK */
   const { mutateAsync } = useToggleIsCompelted();
 
   const queryClient = useQueryClient();
 
+  /* UPDATE COMPLETED TO TRUE OR FALSE */
   const updateIsCompleted = async (data: { id: string; status: boolean }) => {
     const response = await mutateAsync(data);
     if (response) {
@@ -63,7 +71,7 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
       onMouseLeave={() => setShow(false)}
       cursor={"pointer"}
     >
-      <Grid templateColumns={"20px 11fr 1fr"} py={1}>
+      <Grid templateColumns={"20px 10fr 2fr"} py={1}>
         <Stack
           display={"inline-block"}
           justifyContent={"center"}
@@ -98,7 +106,7 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
           </Box>
         </Box>
         <VStack>
-          <MotionHStack align={"flex-start"}>
+          <MotionHStack align={"flex-start"} h={5}>
             {show ? (
               <DeleteEditButtons
                 todoId={todo._id}
@@ -109,6 +117,7 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
           </MotionHStack>
           <Box>
             <Link
+              fontSize={14}
               color={todo.category.color}
               as={RouterLink}
               to={`/category/${todo.category._id}`}

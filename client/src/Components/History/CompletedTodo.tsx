@@ -21,6 +21,7 @@ import { DateTime } from "luxon";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useDeleteTodo } from "../../api/Todo/delete_todo";
 import { useQueryClient } from "react-query";
+import toast from "react-hot-toast";
 
 interface LatestCardProps {
   todo: Todo;
@@ -37,7 +38,9 @@ const CompletedTodo: React.FC<LatestCardProps> = ({ todo }) => {
     /* DELETE TODO */
     const deleteTodo = async () => {
       await mutateAsync();
+      toast.success("Task deleted!");
       queryClient.invalidateQueries("completed");
+      queryClient.invalidateQueries("latest");
     };
 
     /* RENDER */

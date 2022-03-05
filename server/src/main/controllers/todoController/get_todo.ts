@@ -41,7 +41,9 @@ const getTodosByCategory = async (
     const todos = await TodoModel.find({
       category,
       isCompleted: false,
-    }).populate("category");
+    })
+      .sort({ dueDate: 1 })
+      .populate("category");
     return res.status(200).json(todos);
   } catch (error) {
     return next(error);
@@ -119,11 +121,16 @@ const getUpcomingTodos = async (
   next: NextFunction
 ) => {
   try {
-    const date = DateTime.now().setLocale("en-US").toLocaleString();
+    const { selectedDate } = req.params;
+    console.log(selectedDate);
+
+    const date = DateTime.fromJSDate(new Date(selectedDate))
+      .setLocale("en-US")
+      .set({ hour: 23, minute: 59 });
 
     const todos = await TodoModel.find({
       author: req.user?._id,
-      dueDate: { $gte: date },
+      dueDate: { $gt: date },
       isCompleted: false,
     })
       .sort({ dueDate: 1 })

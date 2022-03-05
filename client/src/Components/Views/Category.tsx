@@ -8,9 +8,7 @@ interface CategoryProps {}
 const Category: React.FC<CategoryProps> = () => {
   return (
     <Layout>
-      <Box>
-        <TodosByCategory />
-      </Box>
+      <TodosByCategory />
     </Layout>
   );
 };

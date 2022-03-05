@@ -4,6 +4,7 @@ import {
   Grid,
   HStack,
   Link,
+  Spinner,
   Stack,
   Text,
   useDisclosure,
@@ -12,7 +13,6 @@ import {
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { BsCheck2 } from "react-icons/bs";
 import { BsFillCalendarXFill } from "react-icons/bs";
 import TodoDescription from "./TodoDescription";
 import DeleteEditButtons from "../Buttons/DeleteEditButtons";
@@ -20,6 +20,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { useToggleIsCompelted } from "../../api/Todo/put_todo";
 import { useQueryClient } from "react-query";
 import { Todo } from "../../Interface/Interface";
+import { AiFillCheckCircle } from "react-icons/ai";
 
 /* RENDERS A TODO CARD WITH PROPS */
 const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
@@ -47,7 +48,7 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
   const { isOpen, onClose } = useDisclosure();
 
   /* COMPLETE THE TASK */
-  const { mutateAsync } = useToggleIsCompelted();
+  const { mutateAsync, isLoading } = useToggleIsCompelted();
 
   const queryClient = useQueryClient();
 
@@ -67,31 +68,24 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
 
   return (
     <Box
+      userSelect={"none"}
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
       cursor={"pointer"}
     >
       <Grid templateColumns={"20px 10fr 2fr"} py={3}>
-        <Stack
-          display={"inline-block"}
-          justifyContent={"center"}
-          align={"center"}
-          border={"1px"}
-          borderColor={"gray"}
-          borderRadius={"3xl"}
-          w={[3, 4]}
-          h={[3, 4]}
-          mt={1}
-          cursor={"pointer"}
-        >
-          <motion.div initial={{ opacity: 0 }} whileHover={{ opacity: 1 }}>
-            <BsCheck2
+        {isLoading ? (
+          <Spinner py={1} size={"xs"} />
+        ) : (
+          <Box py={1}>
+            <AiFillCheckCircle
+              color="gray"
               onClick={() =>
                 updateIsCompleted({ id: todo._id, status: todo.isCompleted })
               }
             />
-          </motion.div>
-        </Stack>
+          </Box>
+        )}
         <Box py={0} /* onClick={onOpen} */>
           <Box>
             <Text>{todo.todoName}</Text>

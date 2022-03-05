@@ -64,7 +64,7 @@ const EditTodo: React.FC<EditTodoProps> = ({ isOpen, onClose, todo }) => {
   const { mutateAsync, isLoading } = useEditTodo();
 
   const editTodo = async () => {
-    const response = await mutateAsync(editedTodo);
+    await mutateAsync(editedTodo);
     /* UPDATE THE TODOS QUERY IN THE DOM */
     queryClient.invalidateQueries("today");
     queryClient.invalidateQueries("upcoming");

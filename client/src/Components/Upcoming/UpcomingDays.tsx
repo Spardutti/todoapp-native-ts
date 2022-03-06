@@ -1,4 +1,4 @@
-import { Box, Divider, Heading, HStack, Text } from "@chakra-ui/react";
+import { Box, Divider, Heading, HStack, Stack, Text } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import React, { useState, useEffect } from "react";
 import { useGetUpcomingTodos } from "../../api/Todo/get_todo";
@@ -39,7 +39,11 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
   const { isLoading, data } = useGetUpcomingTodos(info);
 
   useEffect(() => {
-    if (data) setUpcomingTodos(data.data);
+    if (data) {
+      console.log(data.data.length);
+
+      setUpcomingTodos(data.data);
+    }
   }, [data]);
 
   const getUniqueDates = () => {
@@ -98,12 +102,20 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
     getUniqueDates();
   }, [upcomingTodos]);
 
+  const NoUpcoming = () => (
+    <Stack py={10}>
+      <Text>Nothing here, go ahead and add something</Text>
+      <AddTodoModal preSelectedDate={null} text="Add Task" color="red" />
+    </Stack>
+  );
+
   if (isLoading) return <LoadingSpinner />;
 
   /* RENDER UPCOMING DAYS */
   const DisplayDays = () => {
     return (
       <>
+        {upcomingTodos.length === 0 ? <NoUpcoming /> : null}
         {/* RENDER YEARS */}
         {years.map((year, index) => (
           <Box key={index}>
@@ -136,7 +148,6 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
                               const todoDate = DateTime.fromJSDate(
                                 new Date(todo.dueDate)
                               ).setLocale("en-US");
-
                               if (
                                 todoDate.monthLong === month.month &&
                                 todoDate.day === day.day &&

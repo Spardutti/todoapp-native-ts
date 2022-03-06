@@ -9,7 +9,7 @@ interface WeekDisplayProps {}
 /* DISPLAY THE WEEKDAY IN THE UPCOMING PAGE */
 const WeekDisplay: React.FC<WeekDisplayProps> = () => {
   const [weekToShow, setWeekToShow] = useState<DateTime[]>();
-  const [date, setDate] = useState(DateTime.now());
+  const [date, setDate] = useState(DateTime.now().setLocale("en-US"));
   const [today] = useState(DateTime.now());
   const [selectedDay, setSelectedDay] = useState(DateTime.now());
 

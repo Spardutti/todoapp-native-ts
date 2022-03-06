@@ -107,23 +107,22 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
         {/* RENDER YEARS */}
         {years.map((year, index) => (
           <Box key={index}>
-            <Heading>
-              {year.year === DateTime.now().year ? (
-                <Text fontSize={30} py={5}>
-                  Upcoming
-                </Text>
-              ) : (
-                year.year
-              )}
+            <Heading fontSize={25} textAlign="center">
+              {year.year === DateTime.now().year ? null : year.year}
             </Heading>
             {/* RENDER MONTHS */}
             {months.map((month, index) => {
               if (month.year === year.year) {
                 return (
                   <Box key={index}>
-                    <Text fontWeight={"semibold"} fontSize={20} py={3}>
+                    <Heading
+                      fontWeight={"bold"}
+                      color="red.500"
+                      fontSize={20}
+                      py={3}
+                    >
                       {month.month}
-                    </Text>
+                    </Heading>
                     {/* RENDERS DAYS */}
                     {days.map((day, index) => {
                       if (day.month === month.month) {
@@ -140,7 +139,8 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
 
                               if (
                                 todoDate.monthLong === month.month &&
-                                todoDate.day === day.day
+                                todoDate.day === day.day &&
+                                todoDate.year === year.year
                               ) {
                                 return <TodoCard todo={todo} key={index} />;
                               }

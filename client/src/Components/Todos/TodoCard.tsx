@@ -21,21 +21,16 @@ import { useToggleIsCompelted } from "../../api/Todo/put_todo";
 import { useQueryClient } from "react-query";
 import { Todo } from "../../Interface/Interface";
 import { AiFillCheckCircle } from "react-icons/ai";
+import { DateTime } from "luxon";
 
 /* RENDERS A TODO CARD WITH PROPS */
 const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
   const [monthName] = useState(
-    new Date(todo.dueDate).toLocaleString("default", {
-      month: "short",
-      timeZone: "Greenwich",
-    })
+    DateTime.fromJSDate(new Date(todo.dueDate)).setLocale("en-US").monthShort
   );
 
   const [dayNumber] = useState(
-    new Date(todo.dueDate).toLocaleString("default", {
-      day: "2-digit",
-      timeZone: "Greenwich",
-    })
+    DateTime.fromJSDate(new Date(todo.dueDate)).setLocale("en-US").day
   );
 
   const [show, setShow] = useState(false);
@@ -71,7 +66,6 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
       userSelect={"none"}
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
-      cursor={"pointer"}
     >
       <Grid templateColumns={"20px 10fr 2fr"} py={3}>
         {isLoading ? (
@@ -79,6 +73,7 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
         ) : (
           <Box py={1}>
             <AiFillCheckCircle
+              cursor={"pointer"}
               color="gray"
               onClick={() =>
                 updateIsCompleted({ id: todo._id, status: todo.isCompleted })

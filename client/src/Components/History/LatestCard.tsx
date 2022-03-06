@@ -138,6 +138,7 @@ const LatestCard: React.FC<LatestCardProps> = ({ todo }) => {
         <Text
           onClick={() => navigate(`/category/${todo.category._id}`)}
           color={todo.category.color}
+          cursor="pointer"
         >
           {todo.category.categoryName}
         </Text>

@@ -8,10 +8,12 @@ import {
   Button,
   Flex,
   useDisclosure,
+  Text,
 } from "@chakra-ui/react";
 import { useGetUserCategories } from "../../api/Category/get_category";
 import { useAppSelector } from "../../hooks";
 import NewCategoryModal from "./NewCategoryModal";
+import "../../Styles/calendar/calendarButton.scss";
 
 interface Category {
   setPickedCategory: React.Dispatch<React.SetStateAction<string>>;
@@ -60,14 +62,15 @@ export const ChooseCategoryModal: React.FC<Category> = ({
         {data?.data.map((cat: Category) => (
           <Button
             key={cat._id}
-            bgColor="white"
+            bgColor="#fafafa"
             width="100%"
             textAlign="left"
             onClick={() => category(cat)}
             my="2px"
-            textColor={cat.color}
           >
-            {cat.categoryName}
+            <Text textColor={cat.color} fontWeight="bold">
+              {cat.categoryName}
+            </Text>
           </Button>
         ))}
       </Flex>
@@ -78,7 +81,7 @@ export const ChooseCategoryModal: React.FC<Category> = ({
     <>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent maxW="200px" bgColor="#fafafa">
           <ModalHeader
             cursor={"pointer"}
             display="flex"

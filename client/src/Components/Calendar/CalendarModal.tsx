@@ -6,6 +6,7 @@ import {
   ModalBody,
   Box,
   Text,
+  Spacer,
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
@@ -67,7 +68,7 @@ export const CalendarModal: React.FC<CalendarProps> = ({
         <ModalOverlay />
         <ModalContent
           width="250px"
-          height="541px"
+          height="505px"
           border="0px"
           boxShadow="dark-lg"
         >
@@ -125,6 +126,7 @@ export const CalendarModal: React.FC<CalendarProps> = ({
               className="calendar"
             />
           </ModalBody>
+          <Spacer borderBottomRadius="50%" />
         </ModalContent>
       </Modal>
     </>

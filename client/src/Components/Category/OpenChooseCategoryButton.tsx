@@ -13,7 +13,7 @@ export const OpenChooseCategoryButton: React.FC<Category> = ({
   setPickedCategory,
   preSelectedCategory,
 }) => {
-  const [categoryColor, setCategoryColor] = useState("black");
+  const [categoryColor, setCategoryColor] = useState("Purple");
   const [buttonText, setButtonText] = useState("Category");
 
   /* IF PRESELECTEDCATEGORY EXISTS UPDATE COLOR AND NAME INFO */

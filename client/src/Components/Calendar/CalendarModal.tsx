@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import "../../Styles/calendar/customCalendar.scss";
 
 import { DateTime } from "luxon";
 
@@ -62,6 +62,10 @@ export const CalendarModal: React.FC<CalendarProps> = ({
     } else setCalendarText(0);
   }, [pickedDate]);
 
+  useEffect(() => {
+    onClose();
+  }, [pickedDate]);
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
@@ -87,6 +91,7 @@ export const CalendarModal: React.FC<CalendarProps> = ({
               py="1px"
               px="2px"
               fontFamily="sans-serif"
+              fontWeight="bolder"
             >
               {" "}
               {pickedDate?.toString().slice(4, 10)}{" "}
@@ -114,12 +119,7 @@ export const CalendarModal: React.FC<CalendarProps> = ({
               <NextWeekCalendarButton setPickedDate={setPickedDate} />
             </Box>
           </ModalBody>
-          <ModalBody
-            padding="0px"
-            width="250px"
-            height="288px"
-            onClick={onClose}
-          >
+          <ModalBody padding="0px" width="250px" height="288px">
             <Calendar
               onChange={setPickedDate}
               value={pickedDate}

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useGetOverdueTodos } from "../../api/Todo/get_todo";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { setOverdue } from "../../store/Reducers/Todos/todoReducer";
+import LoadingSpinner from "../Buttons/LoadingSpinner";
 import TodoCard from "../Todos/TodoCard";
 
 /* FETCH AND DISPLAY OVERDUE TODOS */
@@ -22,7 +23,7 @@ const OverdueTodos: React.FC = () => {
     }
   }, [data, dispatch]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <Box w={"100%"}>

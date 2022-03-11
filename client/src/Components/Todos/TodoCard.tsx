@@ -4,15 +4,15 @@ import {
   Grid,
   HStack,
   Link,
+  Spinner,
   Stack,
   Text,
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { BsCheck2 } from "react-icons/bs";
 import { BsFillCalendarXFill } from "react-icons/bs";
 import TodoDescription from "./TodoDescription";
 import DeleteEditButtons from "../Buttons/DeleteEditButtons";
@@ -20,30 +20,34 @@ import { Link as RouterLink } from "react-router-dom";
 import { useToggleIsCompelted } from "../../api/Todo/put_todo";
 import { useQueryClient } from "react-query";
 import { Todo } from "../../Interface/Interface";
+import { AiFillCheckCircle } from "react-icons/ai";
+import { DateTime } from "luxon";
 
+/* RENDERS A TODO CARD WITH PROPS */
 const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
   const [monthName] = useState(
-    new Date(todo.dueDate).toLocaleString("default", {
-      month: "short",
-      timeZone: "Greenwich",
-    })
+    DateTime.fromJSDate(new Date(todo.dueDate)).setLocale("en-US").monthShort
   );
 
   const [dayNumber] = useState(
-    new Date(todo.dueDate).toLocaleString("default", {
-      day: "2-digit",
-      timeZone: "Greenwich",
-    })
+    DateTime.fromJSDate(new Date(todo.dueDate)).setLocale("en-US").day
   );
 
   const [show, setShow] = useState(false);
 
+  /* CHECK IF MOBILE OR DESKTOP */
+  useEffect(() => {
+    if (window.innerWidth <= 600) setShow(true);
+  }, []);
+
   const { isOpen, onClose } = useDisclosure();
 
-  const { mutateAsync } = useToggleIsCompelted();
+  /* COMPLETE THE TASK */
+  const { mutateAsync, isLoading } = useToggleIsCompelted();
 
   const queryClient = useQueryClient();
 
+  /* UPDATE COMPLETED TO TRUE OR FALSE */
   const updateIsCompleted = async (data: { id: string; status: boolean }) => {
     const response = await mutateAsync(data);
     if (response) {
@@ -59,31 +63,24 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
 
   return (
     <Box
+      userSelect={"none"}
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
-      cursor={"pointer"}
     >
-      <Grid templateColumns={"20px 11fr 1fr"} py={1}>
-        <Stack
-          display={"inline-block"}
-          justifyContent={"center"}
-          align={"center"}
-          border={"1px"}
-          borderColor={"gray"}
-          borderRadius={"3xl"}
-          w={[3, 4]}
-          h={[3, 4]}
-          mt={1}
-          cursor={"pointer"}
-        >
-          <motion.div initial={{ opacity: 0 }} whileHover={{ opacity: 1 }}>
-            <BsCheck2
+      <Grid templateColumns={"20px 10fr 2fr"} py={3}>
+        {isLoading ? (
+          <Spinner py={1} size={"xs"} />
+        ) : (
+          <Box py={1}>
+            <AiFillCheckCircle
+              cursor={"pointer"}
+              color="gray"
               onClick={() =>
                 updateIsCompleted({ id: todo._id, status: todo.isCompleted })
               }
             />
-          </motion.div>
-        </Stack>
+          </Box>
+        )}
         <Box py={0} /* onClick={onOpen} */>
           <Box>
             <Text>{todo.todoName}</Text>
@@ -98,7 +95,7 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
           </Box>
         </Box>
         <VStack>
-          <MotionHStack align={"flex-start"}>
+          <MotionHStack align={"flex-start"} h={5}>
             {show ? (
               <DeleteEditButtons
                 todoId={todo._id}
@@ -109,6 +106,7 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
           </MotionHStack>
           <Box>
             <Link
+              fontSize={14}
               color={todo.category.color}
               as={RouterLink}
               to={`/category/${todo.category._id}`}

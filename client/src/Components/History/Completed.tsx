@@ -3,6 +3,7 @@ import React from "react";
 import { useGetCompletedTodos } from "../../api/Todo/get_todo";
 import { useAppSelector } from "../../hooks";
 import { Todo } from "../../Interface/Interface";
+import LoadingSpinner from "../Buttons/LoadingSpinner";
 import Layout from "../Layout/Layout";
 import CompletedTodo from "./CompletedTodo";
 
@@ -13,7 +14,7 @@ const Completed: React.FC<CompletedProps> = () => {
 
   const { data, isLoading } = useGetCompletedTodos(token);
 
-  if (isLoading) return <p>loading</p>;
+  if (isLoading) return <LoadingSpinner />;
 
   if (data?.data.length === 0) return null;
 

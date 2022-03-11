@@ -7,14 +7,7 @@ const deleteTodo = (id: string) => {
 };
 
 const useDeleteTodo = (id: string) => {
-  const queryClient = useQueryClient();
-  return useMutation(() => deleteTodo(id), {
-    onSuccess: () => {
-      queryClient.invalidateQueries("todos");
-      queryClient.invalidateQueries("overdue");
-      queryClient.invalidateQueries("upcoming");
-    },
-  });
+  return useMutation(() => deleteTodo(id), {});
 };
 
 export { useDeleteTodo };

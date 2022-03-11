@@ -21,6 +21,7 @@ import { DateTime } from "luxon";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useDeleteTodo } from "../../api/Todo/delete_todo";
 import { useQueryClient } from "react-query";
+import toast from "react-hot-toast";
 
 interface LatestCardProps {
   todo: Todo;
@@ -32,12 +33,14 @@ const CompletedTodo: React.FC<LatestCardProps> = ({ todo }) => {
 
   /* DISPLAY A CONFIRMATION MODAL */
   const ConfirmDelete = () => {
-    const { mutateAsync } = useDeleteTodo(todo._id);
+    const { mutateAsync, isLoading } = useDeleteTodo(todo._id);
 
     /* DELETE TODO */
     const deleteTodo = async () => {
       await mutateAsync();
       queryClient.invalidateQueries("completed");
+      queryClient.invalidateQueries("latest");
+      toast.success("Task deleted!");
     };
 
     /* RENDER */
@@ -60,6 +63,7 @@ const CompletedTodo: React.FC<LatestCardProps> = ({ todo }) => {
                   mx={5}
                   colorScheme="red"
                   onClick={deleteTodo}
+                  isLoading={isLoading}
                 >
                   Delete
                 </Button>

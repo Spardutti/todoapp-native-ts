@@ -18,7 +18,7 @@ const addTodo = async (req: Request, res: Response, next: NextFunction) => {
       dueDate,
       author: userId,
       category,
-      updated: DateTime.now(),
+      updated: DateTime.now().setLocale("en-US"),
     });
 
     await todo.save();

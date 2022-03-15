@@ -21,7 +21,6 @@ interface LatestCardProps {
 }
 
 const LatestCard: React.FC<LatestCardProps> = ({ todo }) => {
-  
   /* SHOW ADDED BADGE */
   const AvatarDisplay = () => {
     if (todo.updateType === "Created") {
@@ -136,13 +135,13 @@ const LatestCard: React.FC<LatestCardProps> = ({ todo }) => {
       <AvatarDisplay />
 
       <Flex align={"center"}>
-        <Button
+        <Text
           onClick={() => navigate(`/category/${todo.category._id}`)}
-          size="xs"
-          bg={todo.category.color}
+          color={todo.category.color}
+          cursor="pointer"
         >
           {todo.category.categoryName}
-        </Button>
+        </Text>
       </Flex>
     </Grid>
   );

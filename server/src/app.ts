@@ -10,6 +10,7 @@ import session from "express-session";
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
+import { job, mailToUser } from "./main/controllers/Schedule/SendEmail";
 
 // require("dotenv").config();
 require("./main/Passport/passport-local");
@@ -66,6 +67,12 @@ app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
   res.json(err.message);
 });
 
+// import { send } from "./main/controllers/Schedule/SendEmail";
+// send();
 const port: any | number = process.env.PORT || 5000;
-app.listen(port, () => console.log(`server started on ${port}`));
+app.listen(port, () => {
+  job.start();
+  // mailToUser();
+  console.log(`server started on ${port}`);
+});
 export { app };

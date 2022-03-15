@@ -33,14 +33,14 @@ const CompletedTodo: React.FC<LatestCardProps> = ({ todo }) => {
 
   /* DISPLAY A CONFIRMATION MODAL */
   const ConfirmDelete = () => {
-    const { mutateAsync } = useDeleteTodo(todo._id);
+    const { mutateAsync, isLoading } = useDeleteTodo(todo._id);
 
     /* DELETE TODO */
     const deleteTodo = async () => {
       await mutateAsync();
-      toast.success("Task deleted!");
       queryClient.invalidateQueries("completed");
       queryClient.invalidateQueries("latest");
+      toast.success("Task deleted!");
     };
 
     /* RENDER */
@@ -63,6 +63,7 @@ const CompletedTodo: React.FC<LatestCardProps> = ({ todo }) => {
                   mx={5}
                   colorScheme="red"
                   onClick={deleteTodo}
+                  isLoading={isLoading}
                 >
                   Delete
                 </Button>

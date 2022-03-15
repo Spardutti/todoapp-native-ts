@@ -9,7 +9,7 @@ interface WeekDisplayProps {}
 /* DISPLAY THE WEEKDAY IN THE UPCOMING PAGE */
 const WeekDisplay: React.FC<WeekDisplayProps> = () => {
   const [weekToShow, setWeekToShow] = useState<DateTime[]>();
-  const [date, setDate] = useState(DateTime.now());
+  const [date, setDate] = useState(DateTime.now().setLocale("en-US"));
   const [today] = useState(DateTime.now());
   const [selectedDay, setSelectedDay] = useState(DateTime.now());
 
@@ -38,7 +38,7 @@ const WeekDisplay: React.FC<WeekDisplayProps> = () => {
   return (
     <Box px={10} w="100%" maxW={800}>
       <Stack
-        pt={10}
+        pt={5}
         position="fixed"
         left={0}
         top={12}
@@ -47,6 +47,9 @@ const WeekDisplay: React.FC<WeekDisplayProps> = () => {
         w="100%"
         align={"center"}
       >
+        <Heading fontSize={30} py={5}>
+          Upcoming
+        </Heading>
         <HStack
           mb={5}
           justify={"space-between"}
@@ -55,7 +58,7 @@ const WeekDisplay: React.FC<WeekDisplayProps> = () => {
           maxW={800}
           px={10}
         >
-          <Heading fontSize={20} cursor={"pointer"}>
+          <Heading fontSize={20} cursor={"pointer"} color="red.500">
             {date.monthLong} {date.year}
           </Heading>
           <WeekSelector

@@ -19,11 +19,11 @@ const Chart: React.FC<ChartProps> = () => {
     completed: 0,
   });
 
-  const { data: upcoming } = useGetUpcomingTodos(token);
+  // const { data: upcoming } = useGetUpcomingTodos(token);
   const { data: overdue } = useGetOverdueTodos(token);
   const { data: completed, isLoading } = useGetCompletedTodos(token);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (overdue && upcoming && completed) {
       setTodosData({
         ...todosData,
@@ -32,7 +32,7 @@ const Chart: React.FC<ChartProps> = () => {
         completed: completed.data.length,
       });
     }
-  }, [overdue, upcoming, completed]);
+  }, [overdue, upcoming, completed]); */
 
   if (isLoading) return <p>Loading</p>;
 

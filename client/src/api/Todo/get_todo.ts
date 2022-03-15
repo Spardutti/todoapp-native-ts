@@ -18,11 +18,15 @@ const useGetTodaysTodos = (token: string) => {
   return useQuery<any, any, any>(["today", token], () => getTodaysTodos(token));
 };
 
+interface Upcoming {
+  token: string;
+  selectedDate: string;
+}
 /* GET UPCOMING TODOS */
-const getUpcomingTodos = (token: string) => {
+const getUpcomingTodos = (info: Upcoming) => {
   try {
-    const response = axios.get(`${url}/upcomingtodos`, {
-      headers: { Authorization: `Bearer ${token}` },
+    const response = axios.get(`${url}/upcomingtodos/${info.selectedDate}`, {
+      headers: { Authorization: `Bearer ${info.token}` },
     });
     return response;
   } catch (error) {
@@ -30,10 +34,8 @@ const getUpcomingTodos = (token: string) => {
   }
 };
 
-const useGetUpcomingTodos = (token: string) => {
-  return useQuery<any, any, any>(["upcoming", token], () =>
-    getUpcomingTodos(token)
-  );
+const useGetUpcomingTodos = (info: Upcoming) => {
+  return useQuery<any>(["upcoming", info], () => getUpcomingTodos(info));
 };
 
 /* GET OVERDUE TODOS */

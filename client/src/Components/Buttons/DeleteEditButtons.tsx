@@ -74,6 +74,7 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({
                   mx={5}
                   colorScheme="red"
                   onClick={deleteTodo}
+                  isLoading={isLoading}
                 >
                   Delete
                 </Button>
@@ -98,7 +99,7 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({
         fontSize={20}
         cursor={"pointer"}
       >
-        {isLoading ? <Spinner /> : <AiOutlineDelete />}
+        <AiOutlineDelete />
       </Box>
       <Box
         onClick={onEditOpen}

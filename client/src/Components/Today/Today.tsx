@@ -77,7 +77,7 @@ const Today: React.FC<TodayProps> = () => {
       <Heading fontSize={25} alignSelf="flex-start">
         Today{" "}
         <span style={{ fontSize: "12px", color: "gray", fontWeight: "normal" }}>
-          {currentDate.weekdayShort} {currentDate.monthShort} {currentDate.day}
+          {currentDate.weekdayShort} {currentDate.monthLong} {currentDate.day}
         </span>
       </Heading>
 
@@ -90,8 +90,7 @@ const Today: React.FC<TodayProps> = () => {
             <HStack overflow={"hidden"} justify={"space-between"}>
               <Heading fontSize={14}>
                 {/*   {currentDate.monthLong} */} <br />{" "}
-                {currentDate.weekdayLong} {currentDate.day} -{" "}
-                {currentDate.monthLong}
+                {currentDate.weekdayLong} {currentDate.day}
               </Heading>
             </HStack>
             <Divider py={2} />

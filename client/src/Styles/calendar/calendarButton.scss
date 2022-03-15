@@ -40,3 +40,14 @@
   padding-top: 2px !important;
   padding-bottom: 2px !important;
 }
+
+.gradientText {
+  background: linear-gradient(to bottom right, #00ffff 0%, #ff9999 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.calendarButtonText {
+  text-shadow: 2px 1 1 #000000;
+  background-color: #f7f1f1;
+}

@@ -84,8 +84,8 @@ export const OpenCalendarPopOverButton: React.FC<Props> = ({
   } else {
     dayText = (
       <Box display="flex" justifyContent="space-between">
-        <BsCalendar4Event color="grey" />
-        <Text ml="5px" fontSize="13px" textColor="grey">
+        <BsCalendar4Event color="blue" />
+        <Text ml="5px" fontSize="13px" textColor="blue">
           {pickedDate?.toString().slice(4, 10)}
         </Text>
       </Box>
@@ -106,12 +106,7 @@ export const OpenCalendarPopOverButton: React.FC<Props> = ({
 
   return (
     <>
-      <Popover
-        placement="right"
-        isOpen={isOpen}
-        onClose={close}
-        returnFocusOnClose={false}
-      >
+      <Popover isOpen={isOpen} onClose={close} returnFocusOnClose={false}>
         <PopoverTrigger>
           <Button
             onClick={open}

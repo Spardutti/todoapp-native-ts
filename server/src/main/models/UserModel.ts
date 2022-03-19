@@ -13,6 +13,7 @@ export type User = {
   username: string;
   password: string;
   email: string;
+  friends: [];
   //settings: ;
 };
 
@@ -20,6 +21,7 @@ const UserSchema = new Schema<User>({
   username: String,
   password: String,
   email: String,
+  friends: [],
 });
 
 export const UserModel = model<User>("User", UserSchema);

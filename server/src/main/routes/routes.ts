@@ -30,4 +30,9 @@ import { router as getUser } from "./UserRoutes/get_user";
 router.use(postUser);
 router.use(getUser);
 
+/* DEV */
+import { router as putDev } from "./DevRoutes/put_dev";
+
+router.use(putDev);
+
 export { router };

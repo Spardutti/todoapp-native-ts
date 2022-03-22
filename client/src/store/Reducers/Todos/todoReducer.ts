@@ -21,6 +21,7 @@ export const TodoSlice = createSlice({
     },
     setOverdue(state, { payload }) {
       state.overdue = payload;
+      console.log(state.overdue);
     },
     setCompleted(state, { payload }) {
       state.completed = payload;

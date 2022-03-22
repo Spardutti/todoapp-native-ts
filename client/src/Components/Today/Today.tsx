@@ -9,13 +9,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useGetTodaysTodos } from "../../api/Todo/get_todo";
+import { useGetOverdueTodos, useGetTodaysTodos } from "../../api/Todo/get_todo";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { AddTodoModal } from "../Todos/AddTodoModal";
 import OverdueTodos from "../OverdueTodos/OverdueTodos";
 import { DateTime } from "luxon";
 import TodoCard from "../Todos/TodoCard";
-import { setTodos } from "../../store/Reducers/Todos/todoReducer";
+import { setOverdue, setTodos } from "../../store/Reducers/Todos/todoReducer";
 import { ReactComponent as Relax } from "../../Images/relax.svg";
 import LoadingSpinner from "../Buttons/LoadingSpinner";
 
@@ -30,20 +30,24 @@ const Today: React.FC<TodayProps> = () => {
   const [currentDate] = useState(DateTime.now().setLocale("en-US"));
 
   /* FETCH TODAY TODOS */
-  const { isLoading, data } = useGetTodaysTodos(token);
+  const { isLoading, data: todayTasks } = useGetTodaysTodos(token);
+
+  const { isLoading: isLoadingOverdue, data: overdueTasks } =
+    useGetOverdueTodos(token);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (data) {
-      setTodayTodos(data.data);
-      dispatch(setTodos(data.data.length));
+    if (todayTasks && overdueTasks) {
+      setTodayTodos(todayTasks.data);
+      dispatch(setTodos(todayTasks.data.length));
+      dispatch(setOverdue(overdueTasks.data.length));
     }
 
     return () => {
       setTodayTodos([]);
     };
-  }, [data, dispatch]);
+  }, [todayTasks, overdueTasks]);
 
   const NoTodos = () => (
     <Center align={"center"}>
@@ -70,7 +74,7 @@ const Today: React.FC<TodayProps> = () => {
     </Center>
   );
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading || isLoadingOverdue) return <LoadingSpinner />;
 
   return (
     <Stack px={10}>

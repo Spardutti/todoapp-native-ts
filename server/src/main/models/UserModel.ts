@@ -14,6 +14,7 @@ export type User = {
   password: string;
   email: string;
   friends: [];
+  friendRequests: [],
   //settings: ;
 };
 
@@ -22,6 +23,7 @@ const UserSchema = new Schema<User>({
   password: String,
   email: String,
   friends: [],
+  friendRequests: [],
 });
 
 export const UserModel = model<User>("User", UserSchema);

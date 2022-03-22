@@ -8,19 +8,15 @@ const editCreatedUsers = async (
     res: Response,
     next: NextFunction,
 ) => {
-    try {
-        const { id } = req.params;
-
-        const user = await UserModel.findByIdAndUpdate(
-            id,
-            {
-                friends: [],
-            }
-        );
+     try {
+        const user = await UserModel.updateMany({}, {
+            friendRequests:[],
+        });
+        
         res.status(200).json(user)
     } catch (error) {
         return next(error);
     }
-};
+ };
 
 export { editCreatedUsers };

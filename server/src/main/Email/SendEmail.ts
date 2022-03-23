@@ -1,9 +1,10 @@
 import cron from "node-cron";
 import nodemailer from "nodemailer";
 import { UserModel } from "../models/UserModel";
-import { TodoModel } from "../models/TodoModel";
+import { Todo, TodoModel } from "../models/TodoModel";
 import { DateTime } from "luxon";
 import hbs from "nodemailer-express-handlebars";
+import { Document, Types } from "mongoose";
 
 /* FIND USER WITH PENDING TASKS AND SEND EMAIL */
 export const mailToUser = async () => {
@@ -13,11 +14,17 @@ export const mailToUser = async () => {
   users.map(async (user) => {
     const userPendingTasks = await TodoModel.find({
       author: user._id,
-      dueDate: { $lt: today },
+      dueDate: { $lte: today },
       isCompleted: false,
     });
+    const tasks: string[] = [];
+
     if (userPendingTasks.length > 0) {
-      send(user.email, user.username, userPendingTasks.length);
+      userPendingTasks.forEach((e) => {
+        tasks.push(e.todoName);
+      });
+
+      send(user.email, user.username, tasks);
     }
   });
 };
@@ -32,7 +39,7 @@ export const job = cron.schedule(
   }
 );
 
-export const send = (toUser: string, username: string, text: number) => {
+export const send = (toUser: string, username: string, tasks: any) => {
   let transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -59,13 +66,14 @@ export const send = (toUser: string, username: string, text: number) => {
 
   const mailOptions = {
     from: { name: "Tasker", address: "process.env.development@gmail.com" },
-    to: "luisdamian.sp@gmail.com", //toUser,
+    to: toUser, //"luisdamian.sp@gmail.com"
     subject: "Today tasks",
     //text: text,
     template: "demo",
     context: {
-      name: username,
-      tasks: text,
+      userName: username,
+      numberOfTasks: tasks.length,
+      tasks: tasks,
     },
   };
 

@@ -2,16 +2,18 @@ import {
   Box,
   Button,
   Divider,
+  Flex,
   Grid,
   HStack,
   Modal,
   ModalCloseButton,
   ModalContent,
   ModalOverlay,
+  Spacer,
   Text,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 import { BsCheck2 } from "react-icons/bs";
 import DeleteEditButtons from "../Buttons/DeleteEditButtons";
@@ -29,13 +31,17 @@ const TodoDescription: React.FC<TodoDescriptionProps> = ({
   onClose,
   todo,
 }) => {
-  const { todoName, todoDescription } = todo;
+  const { todoName, todoDescription, dueDate, category } = todo;
+
+  useEffect(() => {
+    console.log(new Date(dueDate));
+  }, []);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent>
-        <Grid p={5} templateColumns={"20px 10fr"}>
+        <Grid p={5} pb={0} templateColumns={"20px 10fr"}>
           <Box
             w={5}
             h={5}
@@ -59,17 +65,34 @@ const TodoDescription: React.FC<TodoDescriptionProps> = ({
               {todoName}
             </Text>
             <Text>{todoDescription}</Text>
-            <Button
-              leftIcon={<BsFillCalendarXFill />}
+            <Box
               mt={10}
               variant={"outline"}
               size={"sm"}
               color={"red"}
               fontWeight={"normal"}
             >
-              Yesterday
-            </Button>
-            <HStack justify={"flex-end"}>
+              <Flex>
+                <Box
+                  display="flex"
+                  border="1px"
+                  borderColor="red.300"
+                  borderRadius="10%"
+                >
+                  <Flex align="center" pl="4px">
+                    <BsFillCalendarXFill />
+                  </Flex>
+                  <Text textAlign="center" ml="5px" fontSize="sm" pr="4px">
+                    {new Date(dueDate).toString().slice(4, 10)}
+                  </Text>
+                </Box>
+                <Spacer />
+                <Text color={category.color} fontWeight="bold">
+                  {category.categoryName}
+                </Text>
+              </Flex>
+            </Box>
+            <HStack justify={"flex-end"} mt="10px">
               <DeleteEditButtons
                 todoId={todo._id}
                 todoName={todo.todoName}

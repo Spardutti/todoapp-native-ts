@@ -99,7 +99,7 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({
         fontSize={20}
         cursor={"pointer"}
       >
-        <AiOutlineDelete />
+        <AiOutlineDelete color="#666868" />
       </Box>
       <Box
         onClick={onEditOpen}
@@ -110,7 +110,7 @@ const DeleteEditButtons: React.FC<DeleteEditButtonsProps> = ({
         color="#202020"
         fontSize={20}
       >
-        <BsPencil />
+        <BsPencil color="#666868" />
         {isOpen && <ConfirmDelete />}
       </Box>
       <ConfirmDelete />

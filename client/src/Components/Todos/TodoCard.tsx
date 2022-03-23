@@ -40,7 +40,7 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
     if (window.innerWidth <= 600) setShow(true);
   }, []);
 
-  const { isOpen, onClose } = useDisclosure();
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   /* COMPLETE THE TASK */
   const { mutateAsync, isLoading } = useToggleIsCompelted();
@@ -81,7 +81,7 @@ const TodoCard: React.FC<{ todo: Todo }> = ({ todo }) => {
             />
           </Box>
         )}
-        <Box py={0} /* onClick={onOpen} */>
+        <Box py={0} onClick={onOpen} cursor={"pointer"}>
           <Box>
             <Text>{todo.todoName}</Text>
             <Text fontSize={10} color={"gray"}>

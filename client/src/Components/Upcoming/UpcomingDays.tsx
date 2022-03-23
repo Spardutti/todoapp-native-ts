@@ -40,8 +40,6 @@ const UpcomingDays: React.FC<UpcomingDaysProps> = ({ selectedDate }) => {
 
   useEffect(() => {
     if (data) {
-      console.log(data.data.length);
-
       setUpcomingTodos(data.data);
     }
   }, [data]);

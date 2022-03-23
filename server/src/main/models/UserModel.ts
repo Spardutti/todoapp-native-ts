@@ -4,7 +4,7 @@ import { Schema, model, ObjectId } from "mongoose";
 declare global {
   namespace Express {
     interface User {
-      _id: string
+      _id: string;
     }
   }
 }

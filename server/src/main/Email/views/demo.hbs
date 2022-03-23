@@ -1,4 +1,8 @@
 <body>
-    <h2>Hey {{name}}</h2>
-    <p>you have {{tasks}} pending tasks for today</p>
+    <h2>Hey {{userName}}</h2>
+    <p>You have {{numberOfTasks}} pending tasks</p>
+    {{#each tasks}}
+        <li>{{this}}</li>   
+    {{/each}}
+<p>Click <a href="https://spardutti.github.io/todoapp-native-ts/">here</a> to update your tasks </p>
 </body>

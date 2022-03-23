@@ -10,7 +10,7 @@ import session from "express-session";
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
-import { job, mailToUser } from "./main/controllers/Schedule/SendEmail";
+import { job, mailToUser } from "./main/Email/SendEmail";
 
 // require("dotenv").config();
 require("./main/Passport/passport-local");
@@ -31,7 +31,7 @@ db.on("error", console.error.bind(console, "Mongo connection error"));
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
+app.set("view engine", ".hbs");
 
 app.use(logger("dev"));
 app.use(express.json());

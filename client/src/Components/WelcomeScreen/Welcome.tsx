@@ -108,7 +108,7 @@ const Welcome: React.FC<WelcomeProps> = () => {
     <Box bg="#FAFAFA">
       <TopBar />
       <Title />
-      <PreviewImg />
+      {/* <PreviewImg /> */}
     </Box>
   );
 };

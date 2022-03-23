@@ -1,5 +1,5 @@
 import { getUser } from "../../controllers/userController/get_user";
-import { mailToUser } from "../../controllers/Schedule/SendEmail";
+import { mailToUser } from "../../Email/SendEmail";
 import { Router } from "express";
 const router = Router();
 

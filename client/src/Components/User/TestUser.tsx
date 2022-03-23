@@ -21,7 +21,7 @@ const TestUser: React.FC<DemoUserProps> = () => {
 
   return (
     <Stack>
-      <Text fontSize={25}>User our test user</Text>
+      <Text fontSize={25}>Use our test user</Text>
       <Button isLoading={isLoading} onClick={useTestuser} colorScheme={"red"}>
         Test user
       </Button>

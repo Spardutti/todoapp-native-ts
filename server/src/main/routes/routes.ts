@@ -26,8 +26,15 @@ router.use(putCategories);
 /* USER */
 import { router as postUser } from "./UserRoutes/post_user";
 import { router as getUser } from "./UserRoutes/get_user";
+import { router as putUser} from "./UserRoutes/put_user"
 
 router.use(postUser);
 router.use(getUser);
+router.use(putUser)
+
+/* DEV */
+import { router as putDev } from "./DevRoutes/put_dev";
+
+router.use(putDev);
 
 export { router };

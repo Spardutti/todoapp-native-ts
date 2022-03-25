@@ -30,7 +30,7 @@ export const mailToUser = async () => {
 };
 
 export const job = cron.schedule(
-  "0 56 13 * * *",
+  "0 34 14 * * *",
   function jobYouNeedToExecute() {
     mailToUser();
   },
@@ -59,7 +59,7 @@ export const send = (toUser: string, username: string, tasks: any) => {
         extname: ".hbs",
         defaultLayout: false,
       },
-      viewPath: "../src/main/email/views/",
+      viewPath: "./src/main/Email/views/",
       extName: ".hbs",
     })
   );

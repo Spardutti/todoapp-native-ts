@@ -30,8 +30,8 @@ mongoose.connect(mongoDB!, {
 db.on("error", console.error.bind(console, "Mongo connection error"));
 
 // view engine setup
-app.set("views", path.join(__dirname, "../../src/main/Email/views"));
 app.set("view engine", ".hbs");
+app.set("views", path.join(__dirname, "views"));
 
 app.use(logger("dev"));
 app.use(express.json());

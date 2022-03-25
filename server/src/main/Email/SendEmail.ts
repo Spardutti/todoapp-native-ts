@@ -30,7 +30,7 @@ export const mailToUser = async () => {
 };
 
 export const job = cron.schedule(
-  "0 5 8 * * *",
+  "0 10 10 * * *",
   function jobYouNeedToExecute() {
     mailToUser();
   },

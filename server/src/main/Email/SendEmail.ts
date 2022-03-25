@@ -60,7 +60,7 @@ export const send = (toUser: string, username: string, tasks: any) => {
         defaultLayout: false,
       },
       viewPath: "./src/main/email/views/",
-      extName: "hbs",
+      extName: ".hbs",
     })
   );
 

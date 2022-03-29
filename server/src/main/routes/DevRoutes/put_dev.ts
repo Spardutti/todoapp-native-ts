@@ -3,6 +3,7 @@ import { Router } from "express";
 
 const router = Router();
 
-router.put("/editDbUsers", DevController.editCreatedUsers)
+router.put("/editDbUsers", DevController.editCreatedUsers);
+router.put("/editDbTodos", DevController.editCreatedTodos);
 
 export { router };

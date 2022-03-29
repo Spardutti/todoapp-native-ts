@@ -37,8 +37,6 @@ const newUser = async (req: Request, res: Response, next: NextFunction) => {
               username,
               email,
               password: hash,
-              friends:[],
-              friendRequests:[],
             }).save((err, user) => {
               if (err) return next(err);
               res.status(200).json(user);

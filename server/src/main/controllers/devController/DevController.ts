@@ -1,5 +1,6 @@
-import { editCreatedUsers } from "./put_dev";
+import { editCreatedUsers, editCreatedTodos } from "./put_dev";
 
 export const DevController = {
-    editCreatedUsers
-}
+  editCreatedUsers,
+  editCreatedTodos,
+};

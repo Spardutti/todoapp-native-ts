@@ -5,6 +5,7 @@ import {
   addFriend,
   delFriend,
 } from "./put_user";
+import { getUser, getUserFriends } from "./get_user";
 
 export const UserController = {
   newUser,
@@ -13,4 +14,6 @@ export const UserController = {
   delFriendRequest,
   addFriend,
   delFriend,
+  getUser,
+  getUserFriends,
 };

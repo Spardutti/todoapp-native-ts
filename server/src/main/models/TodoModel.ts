@@ -10,6 +10,8 @@ export interface Todo {
   category: ObjectId;
   updated: DateTime;
   updateType: string;
+  sharedTodo: boolean;
+  sharedWith: [];
 }
 
 const TodoSchema = new Schema<Todo>({
@@ -21,6 +23,8 @@ const TodoSchema = new Schema<Todo>({
   category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
   updated: { type: Date },
   updateType: { type: String, default: "Created" },
+  sharedTodo: { type: Boolean, default: false },
+  sharedWith: [],
 });
 
 export const TodoModel = model<Todo>("Todo", TodoSchema);

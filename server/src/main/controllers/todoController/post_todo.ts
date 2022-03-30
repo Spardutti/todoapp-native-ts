@@ -6,7 +6,14 @@ import { DateTime } from "luxon";
 /* ADD A NEW TODO */
 const addTodo = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { todoName, todoDescription, categoryId, dueDate } = req.body;
+    const {
+      todoName,
+      todoDescription,
+      categoryId,
+      dueDate,
+      sharedTodo,
+      sharedWith,
+    } = req.body;
 
     const userId = req.user?._id;
 
@@ -19,11 +26,13 @@ const addTodo = async (req: Request, res: Response, next: NextFunction) => {
       author: userId,
       category,
       updated: DateTime.now().setLocale("en-US"),
+      sharedTodo,
+      sharedWith,
     });
 
-    await todo.save();
+    //await todo.save();
 
-    return res.json(todo);
+    return [res.json(todo), console.log(sharedTodo)];
   } catch (error) {
     return next(error);
   }

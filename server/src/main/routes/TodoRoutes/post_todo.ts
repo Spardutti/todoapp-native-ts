@@ -8,11 +8,6 @@ const jwtProtected = passport.authenticate("jwt", { session: false });
 const router = Router();
 
 /* ADD TODO */
-router.post(
-  "/newTodo",
-  jwtProtected,
-  validateNewTodo,
-  TodoController.addTodo
-);
+router.post("/newTodo", jwtProtected, validateNewTodo, TodoController.addTodo);
 
 export { router };

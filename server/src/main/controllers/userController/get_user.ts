@@ -29,4 +29,16 @@ const getUserFriends = async (
   }
 };
 
-export { getUser, getUserFriends };
+/* FIND USERS IN DB BY USERNAME */
+
+const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const users = await UserModel.find({}).populate("username");
+
+    res.json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { getUser, getUserFriends, getAllUsers };

@@ -10,4 +10,6 @@ router.get("/mail", mailToUser);
 
 router.get("/userFriends/:id", UserController.getUserFriends);
 
+router.get("/allUsers", UserController.getAllUsers);
+
 export { router };

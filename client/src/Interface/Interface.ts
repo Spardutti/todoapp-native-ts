@@ -12,3 +12,11 @@ export interface Todo {
   updated: string;
   updateType: string;
 }
+
+export interface User {
+  email: string;
+  friendRequest: [];
+  friends: [];
+  username: string;
+  _id: string;
+}

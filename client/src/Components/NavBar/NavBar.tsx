@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { toggleDrawer } from "../../store/Reducers/Drawer/drawerReducer";
 import { useNavigate } from "react-router-dom";
 import DrawerMenu from "../DrawerMenu/DrawerMenu";
+import { SearchBar } from "../Search/SearchBar";
 
 /* DISPLAYS A TOP NAVIGATION BAR */
 export const NavBar = () => {
@@ -54,7 +55,7 @@ export const NavBar = () => {
             onClick={() => navigate("/home")}
           />
         </Box>
-        {/* <NavBarSearch /> */}
+        <SearchBar />
       </Stack>
       <Stack justify={"end"} w="50%" direction={"row"} alignItems={"center"}>
         <QuickIcons hoverColor={hoverColor} />

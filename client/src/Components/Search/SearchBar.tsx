@@ -26,6 +26,7 @@ export const SearchBar: React.FC = () => {
         <InputGroup>
           <Input
             bgColor="white"
+            borderBottom="none"
             width={300}
             size="xs"
             bg="white"

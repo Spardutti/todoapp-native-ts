@@ -4,12 +4,16 @@ export interface User {
   username: string | undefined;
   _id: string | undefined;
   email: string | undefined;
+  friends: [] | undefined;
+  friendRequests: [] | undefined;
 }
 
 const initialState: User = {
   username: "",
   _id: "",
   email: "",
+  friends: [],
+  friendRequests: [],
 };
 
 export const userSlice = createSlice({
@@ -17,11 +21,13 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     getUserInfo(state, action) {
-      const { username, _id, email } = action.payload;
+      const { username, _id, email, friends, friendRequests } = action.payload;
 
       state.email = email;
       state._id = _id;
       state.username = username;
+      state.friends = friends;
+      state.friendRequests = friendRequests;
     },
   },
 });

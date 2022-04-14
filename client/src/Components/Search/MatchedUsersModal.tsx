@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, Flex } from "@chakra-ui/react";
-//import { User } from "../../Interface/Interface";
 import { useGetAllUsers } from "../../api/User/get_user";
-
+import { useAppSelector } from "../../hooks";
+import { User } from "../../Interface/Interface";
+import { UserFoundCard } from "./userFoundCard";
 interface Info {
   searchInfo: string;
   setSearchStatus: React.Dispatch<React.SetStateAction<string>>;
-}
-
-interface User {
-  email: string;
-  friendRequest: [];
-  friends: [];
-  username: string;
-  _id: string;
 }
 
 export const MatchedUsersModal: React.FC<Info> = ({
@@ -22,6 +15,8 @@ export const MatchedUsersModal: React.FC<Info> = ({
 }) => {
   const { data: users } = useGetAllUsers();
   const [filteredArray, setFilteredArray] = useState<User[]>([]);
+  const loggedUser = useAppSelector((state) => state.user);
+  const [userFriendStatus, setUserFriendStatus] = useState("");
 
   /* UPDATE THE FILTERED ARRAY EVERYTIME THE SEARCH INPUT IS MODIFIED */
   useEffect(() => {
@@ -34,24 +29,43 @@ export const MatchedUsersModal: React.FC<Info> = ({
         }
       });
     }
+    console.log(loggedUser);
   }, [searchInfo]);
 
   useEffect(() => {
     if (filteredArray.length > 0) {
       setSearchStatus("none");
-      console.log(0);
     } else {
       setSearchStatus("lg");
-      console.log(1);
     }
+    console.log(filteredArray);
   }, [filteredArray]);
+
+  const userStatus = (id: string) => {
+    loggedUser.friends?.forEach((element) => {
+      if (loggedUser.friends?.find((elem) => elem === id)) {
+        console.log("hi1");
+
+        setUserFriendStatus("pipi");
+      } else if (loggedUser.friendRequests?.find((elem) => elem === id)) {
+        console.log("hi2");
+
+        setUserFriendStatus("popo");
+      } else {
+        console.log("hi3");
+
+        setUserFriendStatus("pupu");
+      }
+    });
+  };
 
   return (
     <Box
       maxH="150px"
       position="absolute"
-      mt="0.4px"
+      mt="0.3px"
       borderBottomRadius="lg"
+      borderColor="white"
       zIndex="1"
       bgColor="white"
       boxShadow={"lg"}
@@ -64,14 +78,7 @@ export const MatchedUsersModal: React.FC<Info> = ({
       }}
     >
       {filteredArray.map((elem, index) => (
-        <Flex key={index} width="300px" _hover={{ background: "#E2E8F0" }}>
-          <Text pl={0.5} width="70%" maxH="25px" overflow="hidden">
-            {elem.username}
-          </Text>
-          <Text width="30%" textAlign="end" pr="0.5">
-            Friends
-          </Text>
-        </Flex>
+        <UserFoundCard elem={elem} key={index} />
       ))}
     </Box>
   );

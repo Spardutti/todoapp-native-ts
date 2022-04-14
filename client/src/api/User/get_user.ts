@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-import { ObjectType } from "typescript";
 import url from "../url";
 
 /* GET USER */

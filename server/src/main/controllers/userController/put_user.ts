@@ -14,7 +14,11 @@ const addFriendRequest = async (
   let userCheck;
   if (user) {
     for (let i = 0; i < user.friendRequests.length; i++) {
-      if (user.friendRequests[i] === friendId) userCheck = true;
+      if (
+        user.friendRequests[i].status === "sent" &&
+        user.friendRequests[i].id === friendId
+      )
+        userCheck = true;
     }
   }
 
@@ -24,11 +28,11 @@ const addFriendRequest = async (
     } else {
       /* ADD THE USER ID TO THE "FRIENDREQUEST" OF THE USER TO ADD */
       const sendFriendRequest = await UserModel.findByIdAndUpdate(friendId, {
-        $push: { friendRequests: id },
+        $push: { friendRequests: { status: "received", id: id } },
       });
       /* ADD THE USER ID TO ADD TO THE USER "FRIENDREQUEST" THATS SENDING THE PETITION */
       const sendOwnFriendRequest = await UserModel.findByIdAndUpdate(id, {
-        $push: { friendRequests: friendId },
+        $push: { friendRequests: { status: "sent", id: friendId } },
       });
       res.status(200).json([sendFriendRequest, sendOwnFriendRequest]);
     }

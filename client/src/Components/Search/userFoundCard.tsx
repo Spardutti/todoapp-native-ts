@@ -1,4 +1,4 @@
-import React, { useState, useEffect, SetStateAction, ElementType } from "react";
+import React from "react";
 import { Text, Flex, useDisclosure, Box } from "@chakra-ui/react";
 import { useAppSelector } from "../../hooks";
 import { User } from "../../Interface/Interface";
@@ -19,7 +19,7 @@ export const UserFoundCard: React.FC<Props> = ({ elem }) => {
     if (loggedUser.friends?.find((element) => element === elem._id)) {
       return <FaUserFriends color="green" cursor="pointer" />;
     } else if (
-      loggedUser.friendRequests?.find((element) => element === elem._id)
+      loggedUser.friendRequests?.find((element) => element.id === elem._id)
     ) {
       return <FaUserClock color="#0074E2" cursor="pointer" />;
     } else {

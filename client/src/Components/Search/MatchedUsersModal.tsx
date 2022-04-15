@@ -16,7 +16,6 @@ export const MatchedUsersModal: React.FC<Info> = ({
   const { data: users } = useGetAllUsers();
   const [filteredArray, setFilteredArray] = useState<User[]>([]);
   const loggedUser = useAppSelector((state) => state.user);
-  const [userFriendStatus, setUserFriendStatus] = useState("");
 
   /* UPDATE THE FILTERED ARRAY EVERYTIME THE SEARCH INPUT IS MODIFIED */
   useEffect(() => {
@@ -29,7 +28,6 @@ export const MatchedUsersModal: React.FC<Info> = ({
         }
       });
     }
-    console.log(loggedUser);
   }, [searchInfo]);
 
   useEffect(() => {
@@ -40,24 +38,6 @@ export const MatchedUsersModal: React.FC<Info> = ({
     }
     console.log(filteredArray);
   }, [filteredArray]);
-
-  const userStatus = (id: string) => {
-    loggedUser.friends?.forEach((element) => {
-      if (loggedUser.friends?.find((elem) => elem === id)) {
-        console.log("hi1");
-
-        setUserFriendStatus("pipi");
-      } else if (loggedUser.friendRequests?.find((elem) => elem === id)) {
-        console.log("hi2");
-
-        setUserFriendStatus("popo");
-      } else {
-        console.log("hi3");
-
-        setUserFriendStatus("pupu");
-      }
-    });
-  };
 
   return (
     <Box

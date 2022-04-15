@@ -30,8 +30,6 @@ export const FriendRequestModal: React.FC<Props> = ({
   const { mutateAsync } = useSendFriendRequest();
 
   const sendRequest = async () => {
-    console.log(userId, friendId);
-
     await mutateAsync({ userId, friendId });
   };
 

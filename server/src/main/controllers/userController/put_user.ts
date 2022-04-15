@@ -1,4 +1,4 @@
-import { User, UserModel } from "../../models/UserModel";
+import { UserModel } from "../../models/UserModel";
 import { Request, Response, NextFunction } from "express";
 
 /* ADD FRIEND REQUEST TO USER'S REQUEST ARRAY */

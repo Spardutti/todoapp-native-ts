@@ -1,10 +1,10 @@
 import React, { useState, useEffect, SetStateAction, ElementType } from "react";
-import { Text, Flex } from "@chakra-ui/react";
+import { Text, Flex, useDisclosure, Box } from "@chakra-ui/react";
 import { useAppSelector } from "../../hooks";
 import { User } from "../../Interface/Interface";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { FaUserClock, FaUserFriends } from "react-icons/fa";
-import { blacken, whiten } from "@chakra-ui/theme-tools";
+import { FriendRequestModal } from "./AddFriendRequestModal";
 
 interface Props {
   elem: User;
@@ -13,15 +13,26 @@ interface Props {
 export const UserFoundCard: React.FC<Props> = ({ elem }) => {
   const loggedUser = useAppSelector((state) => state.user);
 
+  const { isOpen, onClose, onOpen } = useDisclosure();
+
   const UserFriendStatus = () => {
     if (loggedUser.friends?.find((element) => element === elem._id)) {
-      return <FaUserFriends color="green" />;
+      return <FaUserFriends color="green" cursor="pointer" />;
     } else if (
       loggedUser.friendRequests?.find((element) => element === elem._id)
     ) {
-      return <FaUserClock color="#0074E2" />;
+      return <FaUserClock color="#0074E2" cursor="pointer" />;
     } else {
-      return <AiOutlineUserAdd />;
+      return (
+        <Box>
+          <AiOutlineUserAdd cursor="pointer" onClick={onOpen} />
+          <FriendRequestModal
+            isOpen={isOpen}
+            onClose={onClose}
+            friendId={elem._id}
+          />
+        </Box>
+      );
     }
   };
 

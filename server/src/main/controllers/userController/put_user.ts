@@ -9,7 +9,7 @@ const addFriendRequest = async (
   next: NextFunction
 ) => {
   const { id } = req.params;
-  const { friendId } = req.body;
+  const { friendId, friendName, ownName } = req.body;
   const user = await UserModel.findById(id);
   let userCheck;
   if (user) {
@@ -28,11 +28,19 @@ const addFriendRequest = async (
     } else {
       /* ADD THE USER ID TO THE "FRIENDREQUEST" OF THE USER TO ADD */
       const sendFriendRequest = await UserModel.findByIdAndUpdate(friendId, {
-        $push: { friendRequests: { status: "received", id: id } },
+        $push: {
+          friendRequests: { status: "received", id: id, friendName: ownName },
+        },
       });
       /* ADD THE USER ID TO ADD TO THE USER "FRIENDREQUEST" THATS SENDING THE PETITION */
       const sendOwnFriendRequest = await UserModel.findByIdAndUpdate(id, {
-        $push: { friendRequests: { status: "sent", id: friendId } },
+        $push: {
+          friendRequests: {
+            status: "sent",
+            id: friendId,
+            friendName: friendName,
+          },
+        },
       });
       res.status(200).json([sendFriendRequest, sendOwnFriendRequest]);
     }
@@ -53,11 +61,11 @@ const delFriendRequest = async (
 
     /* DELETE THE USER ID FROM THE "FRIENDREQUEST" ARRAY OF THE USER TO DELETE */
     const delFriendRequest = await UserModel.findByIdAndUpdate(friendId, {
-      $pull: { friendRequests: id },
+      $pull: { friendRequests: { id: id } },
     });
     /* DELETE THE USER ID TO DELETE FROM THE USER "FRIENDREQUEST" ARRAY THATS PERFORMING THE ACTION */
     const delOwnFriendRequest = await UserModel.findByIdAndUpdate(id, {
-      $pull: { friendRequests: friendId },
+      $pull: { friendRequests: { id: friendId } },
     });
     res.status(200).json([delFriendRequest, delOwnFriendRequest]);
   } catch (error) {
@@ -69,23 +77,23 @@ const delFriendRequest = async (
 const addFriend = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-    const { friendId } = req.body;
+    const { friendId, friendName, ownName } = req.body;
 
     /* ADD FRIEND TO THE ACCEPTED USER FRIEND REQUEST ARRAY */
     const addFriend = await UserModel.findByIdAndUpdate(friendId, {
-      $push: { friends: id },
+      $push: { friends: { id: id, friendName: ownName } },
     });
     /* ADD FRIEND TO THE USER'S FRIENDS ARRAY THAT ACCEPTED THE PETITION */
     const addOwnFriend = await UserModel.findByIdAndUpdate(id, {
-      $push: { friends: friendId },
+      $push: { friends: { id: friendId, friendName: friendName } },
     });
     /* DELETE THE USER ID FROM THE "FRIENDREQUEST" ARRAY OF THE USER TO DELETE */
     const delFriendRequest = await UserModel.findByIdAndUpdate(friendId, {
-      $pull: { friendRequests: id },
+      $pull: { friendRequests: { id: id } },
     });
     /* DELETE THE USER ID TO DELETE FROM THE USER "FRIENDREQUEST" ARRAY THATS PERFORMING THE ACTION */
     const delOwnFriendRequest = await UserModel.findByIdAndUpdate(id, {
-      $pull: { friendRequests: friendId },
+      $pull: { friendRequests: { id: friendId } },
     });
 
     res
@@ -104,11 +112,11 @@ const delFriend = async (req: Request, res: Response, next: NextFunction) => {
 
     /* DELETE FRIEND FROM THE DELETED USER */
     const delFriend = await UserModel.findByIdAndUpdate(friendId, {
-      $pull: { friends: id },
+      $pull: { friends: { id: id } },
     });
     /* DELETE FRIEND FROM THE USER'S FRIEND ARRAY THAT MADE THE DELETE ACTION */
     const delOwnFriend = await UserModel.findByIdAndUpdate(id, {
-      $pull: { friends: friendId },
+      $pull: { friends: { id: friendId } },
     });
     res.status(200).json([delFriend, delOwnFriend]);
   } catch (error) {

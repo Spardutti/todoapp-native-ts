@@ -1,5 +1,4 @@
-import { any } from "async";
-import { Schema, model, ObjectId } from "mongoose";
+import { Schema, model } from "mongoose";
 
 declare global {
   namespace Express {
@@ -13,8 +12,8 @@ export type User = {
   username: string;
   password: string;
   email: string;
-  friends: [];
-  friendRequests: [{ status: string; id: string }];
+  friends: [{ id: string; friendName: string }];
+  friendRequests: [{ status: string; id: string; friendName: string }];
   //settings: ;
 };
 

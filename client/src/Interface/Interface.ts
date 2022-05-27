@@ -16,7 +16,18 @@ export interface Todo {
 export interface User {
   email: string;
   friendRequest: [{ status: string; id: string }];
-  friends: [];
+  friends: Friends[];
   username: string;
   _id: string;
+}
+
+export interface Friends {
+  friendName: string;
+  id: string;
+}
+
+export interface FriendRequest {
+  status: string;
+  id: string;
+  friendName: string;
 }

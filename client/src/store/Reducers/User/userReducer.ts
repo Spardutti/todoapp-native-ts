@@ -4,16 +4,18 @@ export interface User {
   username: string | undefined;
   _id: string | undefined;
   email: string | undefined;
-  friends: [] | undefined;
-  friendRequests: [{ status: string; id: string }] | undefined;
+  friends: [{ id: string; friendName: string }] | undefined;
+  friendRequests:
+    | [{ status: string; id: string; friendName: string }]
+    | undefined;
 }
 
 const initialState: User = {
   username: "",
   _id: "",
   email: "",
-  friends: [],
-  friendRequests: [{ status: "", id: "" }],
+  friends: [{ id: "", friendName: "" }],
+  friendRequests: [{ status: "", id: "", friendName: "" }],
 };
 
 export const userSlice = createSlice({

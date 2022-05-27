@@ -1,9 +1,7 @@
 import React from "react";
 import Welcome from "../WelcomeScreen/Welcome";
 
-interface WelcomeScreenProps {}
-
-const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
+const WelcomeScreen: React.FC = () => {
   return (
     <div>
       <Welcome />

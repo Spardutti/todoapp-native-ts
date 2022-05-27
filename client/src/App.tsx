@@ -13,6 +13,7 @@ import Category from "./Components/Views/Category";
 import History from "./Components/Views/History";
 import WelcomeScreen from "./Components/Views/WelcomeScreen";
 import { UserHome } from "./Components/User/UserHome";
+import { Friends } from "./Components/Views/Friends";
 
 const queryClient = new QueryClient();
 
@@ -22,7 +23,7 @@ const Nav = () =>
     { path: "/upcoming", element: <NavBar /> },
     { path: "/category/:categoryId", element: <NavBar /> },
     { path: "/history", element: <NavBar /> },
-
+    { path: "/friends", element: <NavBar /> },
     // {},
   ]);
 
@@ -47,6 +48,9 @@ function App() {
               </Route>
               <Route path="/history" element={<ProtectedRoute />}>
                 <Route path="/history" element={<History />} />
+              </Route>
+              <Route path="/friends" element={<ProtectedRoute />}>
+                <Route path="/friends" element={<Friends />} />
               </Route>
               <Route path="/login" element={<UserHome />} />
             </Routes>

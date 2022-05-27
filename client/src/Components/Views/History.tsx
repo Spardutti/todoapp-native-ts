@@ -3,9 +3,7 @@ import React from "react";
 import LatestActivity from "../History/Activity";
 import Layout from "../Layout/Layout";
 
-interface CompletedProps {}
-
-const History: React.FC<CompletedProps> = () => {
+const History: React.FC = () => {
   return (
     <Layout>
       <Heading px={10} fontSize={16}>

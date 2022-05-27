@@ -16,10 +16,6 @@ export const SearchBar: React.FC = () => {
     );
   }; */
 
-  useEffect(() => {
-    console.log(searchStatus);
-  }, [searchStatus]);
-
   return (
     <>
       <Flex display="column">

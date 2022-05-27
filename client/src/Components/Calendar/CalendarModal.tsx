@@ -68,7 +68,7 @@ export const CalendarModal: React.FC<CalendarProps> = ({
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered autoFocus={false}>
         <ModalOverlay />
         <ModalContent
           width="250px"

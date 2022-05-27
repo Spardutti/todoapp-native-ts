@@ -15,11 +15,12 @@ export const NewUser = () => {
   /* POST THE DATA TO CREATE A NEW USER */
   const { mutateAsync, isLoading, error } = useNewuser();
 
-  const onChange = (e: any) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInfo({
       ...userInfo,
       [e.target.name]: e.target.value,
     });
+
     setShowErrors(false);
   };
 

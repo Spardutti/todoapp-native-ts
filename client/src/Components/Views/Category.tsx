@@ -3,9 +3,7 @@ import React from "react";
 import TodosByCategory from "../Category/TodosByCategory";
 import Layout from "../Layout/Layout";
 
-interface CategoryProps {}
-
-const Category: React.FC<CategoryProps> = () => {
+const Category: React.FC = () => {
   return (
     <Layout>
       <TodosByCategory />

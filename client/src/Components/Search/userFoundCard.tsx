@@ -4,7 +4,7 @@ import { useAppSelector } from "../../hooks";
 import { User } from "../../Interface/Interface";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { FaUserClock, FaUserFriends } from "react-icons/fa";
-import { FriendRequestModal } from "./AddFriendRequestModal";
+import { FriendRequestModal } from "../Friends/AddFriendRequestModal";
 
 interface Props {
   elem: User;
@@ -16,7 +16,7 @@ export const UserFoundCard: React.FC<Props> = ({ elem }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const UserFriendStatus = () => {
-    if (loggedUser.friends?.find((element) => element === elem._id)) {
+    if (loggedUser.friends?.find((element) => element.id === elem._id)) {
       return <FaUserFriends color="green" cursor="pointer" />;
     } else if (
       loggedUser.friendRequests?.find((element) => element.id === elem._id)
@@ -30,6 +30,7 @@ export const UserFoundCard: React.FC<Props> = ({ elem }) => {
             isOpen={isOpen}
             onClose={onClose}
             friendId={elem._id}
+            friendName={elem.username}
           />
         </Box>
       );

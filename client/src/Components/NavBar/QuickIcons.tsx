@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
 import { AiOutlineLineChart } from "react-icons/ai";
 import { useEffect, useState } from "react";
+import { FaUserFriends } from "react-icons/fa";
 
 interface HoverColor {
   hoverColor: string;
@@ -96,6 +97,17 @@ export const QuickIcons: React.FC<HoverColor> = ({ hoverColor }) => {
         onClick={() => navigate("/history")}
       >
         <AiOutlineLineChart color="white" fontSize={20} />
+      </Box>
+      <Box
+        p={2}
+        borderRadius={5}
+        _hover={{
+          background: hoverColor,
+        }}
+        cursor="pointer"
+        onClick={() => navigate("/friends")}
+      >
+        <FaUserFriends color="white" fontSize={20} />
       </Box>
       <Box
         p={2}

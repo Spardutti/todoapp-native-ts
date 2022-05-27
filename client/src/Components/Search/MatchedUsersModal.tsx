@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, Flex } from "@chakra-ui/react";
 import { useGetAllUsers } from "../../api/User/get_user";
-import { useAppSelector } from "../../hooks";
 import { User } from "../../Interface/Interface";
 import { UserFoundCard } from "./userFoundCard";
 interface Info {
@@ -15,7 +14,6 @@ export const MatchedUsersModal: React.FC<Info> = ({
 }) => {
   const { data: users } = useGetAllUsers();
   const [filteredArray, setFilteredArray] = useState<User[]>([]);
-  const loggedUser = useAppSelector((state) => state.user);
 
   /* UPDATE THE FILTERED ARRAY EVERYTIME THE SEARCH INPUT IS MODIFIED */
   useEffect(() => {
@@ -36,7 +34,6 @@ export const MatchedUsersModal: React.FC<Info> = ({
     } else {
       setSearchStatus("lg");
     }
-    console.log(filteredArray);
   }, [filteredArray]);
 
   return (

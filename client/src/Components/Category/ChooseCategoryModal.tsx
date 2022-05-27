@@ -79,7 +79,7 @@ export const ChooseCategoryModal: React.FC<Category> = ({
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered autoFocus={false}>
         <ModalOverlay />
         <ModalContent maxW="200px" bgColor="#fafafa">
           <ModalHeader
